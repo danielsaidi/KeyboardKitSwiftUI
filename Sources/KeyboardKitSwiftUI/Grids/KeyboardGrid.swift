@@ -22,7 +22,6 @@ import KeyboardKit
  you want your buttons to share the available width, you can
  apply `.frame(maxWidth: .infinity)` to each button.
  */
-@available(iOS 13.0, *)
 public struct KeyboardGrid<Button: View>: View {
     
     public init(
@@ -51,7 +50,6 @@ public struct KeyboardGrid<Button: View>: View {
     }
 }
 
-@available(iOS 13.0, *)
 private extension KeyboardGrid {
 
     func gridRow(for row: KeyboardActionRow) -> some View {
@@ -63,7 +61,6 @@ private extension KeyboardGrid {
     }
 }
 
-@available(iOS 13.0, *)
 struct KeyboardGrid_Previews: PreviewProvider {
     
     static let image = KeyboardAction.image(description: "", keyboardImageName: "david", imageName: "david")

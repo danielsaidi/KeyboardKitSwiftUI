@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-@available(iOS 13.0, *)
 public extension Image {
     
     static var backspace: Image { Image(systemName: "delete.left") }

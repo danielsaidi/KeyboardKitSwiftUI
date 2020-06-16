@@ -13,7 +13,6 @@ import KeyboardKit
  This button switches to the next system keyboard when it is
  tapped, and opens a list of system keyboards when pressed.
  */
-@available(iOS 13.0, *)
 public struct NextKeyboardButton: UIViewRepresentable {
     
     public init(

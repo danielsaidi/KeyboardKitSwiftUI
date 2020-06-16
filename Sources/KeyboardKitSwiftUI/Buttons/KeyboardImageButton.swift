@@ -12,7 +12,6 @@ import KeyboardKit
 /**
  This button shows an image with a tap and long press action.
  */
-@available(iOS 13.0, *)
 public struct KeyboardImageButton: View {
     
     /**
@@ -56,7 +55,6 @@ public struct KeyboardImageButton: View {
     }
 }
 
-@available(iOS 13.0, *)
 private extension KeyboardAction {
     
     var image: UIImage {

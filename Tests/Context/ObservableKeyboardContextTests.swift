@@ -11,7 +11,6 @@ import Nimble
 import KeyboardKitSwiftUI
 import UIKit
 
-@available(iOS 13, *)
 class ObservableKeyboardContextTests: QuickSpec {
 
     override func spec() {

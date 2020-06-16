@@ -18,7 +18,6 @@ import KeyboardKit
  with `add(to:)` or use the input controller's `setup(with:)`
  with a `SwiftUI` `View`, which does of all this for you.
  */
-@available(iOS 13.0, *)
 public class KeyboardHostingController<Content: View>: UIHostingController<Content> {
     
     public func add(to controller: KeyboardInputViewController) {
