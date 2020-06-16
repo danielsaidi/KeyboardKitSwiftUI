@@ -5,9 +5,10 @@
 
 This version adds some iOS13/SwiftUI/Combine-specific logic.
 
+* `Image+Keyboard` contains more keyboard-specific icons. 
+* `KeyboardGridRow` has been deleted and replaced with an `HStack`.
 * `KeyboardSetting` can resolve a unique key for an `Identifiable` context.
 * `PersistedKeyboardSetting` can resolve a unique key for an `Identifiable` context.
-* `Image+Keyboard` contains more keyboard-specific icons. 
 
 
 ## 2.9.0 - 2.7.2

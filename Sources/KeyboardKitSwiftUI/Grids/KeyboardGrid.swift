@@ -14,9 +14,9 @@ import KeyboardKit
  a certain number of `columns`.
  
  The grid supports a custom item `spacing` and will fill the
- provided `actions` array with enough `.none` actions, so it
- has enough items to evenly fit the grid. The `buttonBuilder`
- will be used to create a button for each action.
+ provided `actions` with enough `none` actions to evenly fit
+ the grid, given the number of `columns`. `buttonBuilder` is
+ then used to generate a button for each action.
  
  The grid doesn't modify the buttons you provide it with. If
  you want your buttons to share the available width, you can
@@ -55,7 +55,7 @@ public struct KeyboardGrid<Button: View>: View {
 private extension KeyboardGrid {
 
     func gridRow(for row: KeyboardActionRow) -> some View {
-        KeyboardGridRow(spacing: self.spacing) {
+        HStack(spacing: self.spacing) {
             ForEach(Array(row.enumerated()), id: \.offset) { item in
                 self.buttonBuilder(item.element)
             }
