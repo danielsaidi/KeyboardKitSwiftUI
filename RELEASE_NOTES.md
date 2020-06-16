@@ -7,6 +7,7 @@ This version adds some iOS13/SwiftUI/Combine-specific logic.
 
 * `KeyboardSetting` can resolve a unique key for an `Identifiable` context.
 * `PersistedKeyboardSetting` can resolve a unique key for an `Identifiable` context.
+* `Image+Keyboard` contains more keyboard-specific icons. 
 
 
 ## 2.9.0 - 2.7.2
