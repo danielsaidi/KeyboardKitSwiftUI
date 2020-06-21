@@ -8,7 +8,9 @@
 
 import Quick
 import Nimble
+import KeyboardKit
 import KeyboardKitSwiftUI
+import SwiftUI
 import UIKit
 
 class ObservableKeyboardContextTests: QuickSpec {
@@ -18,15 +20,20 @@ class ObservableKeyboardContextTests: QuickSpec {
         describe("context") {
             
             it("can be created with params") {
-                let context = ObservableKeyboardContext(keyboardType: .images)
+                let context = ObservableKeyboardContext(
+                    actionHandler: MockKeyboardActionHandler(),
+                    keyboardType: .images)
                 expect(context.keyboardType).to(equal(.images))
             }
             
             it("can be created with context") {
-                let standard = StandardKeyboardContext(keyboardType: .email)
+                let standard = StandardKeyboardContext(
+                    actionHandler: MockKeyboardActionHandler(),
+                    keyboardType: .email)
                 standard.hasFullAccess = true
                 standard.needsInputModeSwitchKey = true
                 let context = ObservableKeyboardContext(from: standard)
+                expect(context.actionHandler).to(be(standard.actionHandler))
                 expect(context.keyboardType).to(equal(.email))
                 expect(context.hasFullAccess).to(beTrue())
                 expect(context.needsInputModeSwitchKey).to(beTrue())
