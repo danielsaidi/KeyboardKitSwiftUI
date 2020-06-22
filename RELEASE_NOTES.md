@@ -9,6 +9,11 @@ This version adds some iOS13/SwiftUI/Combine-specific logic.
 * `KeyboardGridRow` has been deleted and replaced with an `HStack`.
 * `KeyboardSetting` can resolve a unique key for an `Identifiable` context.
 * `PersistedKeyboardSetting` can resolve a unique key for an `Identifiable` context.
+* `View+KeyboardAction` lets you apply the system font of a certain action to a view.
+
+Breaking changes:
+
+* `View` `withClearInteractableBackground` has been renamed to `clearInteractableBackground`. 
 
 
 ## 2.9.0 - 2.7.2

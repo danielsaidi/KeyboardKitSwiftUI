@@ -14,30 +14,6 @@ public extension View {
     typealias KeyboardGestureAction = () -> Void
     
     /**
-     Apply gestures for a certain keyboard action, using the
-     action handler in the provided context.
-     */
-    func keyboardAction(
-        _ action: KeyboardAction,
-        context: KeyboardContext) -> some View {
-        self.keyboardAction(action, actionHandler: context.actionHandler)
-    }
-    
-    /**
-     Apply gestures for a certain keyboard action, using the
-     provided action handler.
-     */
-    func keyboardAction(
-        _ action: KeyboardAction,
-        actionHandler: KeyboardActionHandler) -> some View {
-        self.keyboardGestures(
-            tapAction: { actionHandler.handle(.tap, on: action) },
-            doubleTapAction: { actionHandler.handle(.doubleTap, on: action) },
-            longPressAction: { actionHandler.handle(.longPress, on: action) },
-            repeatAction: { actionHandler.handle(.repeatPress, on: action) })
-    }
-    
-    /**
      Add keyboard-specific gesture actions to the view.
      */
     func keyboardGestures(

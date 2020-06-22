@@ -13,7 +13,7 @@ public extension View {
      This color can be used instead of `.clear`, which makes
      a view stop registering touches and gestures.
      */
-    func withClearInteractableBackground() -> some View {
+    func clearInteractableBackground() -> some View {
         background(Color.clearInteractable)
     }
 }
