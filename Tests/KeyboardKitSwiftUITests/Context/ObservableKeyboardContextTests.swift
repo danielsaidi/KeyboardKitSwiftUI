@@ -19,24 +19,23 @@ class ObservableKeyboardContextTests: QuickSpec {
         
         describe("context") {
             
-            it("can be created with params") {
-                let context = ObservableKeyboardContext(
-                    actionHandler: MockKeyboardActionHandler(),
-                    keyboardType: .images)
-                expect(context.keyboardType).to(equal(.images))
-            }
-            
             it("can be created with context") {
                 let standard = StandardKeyboardContext(
+                    controller: KeyboardInputViewController(),
                     actionHandler: MockKeyboardActionHandler(),
                     keyboardType: .email)
                 standard.hasFullAccess = true
                 standard.needsInputModeSwitchKey = true
+                
                 let context = ObservableKeyboardContext(from: standard)
                 expect(context.actionHandler).to(be(standard.actionHandler))
-                expect(context.keyboardType).to(equal(.email))
-                expect(context.hasFullAccess).to(beTrue())
-                expect(context.needsInputModeSwitchKey).to(beTrue())
+                expect(context.hasDictationKey).to(equal(standard.hasDictationKey))
+                expect(context.hasFullAccess).to(equal(standard.hasFullAccess))
+                expect(context.keyboardType).to(equal(standard.keyboardType))
+                expect(context.needsInputModeSwitchKey).to(equal(standard.needsInputModeSwitchKey))
+                expect(context.primaryLanguage).to(beNil())
+                expect(context.textDocumentProxy).to(be(standard.textDocumentProxy))
+                expect(context.textInputMode).to(beNil())
             }
         }
     }
