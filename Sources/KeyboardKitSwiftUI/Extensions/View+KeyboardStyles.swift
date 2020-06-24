@@ -14,7 +14,7 @@ public extension View  {
     /**
      Apply the system font for the provided keyboard action.
      */
-    func systemFont(for action: KeyboardAction) -> some View {
+    func systemKeyboardButtonFont(for action: KeyboardAction) -> some View {
         self.font(Font(action.systemFont))
     }
     
