@@ -1,5 +1,5 @@
 //
-//  View+SystemKeyboardStyles.swift
+//  View+System.swift
 //  KeyboardKit
 //
 //  Created by Daniel Saidi on 2020-06-24.
@@ -9,15 +9,12 @@
 import KeyboardKit
 import SwiftUI
 
-
-// MARK: - Main Extension
-
 public extension View {
     
     /**
      Apply the style that a system keyboard button would use
      for a certain keyboard action, color scheme and context,
-     then apply the correct gestures for the provided action.
+     then apply the correct gesture actions.
      */
     func systemKeyboardButton(
         _ action: KeyboardAction,
@@ -51,7 +48,7 @@ public extension View {
         appearance: UIKeyboardAppearance) -> some View {
         self.systemKeyboardButtonForeground(for: scheme, appearance: appearance)
             .systemKeyboardButtonFrame()
-            .systemKeyboardButtonBackground(for: scheme, appearance: appearance)
+            .systemKeyboardButtonBackground(for: action, scheme: scheme, appearance: appearance)
             .systemKeyboardButtonCornerRadius()
             .systemKeyboardButtonShadow(for: scheme, appearance: appearance)
             .systemKeyboardButtonFont(for: action)
@@ -63,34 +60,26 @@ public extension View {
 
 public extension View  {
     
-    func systemKeyboardButtonBackground(for scheme: ColorScheme, appearance: UIKeyboardAppearance) -> some View {
-        self.background(systemKeyboardButtonBackgroundColor(for: scheme, appearance: appearance))
-    }
-    
-    func systemKeyboardButtonBackgroundColor(for scheme: ColorScheme, appearance: UIKeyboardAppearance) -> Color {
-        if scheme == .dark { return Color(rgb: 107.0/255.0) }
-        if appearance == .dark { return Color(rgb: 150.0/255.0) }
-        return .white
+    func systemKeyboardButtonBackground(
+        for action: KeyboardAction,
+        scheme: ColorScheme,
+        appearance: UIKeyboardAppearance) -> some View {
+        let color = action.systemKeyboardButtonBackgroundColor(forScheme: scheme, appearance: appearance)
+        return self.background(color)
     }
     
     func systemKeyboardButtonCornerRadius()  -> some View {
-        self.cornerRadius(systemKeyboardButtonCornerRadiusValue)
+        cornerRadius(systemKeyboardButtonCornerRadiusValue)
     }
     
     var systemKeyboardButtonCornerRadiusValue: CGFloat { 4.0 }
     
     func systemKeyboardButtonFont(for action: KeyboardAction) -> some View {
-        self.font(Font(action.systemFont))
+        font(Font(action.systemFont))
     }
     
     func systemKeyboardButtonForeground(for scheme: ColorScheme, appearance: UIKeyboardAppearance) -> some View {
-        let color = systemKeyboardButtonForegroundColor(for: scheme, appearance: appearance)
-        return self.foregroundColor(color)
-    }
-    
-    func systemKeyboardButtonForegroundColor(for scheme: ColorScheme, appearance: UIKeyboardAppearance) -> Color {
-        if scheme == .light && appearance == .dark { return .white }
-        return .primary
+        foregroundColor(.systemKeyboardButtonForegroundColor(forScheme: scheme, appearance: appearance))
     }
     
     func systemKeyboardButtonFrame()  -> some View {
@@ -101,33 +90,7 @@ public extension View  {
     var systemKeyboardButtonFrameHeightValue: CGFloat { 42.0 }
     
     func systemKeyboardButtonShadow(for scheme: ColorScheme, appearance: UIKeyboardAppearance) -> some View {
-        let color = systemKeyboardButtonShadowColor(for: scheme, appearance: appearance)
+        let color = Color.systemKeyboardButtonShadowColor(forScheme: scheme, appearance: appearance)
         return self.shadow(color: color, radius: 0, x: 0, y: 1)
-    }
-    
-    func systemKeyboardButtonShadowColor(for scheme: ColorScheme, appearance: UIKeyboardAppearance) -> Color {
-        Color.black.opacity(0.3)
-    }
-    
-    func systemKeyboardButtonTextShadow(for scheme: ColorScheme, appearance: UIKeyboardAppearance) -> some View {
-        let color = systemKeyboardButtonTextShadowColor(for: scheme, appearance: appearance)
-        return self.shadow(color: color, radius: 0.5, x: 0.5, y: 0.5)
-    }
-    
-    func systemKeyboardButtonTextShadowColor(for scheme: ColorScheme, appearance: UIKeyboardAppearance) -> Color {
-        Color.black.opacity(0.3)
-    }
-}
-
-
-// MARK: - Private Color Extension
-
-private extension Color {
-    
-    /**
-     Create a color where all RGB components use a 0-1 value.
-     */
-    init(rgb: Double) {
-        self.init(red: rgb, green: rgb, blue: rgb)
     }
 }

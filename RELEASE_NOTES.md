@@ -9,9 +9,12 @@ This version adds some iOS13/SwiftUI/Combine-specific logic.
 * `KeyboardGridRow` has been deleted and replaced with an `HStack`.
 * `KeyboardSetting` can resolve a unique key for an `Identifiable` context.
 * `PersistedKeyboardSetting` can resolve a unique key for an `Identifiable` context.
-* `View+KeyboardActionGestures` lets you apply keyboard gestures for a certain action to SwiftUI views.
-* `View+KeyboardGestures` lets you apply keyboard gestures to SwiftUI views.
-* `View+SystemKeyboardButton` lets you apply the system keyboard styles to SwiftUI views.
+
+There is a new `System` namespace with utils to help you build native-imitating keyboards:
+
+* `Action+System` describes how a certain action would behave in a system keyboard.
+* `Color+System` contains system keyboard specific color utils.
+* `View+System` lets you apply system keyboard button behavior to SwiftUI views.
 
 Breaking changes:
 
