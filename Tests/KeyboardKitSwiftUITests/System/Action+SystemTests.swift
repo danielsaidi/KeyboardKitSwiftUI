@@ -16,6 +16,24 @@ class Action_SystemTests: QuickSpec {
 
     override func spec() {
         
+        let actions = KeyboardAction.testActions
+        
+        var expected: [KeyboardAction]! {
+            didSet {
+                unexpected = actions
+                expected.forEach { action in
+                    unexpected.removeAll { $0 == action }
+                }
+            }
+        }
+        
+        var unexpected: [KeyboardAction]!
+        
+        beforeEach {
+            expected = []
+            unexpected = []
+        }
+        
         describe("system keyboard button background color") {
             
             it("is uses a dark button for system actions, else light") {
@@ -37,6 +55,51 @@ class Action_SystemTests: QuickSpec {
                         expect($0.systemKeyboardButtonBackgroundColor(forScheme: .light, appearance: .light)).to(equal(.systemKeyboardButtonBackgroundColorLightForLightColorSchemeAndLightKeyboardAppearance))
                     }
                 }
+            }
+        }
+        
+        describe("system keyboard button image") {
+            
+            func result(for action: KeyboardAction) -> Image? {
+                action.systemKeyboardButtonImage
+            }
+            
+            it("is defined for some actions") {
+                expected = [
+                    .backspace,
+                    .capsLock,
+                    .command,
+                    .control,
+                    .dictation,
+                    .image(description: "", keyboardImageName: "", imageName: ""),
+                    .moveCursorBackward,
+                    .moveCursorForward,
+                    .newLine,
+                    .nextKeyboard,
+                    .option,
+                    .shift,
+                    .shiftDown,
+                    .systemImage(description: "", keyboardImageName: "", imageName: ""),
+                    .tab,
+                ]
+                expected.forEach { expect(result(for: $0)).toNot(beNil()) }
+                unexpected.forEach { expect(result(for: $0)).to(beNil()) }
+            }
+        }
+        
+        describe("system keyboard button text") {
+            
+            func result(for action: KeyboardAction) -> Text? {
+                action.systemKeyboardButtonText
+            }
+            
+            it("is defined for some actions") {
+                expected = [
+                    .character(""),
+                    .emoji("")
+                ]
+                expected.forEach { expect(result(for: $0)).toNot(beNil()) }
+                unexpected.forEach { expect(result(for: $0)).to(beNil()) }
             }
         }
     }
