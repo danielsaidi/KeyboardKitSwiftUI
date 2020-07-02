@@ -13,21 +13,6 @@ public extension View {
     
     /**
      Apply the style that a system keyboard button would use
-     for a certain keyboard action, color scheme and context,
-     then apply the correct gesture actions.
-     */
-    func systemKeyboardButton(
-        _ action: KeyboardAction,
-        scheme: ColorScheme,
-        context: KeyboardContext) -> some View {
-        let appearance = context.textDocumentProxy.keyboardAppearance ?? .default
-        return self
-            .systemKeyboardButtonStyle(for: action, scheme: scheme, appearance: appearance)
-            .keyboardAction(action, context: context)
-    }
-    
-    /**
-     Apply the style that a system keyboard button would use
      for a certain keyboard action, color scheme and context.
      */
     func systemKeyboardButtonStyle(
@@ -46,11 +31,11 @@ public extension View {
         for action: KeyboardAction,
         scheme: ColorScheme,
         appearance: UIKeyboardAppearance) -> some View {
-        self.systemKeyboardButtonForeground(for: scheme, appearance: appearance)
+        self.systemKeyboardButtonForeground(forScheme: scheme, appearance: appearance)
             .systemKeyboardButtonFrame()
             .systemKeyboardButtonBackground(for: action, scheme: scheme, appearance: appearance)
             .systemKeyboardButtonCornerRadius()
-            .systemKeyboardButtonShadow(for: scheme, appearance: appearance)
+            .systemKeyboardButtonShadow(forScheme: scheme, appearance: appearance)
             .systemKeyboardButtonFont(for: action)
     }
 }
@@ -78,7 +63,7 @@ public extension View  {
         font(Font(action.systemFont))
     }
     
-    func systemKeyboardButtonForeground(for scheme: ColorScheme, appearance: UIKeyboardAppearance) -> some View {
+    func systemKeyboardButtonForeground(forScheme scheme: ColorScheme, appearance: UIKeyboardAppearance) -> some View {
         foregroundColor(.systemKeyboardButtonForegroundColor(forScheme: scheme, appearance: appearance))
     }
     
@@ -89,7 +74,7 @@ public extension View  {
     
     var systemKeyboardButtonFrameHeightValue: CGFloat { 42.0 }
     
-    func systemKeyboardButtonShadow(for scheme: ColorScheme, appearance: UIKeyboardAppearance) -> some View {
+    func systemKeyboardButtonShadow(forScheme scheme: ColorScheme, appearance: UIKeyboardAppearance) -> some View {
         let color = Color.systemKeyboardButtonShadowColor(forScheme: scheme, appearance: appearance)
         return self.shadow(color: color, radius: 0, x: 0, y: 1)
     }
