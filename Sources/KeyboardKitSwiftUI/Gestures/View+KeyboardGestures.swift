@@ -15,6 +15,10 @@ public extension View {
     
     /**
      Add keyboard-specific gesture actions to the view.
+     
+     This is the preferred way to apply keyboard gestures to
+     a view. The resulting view is internal and not intended
+     for public use.
      */
     func keyboardGestures(
         tapAction: KeyboardGestureAction? = nil,
@@ -31,26 +35,12 @@ public extension View {
 }
 
 /**
- This view wraps another view then applies keyboard-specific
- gestures to the view. It can be applied to a view using the
- `keyboardGestures` view modifier above.
+ This view wraps a view then applies keyboard gestures to it.
+ It can be applied with the `keyboardGestures` view modifier.
  
- I first tried to implement this as a view modifier, but the
- timer that is currently needed by the repeating gesture did
- not trigger when this was a view modifier. I have thus made
- the view internal since I may want to change implementation
- later, as SwiftUI evolves.
- 
- The gestures are currently implemented in a way that appear
- strange at first, but gives the best result. The first long
- press updates the `isRepeatGestureActive` property and also
- triggers the tap event. This works much better than to have
- a single tap gesture a double tap action since I found them
- to collide. The second long press gesture is triggering the
- long press action and also enables the repeat gesture timer,
- while the last tap event is sequenced last and disables the
- repeat gesture timer. It is confusing, but can hopefully be
- improved later on without affecting te external api.
+ I first tried implementing this as a view modifier, but the
+ repeating gesture timer didn't trigger then. I thus made it
+ an internal view, to make it possible to change it later.
  */
 struct KeyboardGestures<Content: View>: View {
     
@@ -73,41 +63,51 @@ struct KeyboardGestures<Content: View>: View {
     let longPressAction: KeyboardGestureAction?
     let repeatAction: KeyboardGestureAction?
     
-    @GestureState private var isRepeatGestureActive = false
     @State private var isRepeatPressActive = false
     
     private let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     
     var body: some View {
-        view
-            .onReceive(timer) { _ in self.handleRepeatPress() }
-            .gesture(
-                LongPressGesture(minimumDuration: Double(Int.max))
-                    .updating($isRepeatGestureActive) { state, _, _ in self.handleTap() }
-                    .simultaneously(with: LongPressGesture().onEnded { _ in self.handleLongPress() })
-                    .simultaneously(with: TapGesture(count: 2).onEnded { self.handleDoubleTap() })
-                    .sequenced(before: TapGesture().onEnded { self.isRepeatPressActive = false })
-        )
+        view.onReceive(timer) { _ in self.handleRepeatPress() }
+            .gesture(TapGesture().onEnded(handleTap))
+            .simultaneousGesture(
+                TapGesture(count: 2).onEnded(handleDoubleTap))
+            .simultaneousGesture(
+                LongPressGesture().onEnded { _ in self.handleLongPress() })
+            .simultaneousGesture(
+                LongPressGesture(minimumDuration: 1)
+                    .onEnded { _ in self.beginRepeatGesture() })
+            .simultaneousGesture(
+                DragGesture(minimumDistance: 0)
+                    .onEnded { _ in self.endRepeatGesture() })
     }
 }
 
 private extension KeyboardGestures {
+    
+    func beginRepeatGesture() {
+        isRepeatPressActive = true
+    }
+    
+    func endRepeatGesture() {
+        isRepeatPressActive = false
+    }
     
     func handleDoubleTap() {
         doubleTapAction?()
     }
     
     func handleLongPress() {
-        self.isRepeatPressActive = true
         longPressAction?()
+    }
+    
+    func handleTap() {
+        isRepeatPressActive = false
+        tapAction?()
     }
     
     func handleRepeatPress() {
         guard isRepeatPressActive else { return }
         repeatAction?()
-    }
-    
-    func handleTap() {
-        tapAction?()
     }
 }
