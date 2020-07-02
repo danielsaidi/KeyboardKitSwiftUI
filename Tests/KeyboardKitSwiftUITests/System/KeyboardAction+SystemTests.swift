@@ -69,7 +69,6 @@ class Action_SystemTests: QuickSpec {
             
             it("is defined for some actions") {
                 expect(result(for: .backspace)).to(equal(.backspace))
-                expect(result(for: .capsLock)).to(equal(.shiftCapslocked))
                 expect(result(for: .command)).to(equal(.command))
                 expect(result(for: .control)).to(equal(.control))
                 expect(result(for: .dictation)).to(equal(.dictation))
@@ -79,8 +78,9 @@ class Action_SystemTests: QuickSpec {
                 expect(result(for: .newLine)).to(equal(.newLine))
                 expect(result(for: .nextKeyboard)).to(equal(.globe))
                 expect(result(for: .option)).to(equal(.option))
-                expect(result(for: .shift)).to(equal(.shiftLowercased))
-                expect(result(for: .shiftDown)).to(equal(.shiftUppercased))
+                expect(result(for: .shift(currentState: .lowercased))).to(equal(.shiftLowercased))
+                expect(result(for: .shift(currentState: .uppercased))).to(equal(.shiftUppercased))
+                expect(result(for: .shift(currentState: .capsLocked))).to(equal(.shiftCapslocked))
                 expect(result(for: .tab)).to(equal(.tab))
                 
                 expect(result(for: .none)).to(beNil())

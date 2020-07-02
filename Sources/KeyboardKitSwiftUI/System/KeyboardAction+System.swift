@@ -39,7 +39,6 @@ public extension KeyboardAction {
     func systemKeyboardButtonImage(for context: KeyboardContext) -> Image? {
         switch self {
         case .backspace: return .backspace
-        case .capsLock: return .shiftCapslocked
         case .command: return .command
         case .control: return .control
         case .dictation: return .dictation
@@ -50,8 +49,7 @@ public extension KeyboardAction {
         case .newLine: return .newLine
         case .nextKeyboard: return .globe
         case .option: return .option
-        case .shift: return .shiftLowercased
-        case .shiftDown: return .shiftUppercased
+        case .shift(let currentState): return currentState.systemImage
         case .systemImage(_, let imageName, _): return Image(systemName: imageName)
         case .tab: return .tab
         default: return nil

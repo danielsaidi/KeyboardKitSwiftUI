@@ -14,7 +14,6 @@ extension KeyboardAction {
         [
             .none,
             .dismissKeyboard,
-            .capsLock,
             .character(""),
             .command,
             .custom(name: ""),
@@ -30,8 +29,9 @@ extension KeyboardAction {
             .newLine,
             .nextKeyboard,
             .option,
-            .shift,
-            .shiftDown,
+            .shift(currentState: .lowercased),
+            .shift(currentState: .uppercased),
+            .shift(currentState: .capsLocked),
             .space,
             .systemImage(description: "", keyboardImageName: "", imageName: ""),
             .tab
