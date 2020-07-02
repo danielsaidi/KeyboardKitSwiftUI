@@ -19,10 +19,13 @@ public extension KeyboardType {
     /**
      The button image that should be used by a system button
      that applies this keyboard type, if any.
+     
+     The context must be provided, since alphabetic switches
+     use the current shift state to resolve the button image.
      */
-    var systemKeyboardButtonImage: Image? {
+    func systemKeyboardButtonImage(for context: KeyboardContext) -> Image? {
         switch self {
-        case .alphabetic(let state): return state.systemKeyboardButtonImage
+        case .alphabetic(let state): return state.systemKeyboardButtonImage(for: context)
         case .email: return .email
         case .emojis: return .emoji
         case .images: return .images

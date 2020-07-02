@@ -61,7 +61,10 @@ class Action_SystemTests: QuickSpec {
         describe("system keyboard button image") {
             
             func result(for action: KeyboardAction) -> Image? {
-                action.systemKeyboardButtonImage
+                let controller = KeyboardInputViewController()
+                let handler = MockKeyboardActionHandler()
+                let context = StandardKeyboardContext(controller: controller, actionHandler: handler, keyboardType: .email)
+                return action.systemKeyboardButtonImage(for: context)
             }
             
             it("is defined for some actions") {

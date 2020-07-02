@@ -36,7 +36,7 @@ public extension KeyboardAction {
      The button image that should be used by a system button
      that performs this action.
      */
-    var systemKeyboardButtonImage: Image? {
+    func systemKeyboardButtonImage(for context: KeyboardContext) -> Image? {
         switch self {
         case .backspace: return .backspace
         case .capsLock: return .shiftCapslocked
@@ -44,7 +44,7 @@ public extension KeyboardAction {
         case .control: return .control
         case .dictation: return .dictation
         case .image(_, let imageName, _): return Image(imageName)
-        case .keyboardType(let type): return type.systemKeyboardButtonImage
+        case .keyboardType(let type): return type.systemKeyboardButtonImage(for: context)
         case .moveCursorBackward: return .moveCursorLeft
         case .moveCursorForward: return .moveCursorRight
         case .newLine: return .newLine
