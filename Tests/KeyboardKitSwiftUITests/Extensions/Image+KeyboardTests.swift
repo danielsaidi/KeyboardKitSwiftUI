@@ -12,33 +12,36 @@ import KeyboardKitSwiftUI
 import SwiftUI
 
 class Image_KeyboardTests: QuickSpec {
-
+    
     override func spec() {
         
         describe("keayboard images") {
             
+            func result(for image: Image) -> Image { image }
+            
             it("are defined") {
-                expect(Image.backspace).toNot(beNil())
-                expect(Image.command).toNot(beNil())
-                expect(Image.control).toNot(beNil())
-                expect(Image.dictation).toNot(beNil())
-                expect(Image.emoji).toNot(beNil())
-                expect(Image.globe).toNot(beNil())
-                expect(Image.keyboard).toNot(beNil())
-                expect(Image.keyboardDismiss).toNot(beNil())
-                expect(Image.keyboardDismissLeft).toNot(beNil())
-                expect(Image.keyboardDismissRight).toNot(beNil())
-                expect(Image.moveCursorLeft).toNot(beNil())
-                expect(Image.moveCursorRight).toNot(beNil())
-                expect(Image.newLine).toNot(beNil())
-                expect(Image.newLine).toNot(beNil())
-                expect(Image.option).toNot(beNil())
-                expect(Image.redo).toNot(beNil())
-                expect(Image.shiftCapslocked).toNot(beNil())
-                expect(Image.shiftLowercased).toNot(beNil())
-                expect(Image.shiftUppercased).toNot(beNil())
-                expect(Image.tab).toNot(beNil())
-                expect(Image.undo).toNot(beNil())
+                expect(result(for: .backspace)).to(equal(Image(systemName: "delete.left")))
+                expect(result(for: .dictation)).to(equal(Image(systemName: "mic")))
+                expect(result(for: .command)).to(equal(Image(systemName: "command")))
+                expect(result(for: .control)).to(equal(Image(systemName: "control")))
+                expect(result(for: .email)).to(equal(Image(systemName: "envelope")))
+                expect(result(for: .emoji)).to(equal(Image(systemName: "face.smiling")))
+                expect(result(for: .globe)).to(equal(Image(systemName: "globe")))
+                expect(result(for: .images)).to(equal(Image(systemName: "photo.on.rectangle.angled")))
+                expect(result(for: .keyboard)).to(equal(Image(systemName: "keyboard")))
+                expect(result(for: .keyboardDismiss)).to(equal(Image(systemName: "keyboard.chevron.compact.down")))
+                expect(result(for: .keyboardDismissLeft)).to(equal(Image(systemName: "keyboard.chevron.compact.left")))
+                expect(result(for: .keyboardDismissRight)).to(equal(Image(systemName: "keyboard.chevron.compact.right")))
+                expect(result(for: .moveCursorLeft)).to(equal(Image(systemName: "arrow.left")))
+                expect(result(for: .moveCursorRight)).to(equal(Image(systemName: "arrow.right")))
+                expect(result(for: .newLine)).to(equal(Image(systemName: "arrow.turn.down.left")))
+                expect(result(for: .option)).to(equal(Image(systemName: "option")))
+                expect(result(for: .redo)).to(equal(Image(systemName: "arrow.uturn.right")))
+                expect(result(for: .shiftCapslocked)).to(equal(Image(systemName: "capslock.fill")))
+                expect(result(for: .shiftLowercased)).to(equal(Image(systemName: "shift")))
+                expect(result(for: .shiftUppercased)).to(equal(Image(systemName: "shift.fill")))
+                expect(result(for: .tab)).to(equal(Image(systemName: "arrow.right.to.line")))
+                expect(result(for: .undo)).to(equal(Image(systemName: "arrow.uturn.left")))
             }
         }
     }

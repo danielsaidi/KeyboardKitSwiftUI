@@ -14,8 +14,10 @@ public extension Image {
     static var dictation: Image { Image(systemName: "mic") }
     static var command: Image { Image(systemName: "command") }
     static var control: Image { Image(systemName: "control") }
+    static var email: Image { Image(systemName: "envelope") }
     static var emoji: Image { Image(systemName: "face.smiling") }
     static var globe: Image { Image(systemName: "globe") }
+    static var images: Image { Image(systemName: "photo.on.rectangle.angled") }
     static var keyboard: Image { Image(systemName: "keyboard") }
     static var keyboardDismiss: Image { Image(systemName: "keyboard.chevron.compact.down") }
     static var keyboardDismissLeft: Image { Image(systemName: "keyboard.chevron.compact.left") }

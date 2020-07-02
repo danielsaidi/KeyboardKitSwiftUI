@@ -1,5 +1,5 @@
 //
-//  Action+System.swift
+//  KeyboardAction+System.swift
 //  KeyboardKit
 //
 //  Created by Daniel Saidi on 2020-07-01.
@@ -9,14 +9,16 @@
 import KeyboardKit
 import SwiftUI
 
+/**
+ The "system" extensions are just suggestions if you want to
+ mimic system keyboards. You do not have to use them in your
+ custom keyboards.
+ */
 public extension KeyboardAction {
     
     /**
      The background color used by a system button, given the
      action, provided color scheme and keyboard appearance.
-     
-     This is a suggestion and a best guess to mimic a system
-     keyboard. KeyboardKit may use it, but you don't have to.
      */
     func systemKeyboardButtonBackgroundColor(
         forScheme scheme: ColorScheme,
@@ -31,11 +33,8 @@ public extension KeyboardAction {
     }
     
     /**
-     The button image used by a system button for the action,
-     if any.
-     
-     This is a suggestion and a best guess to mimic a system
-     keyboard. KeyboardKit may use it, but you don't have to.
+     The button image that should be used by a system button
+     that performs this action.
      */
     var systemKeyboardButtonImage: Image? {
         switch self {
@@ -45,6 +44,7 @@ public extension KeyboardAction {
         case .control: return .control
         case .dictation: return .dictation
         case .image(_, let imageName, _): return Image(imageName)
+        case .keyboardType(let type): return type.systemKeyboardButtonImage
         case .moveCursorBackward: return .moveCursorLeft
         case .moveCursorForward: return .moveCursorRight
         case .newLine: return .newLine
@@ -59,26 +59,8 @@ public extension KeyboardAction {
     }
     
     /**
-     The button text used by a system button for this action,
-     if any. You must manually specify any localized strings.
-     
-     This is a suggestion and a best guess to mimic a system
-     keyboard. KeyboardKit may use it, but you don't have to.
-     */
-    var systemKeyboardButtonText: Text? {
-        switch self {
-        case .character(let char): return Text(char)
-        case .emoji(let emoji): return Text(emoji)
-        default: return nil
-        }
-    }
-    
-    /**
      The shadow color used by a system button for the action
      action, provided color scheme and keyboard appearance.
-     
-     This is a suggestion and a best guess to mimic a system
-     keyboard. KeyboardKit may use it, but you don't have to.
      */
     func systemKeyboardButtonShadowColor(
         forScheme scheme: ColorScheme,
