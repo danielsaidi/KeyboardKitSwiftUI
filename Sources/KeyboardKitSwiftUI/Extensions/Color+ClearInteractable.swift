@@ -14,6 +14,6 @@ public extension Color {
      a view stop registering touches and gestures.
      */
     static var clearInteractable: Color {
-        Color(white: 0.001)
+        Color.white.opacity(0.001)
     }
 }

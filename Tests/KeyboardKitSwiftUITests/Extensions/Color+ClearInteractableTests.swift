@@ -19,7 +19,7 @@ class Color_ClearInteractableTests: QuickSpec {
             
             it("is defined") {
                 let view = Color.clearInteractable
-                expect(view).toNot(beNil())
+                expect(view).to(equal(Color.white.opacity(0.001)))
             }
         }
     }

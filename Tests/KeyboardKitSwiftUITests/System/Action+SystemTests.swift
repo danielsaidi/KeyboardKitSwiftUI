@@ -102,5 +102,18 @@ class Action_SystemTests: QuickSpec {
                 unexpected.forEach { expect(result(for: $0)).to(beNil()) }
             }
         }
+        
+        describe("system keyboard button shadow color") {
+            
+            func result(for action: KeyboardAction) -> Color {
+                action.systemKeyboardButtonShadowColor(forScheme: .dark, appearance: .dark)
+            }
+            
+            it("is clear for emoji, not others") {
+                expected = [.emoji("")]
+                expected.forEach { expect(result(for: $0)).to(equal(.clear)) }
+                unexpected.forEach { expect(result(for: $0)).toNot(equal(.clear)) }
+            }
+        }
     }
 }

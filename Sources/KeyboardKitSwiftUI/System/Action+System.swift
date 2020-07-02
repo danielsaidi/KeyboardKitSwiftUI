@@ -72,4 +72,18 @@ public extension KeyboardAction {
         default: return nil
         }
     }
+    
+    /**
+     The shadow color used by a system button for the action
+     action, provided color scheme and keyboard appearance.
+     
+     This is a suggestion and a best guess to mimic a system
+     keyboard. KeyboardKit may use it, but you don't have to.
+     */
+    func systemKeyboardButtonShadowColor(
+        forScheme scheme: ColorScheme,
+        appearance: UIKeyboardAppearance) -> Color {
+        if case .emoji = self { return .clear }
+        return .systemKeyboardButtonShadowColor(forScheme: scheme, appearance: appearance)
+    }
 }
