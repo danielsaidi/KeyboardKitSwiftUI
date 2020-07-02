@@ -1,5 +1,5 @@
 //
-//  SystemKeyboardButtonRowTestss.swift
+//  SystemKeyboardButtonRowTests.swift
 //  KeyboardKitTests
 //
 //  Created by Daniel Saidi on 2020-07-02.
@@ -12,9 +12,31 @@ import KeyboardKit
 import SwiftUI
 @testable import KeyboardKitSwiftUI
 
-class SystemKeyboardButtonRowTests: QuickSpec {
+class SystemKeyboardBottomRowTests: QuickSpec {
 
     override func spec() {
+        
+        describe("system keyboard bottom row") {
+            
+            it("can be created with the default button builder") {
+                let button = SystemKeyboardBottomRow(leftmostAction: .command)
+                expect(button).toNot(beNil())
+            }
+            
+            it("can be created with a custom button builder") {
+                let button = SystemKeyboardBottomRow(leftmostAction: .command, buttonBuilder: { _ in AnyView(Text("HEJ")) })
+                expect(button).toNot(beNil())
+            }
+        }
+        
+        describe("standard button builder") {
+            
+            it("returns a view") {
+                let builder = SystemKeyboardBottomRow.standardButtonBuilder()
+                let result = builder(.backspace)
+                expect(result).toNot(beNil())
+            }
+        }
         
         describe("action collection") {
             

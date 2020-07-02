@@ -28,12 +28,12 @@ It's temporarily a separate framework, since Xcode can't handle iOS 13 features 
 
 To setup a custom keyboard to be used with `SwiftUI`, import `KeyboardKitSwiftUI` and set up your input view controller with `setup<Content: View>(with view: Content)`. It takes a custom `SwiftUI` `View` and will use this view to resize the extension.
 
-`KeyboardKitSwiftUI` contains a couple of views to help you get started. For instance, you have a set of `Button`s, some convenient `Extension`s and a `KeyboardGrid` that helps you build grid-based keyboards.
+You can then add any views you want to the keyboard view. In `Views`, you can find some views that kan help kick-start your project.
 
 
 ## Demo application
 
-There is a SwiftUI-specific demo application in 
+There is a SwiftUI-specific demo keyboard in the main `KeyboardKit` repository. Just run the demo project, enabe the SwiftUI keyboard in system settings and yo're good to go.   
 
 
 ## Installation
@@ -65,11 +65,13 @@ Feel free to reach out if you have questions or if you want to contribute in any
 * Web site: [danielsaidi.com][Website]
 
 
-## Clients
+## Supporters
 
-KeyboardKitSwiftUI is proudly supported by the following clients:
+KeyboardKit is proudly supported by:
 
 [![Anomaly Software](Resources/logos/anomaly.png "Anomaly Software")](http://anomaly.net.au/)
+
+Your company can support KeyboardKit by either sponsoring the project on GitHub Sponsors or by paying for consultation. I'ld be happy to help you out with your keyboard needs. 
 
 
 ## License
