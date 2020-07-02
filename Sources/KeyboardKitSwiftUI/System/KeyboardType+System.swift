@@ -27,7 +27,11 @@ public extension KeyboardType {
         switch self {
         case .alphabetic(let state): return state.systemKeyboardButtonImage(for: context)
         case .email: return .email
-        case .emojis: return .emoji
+        case .emojis:
+            if #available(iOS 14, *) {
+                return .emoji
+            } else { return nil}
+            
         case .images: return .images
         default: return nil    
         }

@@ -35,7 +35,9 @@ class KeyboardType_SystemTests: QuickSpec {
                 expect(result(for: .alphabetic(.uppercased), contextType: .email)).to(equal(.shiftUppercased))
                 
                 expect(result(for: .email, contextType: .symbolic)).to(equal(.email))
-                expect(result(for: .emojis, contextType: .email)).to(equal(.emoji))
+                if #available(iOS 14, *) {
+                    expect(result(for: .emojis, contextType: .email)).to(equal(.emoji))
+                }
                 expect(result(for: .images, contextType: .numeric)).to(equal(.images))
                 
                 expect(result(for: .custom(""), contextType: .email)).to(beNil())
