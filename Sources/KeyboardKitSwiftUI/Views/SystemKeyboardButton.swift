@@ -57,8 +57,15 @@ private extension SystemKeyboardButton {
     }
     
     var buttonContent: AnyView {
-        if let text = buttonText { return AnyView(Text(text)) }
+        if let text = buttonText { return AnyView(self.text(for: text)) }
         if let image = buttonImage { return AnyView(image) }
         return AnyView(Text(""))
+    }
+    
+    func text(for text: String) -> some View {
+        Text(text)
+            .minimumScaleFactor(0.1)
+            .lineLimit(1)
+            .padding(2)
     }
 }
