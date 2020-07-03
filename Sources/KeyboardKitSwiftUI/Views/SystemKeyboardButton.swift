@@ -59,6 +59,6 @@ private extension SystemKeyboardButton {
     var buttonContent: AnyView {
         if let text = buttonText { return AnyView(Text(text)) }
         if let image = buttonImage { return AnyView(image) }
-        return AnyView(Text("-"))
+        return AnyView(Text(""))
     }
 }
