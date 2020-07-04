@@ -16,16 +16,15 @@ import SwiftUI
  You can provide this view with a custom `leftmostAction` as
  well as a custom `buttonBuilder`. By default, it will use a
  `.none` action and the `standardButtonBuilder`.
- 
- The space bar will take up 50% of the available width. This
- can be modified with the static `SystemKeyboardButtonStyle`.
  */
 public struct SystemKeyboardBottomRow: View {
     
     public init(
         leftmostAction: KeyboardAction,
+        style: SystemKeyboardStyle,
         buttonBuilder: @escaping ButtonBuilder = Self.standardButtonBuilder()) {
         self.leftmostAction = leftmostAction
+        self.style = style
         self.buttonBuilder = buttonBuilder
     }
     
@@ -33,13 +32,14 @@ public struct SystemKeyboardBottomRow: View {
     
     private let buttonBuilder: ButtonBuilder
     private let leftmostAction: KeyboardAction
+    private let style: SystemKeyboardStyle
 
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     @EnvironmentObject private var context: ObservableKeyboardContext
     @State private var size: CGSize = .zero
     
     public var body: some View {
-        HStack(spacing: SystemKeyboardStyle.buttonSpacing) {
+        HStack(spacing: style.buttonSpacing) {
             ForEach(Array(views(for: context).enumerated()), id: \.offset) {
                 $0.element
             }
@@ -49,11 +49,13 @@ public struct SystemKeyboardBottomRow: View {
 
 public extension SystemKeyboardBottomRow {
     
-    static func standardButtonBuilder(emojiFallbackText: String = "☺") -> ButtonBuilder {
+    static func standardButtonBuilder(
+        emojiFallbackText: String = "☺",
+        style: SystemKeyboardStyle = .standard) -> ButtonBuilder {
         return { action in
             let isEmojiKeyboardAction = action == .keyboardType(.emojis)
             let text = isEmojiKeyboardAction ? emojiFallbackText : action.systemKeyboardButtonText
-            return AnyView(SystemKeyboardButton(action: action, text: text))
+            return AnyView(SystemKeyboardButton(action: action, text: text, style: style))
         }
     }
 }
@@ -74,7 +76,7 @@ extension SystemKeyboardBottomRow {
         actions(for: context).map {
             let view = buttonBuilder($0)
             guard $0 == .space else { return AnyView(view) }
-            let width = SystemKeyboardStyle.bottomRowSpacePercentage
+            let width = style.bottomRowSpacePercentage
             return AnyView(view.frame(width: width * size.width))
         }
     }

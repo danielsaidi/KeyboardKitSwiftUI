@@ -24,13 +24,13 @@ class View_SystemKeyboardStylesTests: QuickSpec {
             
             it("is defined for context") {
                 let result = Text("")
-                    .systemKeyboardButtonStyle(for: .backspace, scheme: .dark, context: context)
+                    .systemKeyboardButtonStyle(for: .backspace, scheme: .dark, context: context, style: .standard)
                 expect(result).toNot(beNil())
             }
             
             it("is defined for appearance") {
                 let result = Text("")
-                    .systemKeyboardButtonStyle(for: .backspace, scheme: .dark, appearance: .dark)
+                    .systemKeyboardButtonStyle(for: .backspace, scheme: .dark, appearance: .dark, style: .standard)
                 expect(result).toNot(beNil())
             }
         }
@@ -46,7 +46,7 @@ class View_SystemKeyboardStylesTests: QuickSpec {
         describe("system keyboard button corner radius") {
             
             it("is defined") {
-                let value = Text("").systemKeyboardButtonCornerRadius()
+                let value = Text("").systemKeyboardButtonCornerRadius(style: .standard)
                 expect(value).toNot(beNil())
             }
         }
@@ -70,7 +70,7 @@ class View_SystemKeyboardStylesTests: QuickSpec {
         describe("system keyboard button frame") {
             
             it("is defined") {
-                let value = Text("").systemKeyboardButtonFrame()
+                let value = Text("").systemKeyboardButtonFrame(style: .standard)
                 expect(value).toNot(beNil())
             }
         }

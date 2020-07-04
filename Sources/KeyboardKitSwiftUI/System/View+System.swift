@@ -13,9 +13,6 @@ import SwiftUI
  The "system" extensions are just suggestions if you want to
  mimic system keyboards. You do not have to use them in your
  custom keyboards.
- 
- You can configure the various values by changing the static
- properties in the `SystemKeyboardButtonStyle` struct.
  */
 public extension View {
     
@@ -26,11 +23,13 @@ public extension View {
     func systemKeyboardButtonStyle(
         for action: KeyboardAction,
         scheme: ColorScheme,
-        context: KeyboardContext) -> some View {
+        context: KeyboardContext,
+        style: SystemKeyboardStyle) -> some View {
         self.systemKeyboardButtonStyle(
             for: action,
             scheme: scheme,
-            appearance: context.textDocumentProxy.keyboardAppearance ?? .default)
+            appearance: context.textDocumentProxy.keyboardAppearance ?? .default,
+            style: style)
     }
     
     /**
@@ -40,11 +39,12 @@ public extension View {
     func systemKeyboardButtonStyle(
         for action: KeyboardAction,
         scheme: ColorScheme,
-        appearance: UIKeyboardAppearance) -> some View {
+        appearance: UIKeyboardAppearance,
+        style: SystemKeyboardStyle) -> some View {
         self.systemKeyboardButtonForeground(forScheme: scheme, appearance: appearance)
-            .systemKeyboardButtonFrame()
+            .systemKeyboardButtonFrame(style: style)
             .systemKeyboardButtonBackground(for: action, scheme: scheme, appearance: appearance)
-            .systemKeyboardButtonCornerRadius()
+            .systemKeyboardButtonCornerRadius(style: style)
             .systemKeyboardButtonShadow(forScheme: scheme, appearance: appearance)
             .systemKeyboardButtonFont(for: action)
     }
@@ -63,8 +63,8 @@ public extension View {
         return self.background(color)
     }
     
-    func systemKeyboardButtonCornerRadius()  -> some View {
-        cornerRadius(SystemKeyboardStyle.cornerRadius)
+    func systemKeyboardButtonCornerRadius(style: SystemKeyboardStyle)  -> some View {
+        cornerRadius(style.cornerRadius)
     }
     
     func systemKeyboardButtonFont(for action: KeyboardAction) -> some View {
@@ -75,8 +75,8 @@ public extension View {
         foregroundColor(.systemKeyboardButtonForegroundColor(forScheme: scheme, appearance: appearance))
     }
     
-    func systemKeyboardButtonFrame()  -> some View {
-        self.frame(height: SystemKeyboardStyle.frameHeight)
+    func systemKeyboardButtonFrame(style: SystemKeyboardStyle)  -> some View {
+        self.frame(height: style.frameHeight)
             .frame(maxWidth: .infinity)
     }
     

@@ -17,13 +17,14 @@ class SystemKeyboardButtonStyleTests: QuickSpec {
         describe("system keyboard button button style") {
             
             it("has predefined but settable values") {
-                expect(SystemKeyboardStyle.backspaceWidth).to(equal(50.0))
-                expect(SystemKeyboardStyle.bottomRowSpacePercentage).to(equal(0.5))
-                expect(SystemKeyboardStyle.buttonSpacing).to(equal(6.0))
-                expect(SystemKeyboardStyle.cornerRadius).to(equal(4.0))
-                expect(SystemKeyboardStyle.frameHeight).to(equal(42.0))
-                expect(SystemKeyboardStyle.rowSpacing).to(equal(12.0))
-                expect(SystemKeyboardStyle.shiftWidth).to(equal(50.0))
+                let style = SystemKeyboardStyle.standard
+                expect(style.backspaceWidth).to(equal(50.0))
+                expect(style.bottomRowSpacePercentage).to(equal(0.5))
+                expect(style.buttonSpacing).to(equal(6.0))
+                expect(style.cornerRadius).to(equal(4.0))
+                expect(style.frameHeight).to(equal(42.0))
+                expect(style.rowSpacing).to(equal(12.0))
+                expect(style.shiftWidth).to(equal(50.0))
             }
         }
     }

@@ -23,21 +23,24 @@ public struct SystemKeyboardButtonRow: View {
     
     public init(
         actions: KeyboardActionRow,
-        buttonBuilder: @escaping ButtonBuilder = Self.standardButtonBuilder) {
-        self.buttonBuilder = buttonBuilder
+        style: SystemKeyboardStyle,
+        buttonBuilder: @escaping ButtonBuilder = Self.standardButtonBuilder()) {
         self.actions = actions
+        self.style = style
+        self.buttonBuilder = buttonBuilder
     }
     
     public typealias ButtonBuilder = (KeyboardAction) -> AnyView
     
     private let actions: KeyboardActionRow
     private let buttonBuilder: ButtonBuilder
+    private let style: SystemKeyboardStyle
 
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     @EnvironmentObject private var context: ObservableKeyboardContext
     
     public var body: some View {
-        HStack(spacing: SystemKeyboardStyle.buttonSpacing) {
+        HStack(spacing: style.buttonSpacing) {
             ForEach(Array(actions.enumerated()), id: \.offset) {
                 self.buttonBuilder($0.element)
             }
@@ -47,7 +50,8 @@ public struct SystemKeyboardButtonRow: View {
 
 public extension SystemKeyboardButtonRow {
     
-    static var standardButtonBuilder: ButtonBuilder {
-        return { AnyView(SystemKeyboardButton(action: $0)) }
+    static func standardButtonBuilder(
+        style: SystemKeyboardStyle = .standard) -> ButtonBuilder {
+        return { AnyView(SystemKeyboardButton(action: $0, style: style)) }
     }
 }

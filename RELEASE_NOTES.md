@@ -19,6 +19,7 @@ There are new keyboard views:
 * `SystemKeyboardBottomRow` mimics the bottommost row in a system keyboard.
 * `SystemKeyboardButton` mimics a system keyboard button.
 * `SystemKeyboardButtonRow` mimics a row in a system keyboard.
+* `SystemKeyboardStyle` defines a style for system keyboards.
 
 Breaking changes:
 * `View` `withClearInteractableBackground` has been renamed to `clearInteractableBackground`. 

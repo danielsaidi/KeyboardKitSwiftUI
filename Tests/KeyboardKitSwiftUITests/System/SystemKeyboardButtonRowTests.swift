@@ -19,12 +19,12 @@ class SystemKeyboardButtonRowTests: QuickSpec {
         describe("system keyboard button row") {
             
             it("can be created with the default button builder") {
-                let button = SystemKeyboardButtonRow(actions: [.command])
+                let button = SystemKeyboardButtonRow(actions: [.command], style: .standard)
                 expect(button).toNot(beNil())
             }
             
             it("can be created with a custom button builder") {
-                let button = SystemKeyboardButtonRow(actions: [.command], buttonBuilder: { _ in AnyView(Text("HEJ")) })
+                let button = SystemKeyboardButtonRow(actions: [.command], style: .standard) { _ in AnyView(Text("HEJ")) }
                 expect(button).toNot(beNil())
             }
         }
@@ -32,7 +32,7 @@ class SystemKeyboardButtonRowTests: QuickSpec {
         describe("standard button builder") {
             
             it("returns a view") {
-                let builder = SystemKeyboardButtonRow.standardButtonBuilder
+                let builder = SystemKeyboardButtonRow.standardButtonBuilder(style: .standard)
                 let result = builder(.backspace)
                 expect(result).toNot(beNil())
             }

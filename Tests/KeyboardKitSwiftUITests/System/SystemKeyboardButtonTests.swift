@@ -19,17 +19,17 @@ class SystemKeyboardButtonTests: QuickSpec {
         describe("system keyboard button") {
             
             it("can be created with just an action") {
-                let button = SystemKeyboardButton(action: .control)
+                let button = SystemKeyboardButton(action: .control, style: .standard)
                 expect(button).toNot(beNil())
             }
             
             it("can be created with a custom text") {
-                let button = SystemKeyboardButton(action: .control, text: "")
+                let button = SystemKeyboardButton(action: .control, text: "", style: .standard)
                 expect(button).toNot(beNil())
             }
             
             it("can be created with a custom image") {
-                let button = SystemKeyboardButton(action: .control, image: .command)
+                let button = SystemKeyboardButton(action: .control, image: .command, style: .standard)
                 expect(button).toNot(beNil())
             }
         }
