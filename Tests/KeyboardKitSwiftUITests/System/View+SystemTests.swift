@@ -51,14 +51,6 @@ class View_SystemKeyboardStylesTests: QuickSpec {
             }
         }
         
-        describe("system keyboard button corner radius value") {
-            
-            it("is defined") {
-                let value = Text("").systemKeyboardButtonCornerRadiusValue
-                expect(value).to(equal(4))
-            }
-        }
-        
         describe("system keyboard button font") {
             
             it("is defined") {
@@ -80,14 +72,6 @@ class View_SystemKeyboardStylesTests: QuickSpec {
             it("is defined") {
                 let value = Text("").systemKeyboardButtonFrame()
                 expect(value).toNot(beNil())
-            }
-        }
-        
-        describe("system keyboard button frame height value") {
-            
-            it("is defined") {
-                let value = Text("").systemKeyboardButtonFrameHeightValue
-                expect(value).to(equal(42))
             }
         }
         

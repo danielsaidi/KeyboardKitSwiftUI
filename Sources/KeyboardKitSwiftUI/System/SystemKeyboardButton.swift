@@ -26,7 +26,10 @@ import SwiftUI
  */
 public struct SystemKeyboardButton: View {
     
-    public init(action: KeyboardAction, text: String? = nil, image: Image? = nil) {
+    public init(
+        action: KeyboardAction,
+        text: String? = nil,
+        image: Image? = nil) {
         self.action = action
         self.text = text
         self.image = image

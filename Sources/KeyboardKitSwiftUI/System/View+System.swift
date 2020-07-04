@@ -13,6 +13,9 @@ import SwiftUI
  The "system" extensions are just suggestions if you want to
  mimic system keyboards. You do not have to use them in your
  custom keyboards.
+ 
+ You can configure the various values by changing the static
+ properties in the `SystemKeyboardButtonStyle` struct.
  */
 public extension View {
     
@@ -24,8 +27,10 @@ public extension View {
         for action: KeyboardAction,
         scheme: ColorScheme,
         context: KeyboardContext) -> some View {
-        let appearance = context.textDocumentProxy.keyboardAppearance ?? .default
-        return self.systemKeyboardButtonStyle(for: action, scheme: scheme, appearance: appearance)
+        self.systemKeyboardButtonStyle(
+            for: action,
+            scheme: scheme,
+            appearance: context.textDocumentProxy.keyboardAppearance ?? .default)
     }
     
     /**
@@ -48,7 +53,7 @@ public extension View {
 
 // MARK: - Granular Extensions
 
-public extension View  {
+public extension View {
     
     func systemKeyboardButtonBackground(
         for action: KeyboardAction,
@@ -59,10 +64,8 @@ public extension View  {
     }
     
     func systemKeyboardButtonCornerRadius()  -> some View {
-        cornerRadius(systemKeyboardButtonCornerRadiusValue)
+        cornerRadius(SystemKeyboardButtonStyle.cornerRadius)
     }
-    
-    var systemKeyboardButtonCornerRadiusValue: CGFloat { 4.0 }
     
     func systemKeyboardButtonFont(for action: KeyboardAction) -> some View {
         font(Font(action.systemFont))
@@ -73,11 +76,9 @@ public extension View  {
     }
     
     func systemKeyboardButtonFrame()  -> some View {
-        self.frame(height: systemKeyboardButtonFrameHeightValue)
+        self.frame(height: SystemKeyboardButtonStyle.frameHeight)
             .frame(maxWidth: .infinity)
     }
-    
-    var systemKeyboardButtonFrameHeightValue: CGFloat { 42.0 }
     
     func systemKeyboardButtonShadow(forScheme scheme: ColorScheme, appearance: UIKeyboardAppearance) -> some View {
         let color = Color.systemKeyboardButtonShadowColor(forScheme: scheme, appearance: appearance)
