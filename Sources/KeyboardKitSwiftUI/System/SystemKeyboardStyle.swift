@@ -8,6 +8,7 @@
 
 import CoreGraphics
 import Combine
+import SwiftUI
 
 /**
  This struct provides static properties that are used by the
@@ -24,6 +25,7 @@ public class SystemKeyboardStyle: ObservableObject {
         buttonCornerRadius: CGFloat,
         buttonHeight: CGFloat,
         buttonSpacing: CGFloat,
+        padding: EdgeInsets,
         rowSpacing: CGFloat,
         shiftWidth: CGFloat) {
         self.backspaceWidth = backspaceWidth
@@ -31,6 +33,7 @@ public class SystemKeyboardStyle: ObservableObject {
         self.buttonCornerRadius = buttonCornerRadius
         self.buttonHeight = buttonHeight
         self.buttonSpacing = buttonSpacing
+        self.padding = padding
         self.rowSpacing = rowSpacing
         self.shiftWidth = shiftWidth
     }
@@ -40,6 +43,7 @@ public class SystemKeyboardStyle: ObservableObject {
     public let buttonHeight: CGFloat
     public let buttonSpacing: CGFloat
     public let buttonCornerRadius: CGFloat
+    public let padding: EdgeInsets
     public let rowSpacing: CGFloat
     public let shiftWidth: CGFloat
 }
@@ -57,6 +61,7 @@ public extension SystemKeyboardStyle {
             buttonCornerRadius: 4.0,
             buttonHeight: 42.0,
             buttonSpacing: 6.0,
+            padding: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
             rowSpacing: 12.0,
             shiftWidth: 50.0)
     }
