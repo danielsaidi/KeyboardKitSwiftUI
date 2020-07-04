@@ -20,6 +20,7 @@ There are new keyboard views:
 * `SystemKeyboardButton` mimics a system keyboard button.
 * `SystemKeyboardButtonRow` mimics a row in a system keyboard.
 * `SystemKeyboardStyle` defines a style for system keyboards.
+* `SystemKeyboardVStack` is a VStack that applies the correct system keyboard style.
 
 Breaking changes:
 * `View` `withClearInteractableBackground` has been renamed to `clearInteractableBackground`. 
