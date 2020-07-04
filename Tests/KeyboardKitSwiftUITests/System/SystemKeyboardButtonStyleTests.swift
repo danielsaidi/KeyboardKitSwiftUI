@@ -18,9 +18,10 @@ class SystemKeyboardButtonStyleTests: QuickSpec {
             
             it("has predefined but settable values") {
                 expect(SystemKeyboardButtonStyle.bottomRowSpacePercentage).to(equal(0.5))
+                expect(SystemKeyboardButtonStyle.buttonSpacing).to(equal(6.0))
                 expect(SystemKeyboardButtonStyle.cornerRadius).to(equal(4.0))
                 expect(SystemKeyboardButtonStyle.frameHeight).to(equal(42.0))
-                expect(SystemKeyboardButtonStyle.rowSpacing).to(equal(6.0))
+                expect(SystemKeyboardButtonStyle.rowSpacing).to(equal(12.0))
             }
         }
     }

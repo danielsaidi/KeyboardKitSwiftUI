@@ -37,7 +37,7 @@ public struct SystemKeyboardButtonRow: View {
     @EnvironmentObject private var context: ObservableKeyboardContext
     
     public var body: some View {
-        HStack(spacing: SystemKeyboardButtonStyle.rowSpacing) {
+        HStack(spacing: SystemKeyboardButtonStyle.buttonSpacing) {
             ForEach(Array(actions.enumerated()), id: \.offset) {
                 self.buttonBuilder($0.element)
             }

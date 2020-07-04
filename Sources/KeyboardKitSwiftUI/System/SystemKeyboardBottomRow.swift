@@ -39,7 +39,7 @@ public struct SystemKeyboardBottomRow: View {
     @State private var size: CGSize = .zero
     
     public var body: some View {
-        HStack(spacing: SystemKeyboardButtonStyle.rowSpacing) {
+        HStack(spacing: SystemKeyboardButtonStyle.buttonSpacing) {
             ForEach(Array(views(for: context).enumerated()), id: \.offset) {
                 $0.element
             }
