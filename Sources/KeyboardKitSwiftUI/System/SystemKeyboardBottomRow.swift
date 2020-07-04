@@ -39,7 +39,7 @@ public struct SystemKeyboardBottomRow: View {
     @State private var size: CGSize = .zero
     
     public var body: some View {
-        HStack(spacing: SystemKeyboardButtonStyle.buttonSpacing) {
+        HStack(spacing: SystemKeyboardStyle.buttonSpacing) {
             ForEach(Array(views(for: context).enumerated()), id: \.offset) {
                 $0.element
             }
@@ -74,7 +74,7 @@ extension SystemKeyboardBottomRow {
         actions(for: context).map {
             let view = buttonBuilder($0)
             guard $0 == .space else { return AnyView(view) }
-            let width = SystemKeyboardButtonStyle.bottomRowSpacePercentage
+            let width = SystemKeyboardStyle.bottomRowSpacePercentage
             return AnyView(view.frame(width: width * size.width))
         }
     }
