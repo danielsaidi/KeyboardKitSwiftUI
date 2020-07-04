@@ -20,25 +20,25 @@ public struct SystemKeyboardStyle {
     public init(
         backspaceWidth: CGFloat,
         bottomRowSpacePercentage: CGFloat,
+        buttonCornerRadius: CGFloat,
+        buttonHeight: CGFloat,
         buttonSpacing: CGFloat,
-        cornerRadius: CGFloat,
-        frameHeight: CGFloat,
         rowSpacing: CGFloat,
         shiftWidth: CGFloat) {
         self.backspaceWidth = backspaceWidth
         self.bottomRowSpacePercentage = bottomRowSpacePercentage
+        self.buttonCornerRadius = buttonCornerRadius
+        self.buttonHeight = buttonHeight
         self.buttonSpacing = buttonSpacing
-        self.cornerRadius = cornerRadius
-        self.frameHeight = frameHeight
         self.rowSpacing = rowSpacing
         self.shiftWidth = shiftWidth
     }
     
     public let backspaceWidth: CGFloat
     public let bottomRowSpacePercentage: CGFloat
+    public let buttonHeight: CGFloat
     public let buttonSpacing: CGFloat
-    public let cornerRadius: CGFloat
-    public let frameHeight: CGFloat
+    public let buttonCornerRadius: CGFloat
     public let rowSpacing: CGFloat
     public let shiftWidth: CGFloat
 }
@@ -53,9 +53,9 @@ public extension SystemKeyboardStyle {
         SystemKeyboardStyle(
             backspaceWidth: 50.0,
             bottomRowSpacePercentage: 0.5,
+            buttonCornerRadius: 4.0,
+            buttonHeight: 42.0,
             buttonSpacing: 6.0,
-            cornerRadius: 4.0,
-            frameHeight: 42.0,
             rowSpacing: 12.0,
             shiftWidth: 50.0)
     }

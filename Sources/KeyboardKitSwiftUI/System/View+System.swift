@@ -64,7 +64,7 @@ public extension View {
     }
     
     func systemKeyboardButtonCornerRadius(style: SystemKeyboardStyle)  -> some View {
-        cornerRadius(style.cornerRadius)
+        cornerRadius(style.buttonCornerRadius)
     }
     
     func systemKeyboardButtonFont(for action: KeyboardAction) -> some View {
@@ -76,7 +76,7 @@ public extension View {
     }
     
     func systemKeyboardButtonFrame(style: SystemKeyboardStyle)  -> some View {
-        self.frame(height: style.frameHeight)
+        self.frame(height: style.buttonHeight)
             .frame(maxWidth: .infinity)
     }
     
