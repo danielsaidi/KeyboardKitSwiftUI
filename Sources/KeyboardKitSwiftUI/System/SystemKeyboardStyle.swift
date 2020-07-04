@@ -7,6 +7,7 @@
 //
 
 import CoreGraphics
+import Combine
 
 /**
  This struct provides static properties that are used by the
@@ -15,7 +16,7 @@ import CoreGraphics
  `TODO` This is not a long-term solution. Instead, the views
  should be injected with a style. I'll look into this later.
  */
-public struct SystemKeyboardStyle {
+public class SystemKeyboardStyle: ObservableObject {
     
     public init(
         backspaceWidth: CGFloat,

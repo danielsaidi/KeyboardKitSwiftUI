@@ -19,12 +19,12 @@ class SystemKeyboardBottomRowTests: QuickSpec {
         describe("system keyboard bottom row") {
             
             it("can be created with the default button builder") {
-                let row = SystemKeyboardBottomRow(leftmostAction: .command, style: .standard) { _ in AnyView(Text("HEJ")) }
+                let row = SystemKeyboardBottomRow(leftmostAction: .command) { _ in AnyView(Text("HEJ")) }
                 expect(row).toNot(beNil())
             }
             
             it("can be created with a custom button builder") {
-                let row = SystemKeyboardBottomRow(leftmostAction: .command, style: .standard) { _ in AnyView(Text("HEJ")) }
+                let row = SystemKeyboardBottomRow(leftmostAction: .command) { _ in AnyView(Text("HEJ")) }
                 expect(row).toNot(beNil())
             }
         }
@@ -43,7 +43,7 @@ class SystemKeyboardBottomRowTests: QuickSpec {
             it("is correctly setup when context needs input mode switch key") {
                 let context = MockKeyboardContext()
                 context.needsInputModeSwitchKey = true
-                let row = SystemKeyboardBottomRow(leftmostAction: .control, style: .standard) { _ in fatalError() }
+                let row = SystemKeyboardBottomRow(leftmostAction: .control) { _ in fatalError() }
                 let actions = row.actions(for: context)
                 expect(actions).to(equal([
                     .control,
@@ -57,7 +57,7 @@ class SystemKeyboardBottomRowTests: QuickSpec {
             it("is correctly setup when context doesn't need input mode switch key") {
                 let context = MockKeyboardContext()
                 context.needsInputModeSwitchKey = false
-                let row = SystemKeyboardBottomRow(leftmostAction: .escape, style: .standard) { _ in fatalError() }
+                let row = SystemKeyboardBottomRow(leftmostAction: .escape) { _ in fatalError() }
                 let actions = row.actions(for: context)
                 expect(actions).to(equal([
                     .escape,
@@ -74,7 +74,7 @@ class SystemKeyboardBottomRowTests: QuickSpec {
             it("is correctly setup when context needs input mode switch key") {
                 let context = MockKeyboardContext()
                 context.needsInputModeSwitchKey = true
-                let row = SystemKeyboardBottomRow(leftmostAction: .control, style: .standard) { _ in fatalError() }
+                let row = SystemKeyboardBottomRow(leftmostAction: .control) { _ in fatalError() }
                 let actions = row.actions(for: context)
                 let views = row.actions(for: context)
                 expect(views.count).to(equal(actions.count))
@@ -83,7 +83,7 @@ class SystemKeyboardBottomRowTests: QuickSpec {
             it("is correctly setup when context doesn't need input mode switch key") {
                 let context = MockKeyboardContext()
                 context.needsInputModeSwitchKey = false
-                let row = SystemKeyboardBottomRow(leftmostAction: .escape, style: .standard) { _ in fatalError() }
+                let row = SystemKeyboardBottomRow(leftmostAction: .escape) { _ in fatalError() }
                 let actions = row.actions(for: context)
                 let views = row.actions(for: context)
                 expect(views.count).to(equal(actions.count))

@@ -21,10 +21,8 @@ public struct SystemKeyboardBottomRow: View {
     
     public init(
         leftmostAction: KeyboardAction,
-        style: SystemKeyboardStyle,
         buttonBuilder: @escaping ButtonBuilder = Self.standardButtonBuilder()) {
         self.leftmostAction = leftmostAction
-        self.style = style
         self.buttonBuilder = buttonBuilder
     }
     
@@ -32,30 +30,29 @@ public struct SystemKeyboardBottomRow: View {
     
     private let buttonBuilder: ButtonBuilder
     private let leftmostAction: KeyboardAction
-    private let style: SystemKeyboardStyle
 
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     @EnvironmentObject private var context: ObservableKeyboardContext
-    @State private var size: CGSize = .zero
+    @EnvironmentObject private var style: SystemKeyboardStyle
+    @State private var viewSize: CGSize = .zero
     
     public var body: some View {
         HStack(spacing: style.buttonSpacing) {
             ForEach(Array(views(for: context).enumerated()), id: \.offset) {
                 $0.element
             }
-        }.bindSize(to: $size)
+        }.bindSize(to: $viewSize)
     }
 }
 
 public extension SystemKeyboardBottomRow {
     
     static func standardButtonBuilder(
-        emojiFallbackText: String = "☺",
-        style: SystemKeyboardStyle = .standard) -> ButtonBuilder {
+        emojiFallbackText: String = "☺") -> ButtonBuilder {
         return { action in
             let isEmojiKeyboardAction = action == .keyboardType(.emojis)
             let text = isEmojiKeyboardAction ? emojiFallbackText : action.systemKeyboardButtonText
-            return AnyView(SystemKeyboardButton(action: action, text: text, style: style))
+            return AnyView(SystemKeyboardButton(action: action, text: text))
         }
     }
 }
@@ -77,7 +74,7 @@ extension SystemKeyboardBottomRow {
             let view = buttonBuilder($0)
             guard $0 == .space else { return AnyView(view) }
             let width = style.bottomRowSpacePercentage
-            return AnyView(view.frame(width: width * size.width))
+            return AnyView(view.frame(width: width * viewSize.width))
         }
     }
 }

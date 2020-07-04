@@ -28,21 +28,19 @@ public struct SystemKeyboardButton: View {
     public init(
         action: KeyboardAction,
         text: String? = nil,
-        image: Image? = nil,
-        style: SystemKeyboardStyle) {
+        image: Image? = nil) {
         self.action = action
         self.text = text
         self.image = image
-        self.style = style
     }
     
     private let action: KeyboardAction
     private let text: String?
     private let image: Image?
-    private let style: SystemKeyboardStyle
     
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
     @EnvironmentObject private var context: ObservableKeyboardContext
+    @EnvironmentObject private var style: SystemKeyboardStyle
     
     public var body: some View {
         buttonContent
