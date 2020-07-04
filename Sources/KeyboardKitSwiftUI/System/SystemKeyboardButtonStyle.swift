@@ -14,6 +14,8 @@ import CoreGraphics
  */
 public struct SystemKeyboardButtonStyle {
     
+    public static var bottomRowSpacePercentage: CGFloat = 0.5
     public static var cornerRadius: CGFloat = 4.0
     public static var frameHeight: CGFloat = 42.0
+    public static var rowSpacing: CGFloat = 6.0
 }

@@ -13,13 +13,12 @@ import SwiftUI
  This view mimicks a system keyboard bottom row that is used
  for alphabetic, numeric and symbolic system keyboards.
  
- When you create an instance of this view, you can specify a
- custom `leftmostAction`, as well as a custom `buttonBuilder`
- that creates a view for each action. By default, the static
- `standardButtonBuilder` button builder will be used.
+ You can provide this view with a custom `leftmostAction` as
+ well as a custom `buttonBuilder`. By default, it will use a
+ `.none` action and a `standardButtonBuilder` button builder.
  
  The space bar will take up 50% of the available width. This
- can currenty not be modified.
+ can be modified with the static `SystemKeyboardButtonStyle`.
  */
 public struct SystemKeyboardBottomRow: View {
     
@@ -40,7 +39,7 @@ public struct SystemKeyboardBottomRow: View {
     @State private var size: CGSize = .zero
     
     public var body: some View {
-        HStack {
+        HStack(spacing: SystemKeyboardButtonStyle.rowSpacing) {
             ForEach(Array(views(for: context).enumerated()), id: \.offset) {
                 $0.element
             }
@@ -75,7 +74,8 @@ extension SystemKeyboardBottomRow {
         actions(for: context).map {
             let view = buttonBuilder($0)
             guard $0 == .space else { return AnyView(view) }
-            return AnyView(view.frame(width: 0.5 * size.width))
+            let width = SystemKeyboardButtonStyle.bottomRowSpacePercentage
+            return AnyView(view.frame(width: width * size.width))
         }
     }
 }

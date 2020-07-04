@@ -10,19 +10,18 @@ import KeyboardKit
 import SwiftUI
 
 /**
- This view mimicks the system keyboard buttons that are used
- in all system keyboards. It wraps any view and surrounds it
- with a button shape, a drop shadow etc. Emoji actions use a
- clear background.
+ This view mimics the buttons used in an iOS system keyboard.
+ It wraps a view and applies a button shape, drop shadow etc.
+ as well as gesture actions for the provided `action`. Emoji
+ actions use a clear background.
  
  You can provide the button with a custom text and image, if
  you don't want it to use the library standard text or image
  for the provided `action`.
  
  The view applies the `systemKeyboardButtonStyle` as well as
- the `keyboardAction` modifiers, using the injected context.
- You can use those modifiers yourself, if you do not want to
- use this view.
+ the `keyboardAction` modifiers. You can use those modifiers
+ on custom views, if you do not want to use this view.
  */
 public struct SystemKeyboardButton: View {
     
