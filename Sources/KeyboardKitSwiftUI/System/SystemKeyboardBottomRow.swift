@@ -15,7 +15,7 @@ import SwiftUI
  
  You can provide this view with a custom `leftmostAction` as
  well as a custom `buttonBuilder`. By default, it will use a
- `.none` action and a `standardButtonBuilder` button builder.
+ `.none` action and the `standardButtonBuilder`.
  
  The space bar will take up 50% of the available width. This
  can be modified with the static `SystemKeyboardButtonStyle`.

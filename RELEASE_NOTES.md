@@ -17,10 +17,8 @@ The new `Gestures` and `System` namespace help you build native-imitating keyboa
 
 There are new keyboard views:
 * `SystemKeyboardBottomRow` mimics the bottommost row in a system keyboard.
-* `AlphabeticKeyboardBottomRow` mimics the bottommost row in an alphabetic system keyboard.
-* `NumericKeyboardBottomRow` mimics the bottommost row in a numeric system keyboard.
-* `SymbolicKeyboardBottomRow` mimics the bottommost row in a symbolic system keyboard.
 * `SystemKeyboardButton` mimics a system keyboard button.
+* `SystemKeyboardButtonRow` mimics a row in a system keyboard.
 
 Breaking changes:
 * `View` `withClearInteractableBackground` has been renamed to `clearInteractableBackground`. 
