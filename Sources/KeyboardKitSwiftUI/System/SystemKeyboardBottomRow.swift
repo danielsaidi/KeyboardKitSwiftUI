@@ -16,6 +16,10 @@ import SwiftUI
  You can provide this view with a custom `leftmostAction` as
  well as a custom `buttonBuilder`. By default, it will use a
  `.none` action and the `standardButtonBuilder`.
+ 
+ The view used the following injected `@EnvironmentObject`s:
+ - `ObservableKeyboardContext`
+ - `SystemKeyboardStyle`
  */
 public struct SystemKeyboardBottomRow: View {
     

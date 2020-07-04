@@ -18,6 +18,10 @@ import SwiftUI
  
  You can provide this view with a custom `buttonBuilder`. By
  default, it will use the `standardButtonBuilder`.
+ 
+ The view used the following injected `@EnvironmentObject`s:
+ - `ObservableKeyboardContext`
+ - `SystemKeyboardStyle`
  */
 public struct SystemKeyboardButtonRow: View {
     

@@ -17,14 +17,22 @@ public extension KeyboardInputViewController {
      
      When this function is called, the input vc will convert
      its `keyboardContext` to an `ObservableKeyboardContext`
-     and provide thesame context to the provided view, as an
-     `@EnvironmentObject` of type `ObservableKeyboardContext`.
+     and provide it to the view as an `@EnvironmentObject`.
+     
+     It will also provide the `SystemKeyboardStyle.standard`
+     style to the view as an `@EnvironmentObject`, to ensure
+     that a standard system keyboard style is defined if you
+     want to create system keyboards. You can change this by
+     just injecting another style after this has been done.
      */
     func setup<Content: View>(with view: Content) {
         self.view.subviews.forEach { $0.removeFromSuperview() }
         let newContext = ObservableKeyboardContext(from: context)
         self.context = newContext
-        let controller = KeyboardHostingController(rootView: view.environmentObject(newContext))
+        let view = view
+            .environmentObject(newContext)
+            .environmentObject(SystemKeyboardStyle.standard)
+        let controller = KeyboardHostingController(rootView: view)
         controller.add(to: self)
     }
 }

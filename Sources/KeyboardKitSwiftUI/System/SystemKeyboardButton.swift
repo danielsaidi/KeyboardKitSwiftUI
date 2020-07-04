@@ -22,6 +22,10 @@ import SwiftUI
  The view applies the `systemKeyboardButtonStyle` as well as
  the `keyboardAction` modifiers. You can use those modifiers
  on custom views, if you do not want to use this view.
+ 
+ The view used the following injected `@EnvironmentObject`s:
+ - `ObservableKeyboardContext`
+ - `SystemKeyboardStyle`
  */
 public struct SystemKeyboardButton: View {
     
