@@ -34,16 +34,6 @@ public extension View {
     }
 }
 
-
-/**
- This is a shared timer for all repeat gestures.
- */
-private class KeyboardGestureTimer {
-    
-    static let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
-}
-
-
 /**
  This view wraps a view then applies keyboard gestures to it.
  It can be applied with the `keyboardGestures` view modifier.
@@ -75,8 +65,10 @@ struct KeyboardGestures<Content: View>: View {
     
     @State private var isRepeatPressActive = false
     
+    private let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+    
     var body: some View {
-        view.onReceive(KeyboardGestureTimer.timer) { _ in self.handleRepeatPress() }
+        view.onReceive(timer) { _ in self.handleRepeatPress() }
             .gesture(TapGesture().onEnded(handleTap))
             .simultaneousGesture(
                 TapGesture(count: 2).onEnded(handleDoubleTap))

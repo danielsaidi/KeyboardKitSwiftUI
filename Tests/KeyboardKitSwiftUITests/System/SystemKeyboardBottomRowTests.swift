@@ -16,6 +16,12 @@ class SystemKeyboardBottomRowTests: QuickSpec {
 
     override func spec() {
         
+        var context: KeyboardContext!
+        
+        beforeEach {
+            context = MockKeyboardContext()
+        }
+        
         describe("system keyboard bottom row") {
             
             it("can be created with the default button builder") {
@@ -41,7 +47,6 @@ class SystemKeyboardBottomRowTests: QuickSpec {
         describe("action collection") {
             
             it("is correctly setup when context needs input mode switch key") {
-                let context = MockKeyboardContext()
                 context.needsInputModeSwitchKey = true
                 let row = SystemKeyboardBottomRow(leftmostAction: .control) { _ in fatalError() }
                 let actions = row.actions(for: context)
@@ -55,7 +60,6 @@ class SystemKeyboardBottomRowTests: QuickSpec {
             }
             
             it("is correctly setup when context doesn't need input mode switch key") {
-                let context = MockKeyboardContext()
                 context.needsInputModeSwitchKey = false
                 let row = SystemKeyboardBottomRow(leftmostAction: .escape) { _ in fatalError() }
                 let actions = row.actions(for: context)
@@ -72,7 +76,6 @@ class SystemKeyboardBottomRowTests: QuickSpec {
         describe("view collection") {
             
             it("is correctly setup when context needs input mode switch key") {
-                let context = MockKeyboardContext()
                 context.needsInputModeSwitchKey = true
                 let row = SystemKeyboardBottomRow(leftmostAction: .control) { _ in fatalError() }
                 let actions = row.actions(for: context)
@@ -81,7 +84,6 @@ class SystemKeyboardBottomRowTests: QuickSpec {
             }
             
             it("is correctly setup when context doesn't need input mode switch key") {
-                let context = MockKeyboardContext()
                 context.needsInputModeSwitchKey = false
                 let row = SystemKeyboardBottomRow(leftmostAction: .escape) { _ in fatalError() }
                 let actions = row.actions(for: context)

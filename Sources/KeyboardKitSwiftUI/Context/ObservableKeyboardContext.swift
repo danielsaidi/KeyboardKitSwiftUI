@@ -22,6 +22,7 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
     
     public init(from context: KeyboardContext) {
         actionHandler = context.actionHandler
+        controller = context.controller
         hasDictationKey = context.hasDictationKey
         hasFullAccess = context.hasFullAccess
         keyboardType = context.keyboardType
@@ -31,12 +32,14 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
         primaryLanguage = context.primaryLanguage
     }
     
+    public var controller: KeyboardInputViewController
+    
     @Published public var actionHandler: KeyboardActionHandler
     @Published public var hasDictationKey: Bool
     @Published public var hasFullAccess: Bool
     @Published public var keyboardType: KeyboardType
     @Published public var needsInputModeSwitchKey: Bool
+    @Published public var primaryLanguage: String?
     @Published public var textDocumentProxy: UITextDocumentProxy
     @Published public var textInputMode: UITextInputMode?
-    @Published public var primaryLanguage: String?
 }

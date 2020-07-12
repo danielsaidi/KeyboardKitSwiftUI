@@ -13,11 +13,13 @@ import UIKit
 class MockKeyboardContext: KeyboardContext {
     
     var actionHandler: KeyboardActionHandler = MockKeyboardActionHandler()
+    var controller: KeyboardInputViewController = KeyboardInputViewController()
     var hasDictationKey = false
     var hasFullAccess = false
     var keyboardType: KeyboardType = .alphabetic(.lowercased)
     var needsInputModeSwitchKey = false
+    var primaryLanguage: String?
     var textDocumentProxy: UITextDocumentProxy = UIInputViewController().textDocumentProxy
     var textInputMode: UITextInputMode?
-    var primaryLanguage: String?
+    var traitCollection: UITraitCollection = .current
 }
