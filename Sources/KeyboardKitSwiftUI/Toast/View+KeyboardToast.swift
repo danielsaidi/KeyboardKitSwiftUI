@@ -12,24 +12,9 @@ public extension View {
 
     /**
      Present a centered toast over the view, using a custom
-     `text` and `background`.
-     */
-    func keyboardToast<Background: View>(
-        isActive: Binding<Bool>,
-        text: String,
-        background: Background,
-        duration: TimeInterval = 2) -> some View {
-        keyboardToast(
-            isActive: isActive,
-            content: Text(text).multilineTextAlignment(.center),
-            background: background,
-            duration: duration
-        )
-    }
-    
-    /**
-     Present a centered toast over the view, using a custom
      `content` view and `background`.
+     
+     This is best used together with `KeyboardToastContext`.
      */
     func keyboardToast<Content: View, Background: View>(
         isActive: Binding<Bool>,

@@ -50,6 +50,7 @@ public struct KeyboardToast<Presenter: View, Content: View, Background: View>: V
             content
                 .padding()
                 .background(background)
+                .opacity(isActive ? 1 : 0)
         }
     }
 }
