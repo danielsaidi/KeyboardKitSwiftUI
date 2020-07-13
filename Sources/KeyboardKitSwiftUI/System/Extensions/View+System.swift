@@ -18,34 +18,17 @@ public extension View {
     
     /**
      Apply the style that a system keyboard button would use
-     for a certain keyboard action, color scheme and context.
+     for a certain keyboard action, context and style.
      */
     func systemKeyboardButtonStyle(
         for action: KeyboardAction,
-        scheme: ColorScheme,
         context: KeyboardContext,
         style: SystemKeyboardStyle) -> some View {
-        self.systemKeyboardButtonStyle(
-            for: action,
-            scheme: scheme,
-            appearance: context.textDocumentProxy.keyboardAppearance ?? .default,
-            style: style)
-    }
-    
-    /**
-     Apply the style that a system keyboard button would use
-     for a certain action, color scheme and appearance.
-     */
-    func systemKeyboardButtonStyle(
-        for action: KeyboardAction,
-        scheme: ColorScheme,
-        appearance: UIKeyboardAppearance,
-        style: SystemKeyboardStyle) -> some View {
-        self.systemKeyboardButtonForeground(forScheme: scheme, appearance: appearance)
-            .systemKeyboardButtonFrame(style: style)
-            .systemKeyboardButtonBackground(for: action, scheme: scheme, appearance: appearance)
-            .systemKeyboardButtonCornerRadius(style: style)
-            .systemKeyboardButtonShadow(forScheme: scheme, appearance: appearance)
+        self.systemKeyboardButtonForeground(for: context)
+            .systemKeyboardButtonFrame(for: style)
+            .systemKeyboardButtonBackground(for: action, context: context)
+            .systemKeyboardButtonCornerRadius(for: style)
+            .systemKeyboardButtonShadow(for: context)
             .systemKeyboardButtonFont(for: action)
     }
 }
@@ -57,13 +40,11 @@ public extension View {
     
     func systemKeyboardButtonBackground(
         for action: KeyboardAction,
-        scheme: ColorScheme,
-        appearance: UIKeyboardAppearance) -> some View {
-        let color = action.systemKeyboardButtonBackgroundColor(forScheme: scheme, appearance: appearance)
-        return self.background(color)
+        context: KeyboardContext) -> some View {
+        background(action.systemKeyboardButtonBackgroundColor(for: context))
     }
     
-    func systemKeyboardButtonCornerRadius(style: SystemKeyboardStyle)  -> some View {
+    func systemKeyboardButtonCornerRadius(for style: SystemKeyboardStyle)  -> some View {
         cornerRadius(style.buttonCornerRadius)
     }
     
@@ -71,17 +52,17 @@ public extension View {
         font(Font(action.systemFont))
     }
     
-    func systemKeyboardButtonForeground(forScheme scheme: ColorScheme, appearance: UIKeyboardAppearance) -> some View {
-        foregroundColor(.systemKeyboardButtonForegroundColor(forScheme: scheme, appearance: appearance))
+    func systemKeyboardButtonForeground(for context: KeyboardContext) -> some View {
+        foregroundColor(.systemKeyboardButtonForegroundColor(for: context))
     }
     
-    func systemKeyboardButtonFrame(style: SystemKeyboardStyle)  -> some View {
+    func systemKeyboardButtonFrame(for style: SystemKeyboardStyle)  -> some View {
         self.frame(height: style.buttonHeight)
             .frame(maxWidth: .infinity)
     }
     
-    func systemKeyboardButtonShadow(forScheme scheme: ColorScheme, appearance: UIKeyboardAppearance) -> some View {
-        let color = Color.systemKeyboardButtonShadowColor(forScheme: scheme, appearance: appearance)
+    func systemKeyboardButtonShadow(for context: KeyboardContext) -> some View {
+        let color = Color.systemKeyboardButtonShadowColor(for: context)
         return self.shadow(color: color, radius: 0, x: 0, y: 1)
     }
 }

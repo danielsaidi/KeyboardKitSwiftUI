@@ -20,11 +20,9 @@ public extension Color {
      The background color used by a dark system button for a
      certain color scheme and keyboard appearance.
      */
-    static func systemKeyboardButtonBackgroundColorDark(
-        forScheme scheme: ColorScheme,
-        appearance: UIKeyboardAppearance) -> Color {
-        if scheme == .dark { return systemKeyboardButtonBackgroundColorDarkForDarkColorScheme }
-        if appearance == .dark { return systemKeyboardButtonBackgroundColorDarkForLightColorSchemeAndDarkKeyboardAppearance }
+    static func systemKeyboardButtonBackgroundColorDark(for context: KeyboardContext) -> Color {
+        if context.userInterfaceStyle == .dark { return systemKeyboardButtonBackgroundColorDarkForDarkColorScheme }
+        if context.keyboardAppearance == .dark { return systemKeyboardButtonBackgroundColorDarkForLightColorSchemeAndDarkKeyboardAppearance }
         return systemKeyboardButtonBackgroundColorDarkForLightColorSchemeAndLightKeyboardAppearance
     }
     
@@ -32,11 +30,9 @@ public extension Color {
      The background color used by a light system button, for
      a certain color scheme and keyboard appearance.
      */
-    static func systemKeyboardButtonBackgroundColorLight(
-        forScheme scheme: ColorScheme,
-        appearance: UIKeyboardAppearance) -> Color {
-        if scheme == .dark { return systemKeyboardButtonBackgroundColorLightForDarkColorScheme }
-        if appearance == .dark { return systemKeyboardButtonBackgroundColorLightForLightColorSchemeAndDarkKeyboardAppearance }
+    static func systemKeyboardButtonBackgroundColorLight(for context: KeyboardContext) -> Color {
+        if context.userInterfaceStyle == .dark { return systemKeyboardButtonBackgroundColorLightForDarkColorScheme }
+        if context.keyboardAppearance == .dark { return systemKeyboardButtonBackgroundColorLightForLightColorSchemeAndDarkKeyboardAppearance }
         return systemKeyboardButtonBackgroundColorLightForLightColorSchemeAndLightKeyboardAppearance
     }
     
@@ -44,15 +40,15 @@ public extension Color {
      The foreground color used by a system button, given the
      provided color scheme and keyboard appearance.
      */
-    static func systemKeyboardButtonForegroundColor(forScheme scheme: ColorScheme, appearance: UIKeyboardAppearance) -> Color {
-        if scheme == .light && appearance == .dark { return .white }
+    static func systemKeyboardButtonForegroundColor(for context: KeyboardContext) -> Color {
+        if context.userInterfaceStyle == .light && context.keyboardAppearance == .dark { return .white }
         return .primary
     }
     
     /**
      The shadow color used by a system button.
      */
-    static func systemKeyboardButtonShadowColor(forScheme scheme: ColorScheme, appearance: UIKeyboardAppearance) -> Color {
+    static func systemKeyboardButtonShadowColor(for context: KeyboardContext) -> Color {
         Color.black.opacity(0.3)
     }
 }

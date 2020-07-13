@@ -20,16 +20,10 @@ public extension KeyboardAction {
      The background color used by a system button, given the
      action, provided color scheme and keyboard appearance.
      */
-    func systemKeyboardButtonBackgroundColor(
-        forScheme scheme: ColorScheme,
-        appearance: UIKeyboardAppearance) -> Color {
-        if case .emoji = self {
-            return .clearInteractable
-        } else if isSystemAction {
-            return .systemKeyboardButtonBackgroundColorDark(forScheme: scheme, appearance: appearance)
-        } else {
-            return .systemKeyboardButtonBackgroundColorLight(forScheme: scheme, appearance: appearance)
-        }
+    func systemKeyboardButtonBackgroundColor(for context: KeyboardContext) -> Color {
+        if case .emoji = self { return .clearInteractable }
+        if isSystemAction { return .systemKeyboardButtonBackgroundColorDark(for: context) }
+        return .systemKeyboardButtonBackgroundColorLight(for: context)
     }
     
     /**
@@ -60,10 +54,8 @@ public extension KeyboardAction {
      The shadow color used by a system button for the action
      action, provided color scheme and keyboard appearance.
      */
-    func systemKeyboardButtonShadowColor(
-        forScheme scheme: ColorScheme,
-        appearance: UIKeyboardAppearance) -> Color {
+    func systemKeyboardButtonShadowColor(for context: KeyboardContext) -> Color {
         if case .emoji = self { return .clear }
-        return .systemKeyboardButtonShadowColor(forScheme: scheme, appearance: appearance)
+        return .systemKeyboardButtonShadowColor(for: context)
     }
 }

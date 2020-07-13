@@ -22,15 +22,8 @@ class View_SystemKeyboardStylesTests: QuickSpec {
         
         describe("system keyboard button style") {
             
-            it("is defined for context") {
-                let result = Text("")
-                    .systemKeyboardButtonStyle(for: .backspace, scheme: .dark, context: context, style: .standard)
-                expect(result).toNot(beNil())
-            }
-            
-            it("is defined for appearance") {
-                let result = Text("")
-                    .systemKeyboardButtonStyle(for: .backspace, scheme: .dark, appearance: .dark, style: .standard)
+            it("is defined") {
+                let result = Text("").systemKeyboardButtonStyle(for: .backspace, context: context, style: .standard)
                 expect(result).toNot(beNil())
             }
         }
@@ -38,7 +31,7 @@ class View_SystemKeyboardStylesTests: QuickSpec {
         describe("system keyboard button background") {
             
             it("is defined") {
-                let background = Text("").systemKeyboardButtonBackground(for: .backspace, scheme: .dark, appearance: .light)
+                let background = Text("").systemKeyboardButtonBackground(for: .backspace, context: context)
                 expect(background).toNot(beNil())
             }
         }
@@ -46,7 +39,7 @@ class View_SystemKeyboardStylesTests: QuickSpec {
         describe("system keyboard button corner radius") {
             
             it("is defined") {
-                let value = Text("").systemKeyboardButtonCornerRadius(style: .standard)
+                let value = Text("").systemKeyboardButtonCornerRadius(for: .standard)
                 expect(value).toNot(beNil())
             }
         }
@@ -62,7 +55,7 @@ class View_SystemKeyboardStylesTests: QuickSpec {
         describe("system keyboard button foreground") {
             
             it("is defined") {
-                let Foreground = Text("").systemKeyboardButtonForeground(forScheme: .dark, appearance: .light)
+                let Foreground = Text("").systemKeyboardButtonForeground(for: context)
                 expect(Foreground).toNot(beNil())
             }
         }
@@ -70,7 +63,7 @@ class View_SystemKeyboardStylesTests: QuickSpec {
         describe("system keyboard button frame") {
             
             it("is defined") {
-                let value = Text("").systemKeyboardButtonFrame(style: .standard)
+                let value = Text("").systemKeyboardButtonFrame(for: .standard)
                 expect(value).toNot(beNil())
             }
         }
@@ -78,7 +71,7 @@ class View_SystemKeyboardStylesTests: QuickSpec {
         describe("system keyboard button shadow") {
             
             it("is defined") {
-                let value = Text("").systemKeyboardButtonShadow(forScheme: .dark, appearance: .light)
+                let value = Text("").systemKeyboardButtonShadow(for: context)
                 expect(value).toNot(beNil())
             }
         }

@@ -48,7 +48,7 @@ public struct SystemKeyboardButton: View {
     
     public var body: some View {
         buttonContent
-            .systemKeyboardButtonStyle(for: action, scheme: colorScheme, context: context, style: style)
+            .systemKeyboardButtonStyle(for: action, context: context, style: style)
             .keyboardAction(action, context: context)
     }
 }

@@ -18,6 +18,10 @@ class Action_SystemTests: QuickSpec {
         
         let actions = KeyboardAction.testActions
         
+        func context(_ userInterfaceStyle: UIUserInterfaceStyle, _ keyboardAppearance: UIKeyboardAppearance) -> KeyboardContext {
+            MockKeyboardContext(userInterfaceStyle, keyboardAppearance)
+        }
+        
         var expected: [KeyboardAction]! {
             didSet {
                 unexpected = actions
@@ -39,20 +43,20 @@ class Action_SystemTests: QuickSpec {
             it("is uses a dark button for system actions, else light") {
                 KeyboardAction.testActions.forEach {
                     if case .emoji = $0 {
-                        expect($0.systemKeyboardButtonBackgroundColor(forScheme: .dark, appearance: .dark)).to(equal(.clearInteractable))
-                        expect($0.systemKeyboardButtonBackgroundColor(forScheme: .dark, appearance: .light)).to(equal(.clearInteractable))
-                        expect($0.systemKeyboardButtonBackgroundColor(forScheme: .light, appearance: .dark)).to(equal(.clearInteractable))
-                        expect($0.systemKeyboardButtonBackgroundColor(forScheme: .light, appearance: .light)).to(equal(.clearInteractable))
+                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .dark))).to(equal(.clearInteractable))
+                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .light))).to(equal(.clearInteractable))
+                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .dark))).to(equal(.clearInteractable))
+                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .light))).to(equal(.clearInteractable))
                     } else if $0.isSystemAction {
-                        expect($0.systemKeyboardButtonBackgroundColor(forScheme: .dark, appearance: .dark)).to(equal(.systemKeyboardButtonBackgroundColorDarkForDarkColorScheme))
-                        expect($0.systemKeyboardButtonBackgroundColor(forScheme: .dark, appearance: .light)).to(equal(.systemKeyboardButtonBackgroundColorDarkForDarkColorScheme))
-                        expect($0.systemKeyboardButtonBackgroundColor(forScheme: .light, appearance: .dark)).to(equal(.systemKeyboardButtonBackgroundColorDarkForLightColorSchemeAndDarkKeyboardAppearance))
-                        expect($0.systemKeyboardButtonBackgroundColor(forScheme: .light, appearance: .light)).to(equal(.systemKeyboardButtonBackgroundColorDarkForLightColorSchemeAndLightKeyboardAppearance))
+                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .dark))).to(equal(.systemKeyboardButtonBackgroundColorDarkForDarkColorScheme))
+                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .light))).to(equal(.systemKeyboardButtonBackgroundColorDarkForDarkColorScheme))
+                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .dark))).to(equal(.systemKeyboardButtonBackgroundColorDarkForLightColorSchemeAndDarkKeyboardAppearance))
+                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .light))).to(equal(.systemKeyboardButtonBackgroundColorDarkForLightColorSchemeAndLightKeyboardAppearance))
                     } else {
-                        expect($0.systemKeyboardButtonBackgroundColor(forScheme: .dark, appearance: .dark)).to(equal(.systemKeyboardButtonBackgroundColorLightForDarkColorScheme))
-                        expect($0.systemKeyboardButtonBackgroundColor(forScheme: .dark, appearance: .light)).to(equal(.systemKeyboardButtonBackgroundColorLightForDarkColorScheme))
-                        expect($0.systemKeyboardButtonBackgroundColor(forScheme: .light, appearance: .dark)).to(equal(.systemKeyboardButtonBackgroundColorLightForLightColorSchemeAndDarkKeyboardAppearance))
-                        expect($0.systemKeyboardButtonBackgroundColor(forScheme: .light, appearance: .light)).to(equal(.systemKeyboardButtonBackgroundColorLightForLightColorSchemeAndLightKeyboardAppearance))
+                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .dark))).to(equal(.systemKeyboardButtonBackgroundColorLightForDarkColorScheme))
+                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .light))).to(equal(.systemKeyboardButtonBackgroundColorLightForDarkColorScheme))
+                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .dark))).to(equal(.systemKeyboardButtonBackgroundColorLightForLightColorSchemeAndDarkKeyboardAppearance))
+                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .light))).to(equal(.systemKeyboardButtonBackgroundColorLightForLightColorSchemeAndLightKeyboardAppearance))
                     }
                 }
             }
@@ -98,7 +102,7 @@ class Action_SystemTests: QuickSpec {
         describe("system keyboard button shadow color") {
             
             func result(for action: KeyboardAction) -> Color {
-                action.systemKeyboardButtonShadowColor(forScheme: .dark, appearance: .dark)
+                action.systemKeyboardButtonShadowColor(for: context(.dark, .dark))
             }
             
             it("is clear for emoji, not others") {
