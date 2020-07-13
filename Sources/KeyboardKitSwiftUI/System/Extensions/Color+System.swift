@@ -10,9 +10,25 @@ import KeyboardKit
 import SwiftUI
 
 /**
- The "system" extensions are just suggestions if you want to
- mimic system keyboards. You do not have to use them in your
- custom keyboards.
+ These colors can be used to mimic the system keyboards. You
+ don't have to use them in your custom keyboards.
+ 
+ `IMPORTANT BUG` The `KeyboardContext`s `userInterfaceStyle`
+ is incorrect when `keyboardAppearance` is `.dark` while the
+ device runs in light mode. iOS will then setup the keyboard
+ to run in dark mode while the system runs in light, causing
+ `userInterfaceStyle` to become `.dark` instead of `.light`.
+ This causes these extensions to return the incorrect result,
+ since dark appearance in light mode shouldn't look the same
+ as any appearance in dark mode. You can see this bug if you
+ run the demo app and open the SwiftUI demo keyboard using a
+ text field that requires dark appearance. The keyboard will
+ incorrectly apply dark mode colors on its buttons while the
+ background (managed by the system) uses the dark appearance
+ background color.
+ 
+ Bug info (also reported to Apple in Feedback Assistant):
+ https://github.com/danielsaidi/KeyboardKit/issues/107
  */
 public extension Color {
     
