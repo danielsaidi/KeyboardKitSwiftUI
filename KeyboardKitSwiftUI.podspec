@@ -1,4 +1,4 @@
-# Run `pod lib lint KeyboardKitSwiftUI.podspec' to ensure this is a valid spec.
+# Run `pod lib lint' to ensure this is a valid spec.
 
 Pod::Spec.new do |s|
   s.name             = 'KeyboardKitSwiftUI'
@@ -20,5 +20,5 @@ KeyboardKitSwiftUI makes it possible to build custom keyboard extensions in Swif
   s.ios.deployment_target = '13.0'
   s.source_files = 'Sources/KeyboardKitSwiftUI/**/*.swift'
 
-  s.dependency 'KeyboardKit', '~> 2.9.0'
+  s.dependency 'KeyboardKit', '~> 3.0.0'
 end
