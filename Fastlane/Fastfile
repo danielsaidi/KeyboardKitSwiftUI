@@ -14,13 +14,27 @@ platform :ios do
   end
 
 
+  # Lint =======================
+  
+  desc "Run linting"
+  lane :lint do
+    swiftlint(strict: true)
+  end
+
+
   # Test =======================
   
   desc "Run unit tests"
   lane :test do
-    swiftlint(strict: true)
-    resolve_dependencies
-    run_tests(scheme: "KeyboardKitSwiftUI")
+    # Note: Since UIKit tests must be run from a project and
+    # this project has no such project, we instead prompt to
+    # ask the developers to confirm that tests have been run.
+    # resolve_dependencies
+    # run_tests(scheme: "KeyboardKit")
+    confirm = prompt(text: "Have you successfully run all unit tests? [y/n]: ")
+    if confirm != "y"
+        UI.user_error!("You must run all unit tests before releasing a new version!")
+    end
   end
 
 
@@ -30,7 +44,8 @@ platform :ios do
   lane :version do |options|
     ensure_git_status_clean
     ensure_git_branch(branch: 'master')
-    #test
+    lint
+    test
 
     bump_type = options[:type]
     if bump_type == nil or bump_type.empty?
@@ -38,7 +53,7 @@ platform :ios do
     end
     
     version = version_bump_podspec(path: "KeyboardKitSwiftUI.podspec", bump_type: bump_type)
-    # increment_version_number(version_number: version)
+    increment_version_number(version_number: version)
   
     git_commit(
       path: "*",
