@@ -5,17 +5,24 @@
 
 This version adds a bunch of extended iOS13/SwiftUI/Combine-specific logic.
 
+There are a lot more not covered in these release notes or in the readme, but I've tried to apply most things in the demo.
+
+* `ObservableKeyboardContext` contains more information.
 * `Image+Keyboard` contains more keyboard-specific icons. 
 * `KeyboardGridRow` has been deleted and replaced with an `HStack`.
 * `KeyboardSetting` can resolve a unique key for an `Identifiable` context.
 * `PersistedKeyboardSetting` can resolve a unique key for an `Identifiable` context.
 
 The new `Gestures` and `System` namespace help you build native-imitating keyboards:
-* Use `keyboardAction` view modifier to apply action-specific gestures to any view.
-* Use `systemKeyboardButtonStyle` to apply a system keyboard button look to any view.
+
+* `View+keyboardAction` applies keyboard action-specific gestures to any view.
+* `View+keyboardGestures` applies keyboard-specific gestures to any view.
+* The various `+system` extensions apply a system keyboard logic to various types.
+
 * You can also use the many extensions within these namespaces to build custom views.
 
-There are new keyboard views:
+There are new `System` mimicking keyboard views:
+
 * `SystemKeyboardBottomRow` mimics the bottommost row in a system keyboard.
 * `SystemKeyboardButton` mimics a system keyboard button.
 * `SystemKeyboardButtonRow` mimics a row in a system keyboard.
@@ -24,6 +31,8 @@ There are new keyboard views:
 * `AlphabeticSystemKeyboard` mimics an alphabetical system keyboard.
 * `NumericSystemKeyboard` mimics a numeric system keyboard.
 * `SymbolicSystemKeyboard` mimics a symbolic system keyboard.
+
+There is a new `Toast` namespace that contains utils to show toast messages above a keyboard. 
 
 Breaking changes:
 * `View` `withClearInteractableBackground` has been renamed to `clearInteractableBackground`. 
