@@ -53,7 +53,7 @@ platform :ios do
     end
     
     version = version_bump_podspec(path: "KeyboardKitSwiftUI.podspec", bump_type: bump_type)
-    increment_version_number(version_number: version)
+    # increment_version_number(version_number: version)
   
     git_commit(
       path: "*",
