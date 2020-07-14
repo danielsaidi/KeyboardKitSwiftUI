@@ -20,7 +20,6 @@ import SwiftUI
  default, it will use the `standardButtonBuilder`.
  
  The view used the following injected `@EnvironmentObject`s:
- - `ObservableKeyboardContext`
  - `SystemKeyboardStyle`
  */
 public struct SystemKeyboardButtonRow: View {
@@ -37,8 +36,6 @@ public struct SystemKeyboardButtonRow: View {
     private let actions: KeyboardActionRow
     private let buttonBuilder: ButtonBuilder
 
-    @Environment(\.colorScheme) private var colorScheme: ColorScheme
-    @EnvironmentObject private var context: ObservableKeyboardContext
     @EnvironmentObject private var style: SystemKeyboardStyle
     
     public var body: some View {
@@ -51,7 +48,11 @@ public struct SystemKeyboardButtonRow: View {
 }
 
 public extension SystemKeyboardButtonRow {
-    
+
+    /**
+     The standard button builder that is used as fallback if
+     no custom button builder is provided.
+     */
     static func standardButtonBuilder() -> ButtonBuilder {
         return { AnyView(SystemKeyboardButton(action: $0)) }
     }

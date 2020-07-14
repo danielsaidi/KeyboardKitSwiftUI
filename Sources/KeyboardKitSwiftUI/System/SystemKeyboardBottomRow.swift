@@ -11,38 +11,36 @@ import SwiftUI
 
 /**
  This view mimicks a system keyboard bottom row that is used
- for alphabetic, numeric and symbolic system keyboards.
+ for alphabetic, numeric and symbolic keyboards.
  
- You can provide this view with a custom `leftmostAction` as
- well as a custom `buttonBuilder`. By default, it will use a
- `.none` action and the `standardButtonBuilder`.
+ It has a space bar in its center, and will add any provided
+ `leftmostActions` and `rightmostActions` next to it.
  
- The view used the following injected `@EnvironmentObject`s:
- - `ObservableKeyboardContext`
- - `SystemKeyboardStyle`
+ You can provide a custom `buttonBuilder` to customize how a
+ view is generated for an action. `standardButtonBuilder` is
+ used if you don't provide a custom builder.
  */
 public struct SystemKeyboardBottomRow: View {
     
     public init(
-        leftmostAction: KeyboardAction,
+        leftmostActions: [KeyboardAction],
+        rightmostActions: [KeyboardAction],
         buttonBuilder: @escaping ButtonBuilder = Self.standardButtonBuilder()) {
-        self.leftmostAction = leftmostAction
+        self.actions = leftmostActions + [.space] + rightmostActions
         self.buttonBuilder = buttonBuilder
     }
     
     public typealias ButtonBuilder = (KeyboardAction) -> AnyView
     
+    let actions: [KeyboardAction]
     private let buttonBuilder: ButtonBuilder
-    private let leftmostAction: KeyboardAction
 
-    @Environment(\.colorScheme) private var colorScheme: ColorScheme
-    @EnvironmentObject private var context: ObservableKeyboardContext
     @EnvironmentObject private var style: SystemKeyboardStyle
     @State private var viewSize: CGSize = .zero
     
     public var body: some View {
         HStack(spacing: style.buttonSpacing) {
-            ForEach(Array(views(for: context).enumerated()), id: \.offset) {
+            ForEach(Array(actionViews.enumerated()), id: \.offset) {
                 $0.element
             }
         }.bindSize(to: $viewSize)
@@ -51,6 +49,30 @@ public struct SystemKeyboardBottomRow: View {
 
 public extension SystemKeyboardBottomRow {
     
+    /**
+     A `SystemKeyboardBottomRow` with just a space bar.
+     */
+    static var empty: SystemKeyboardBottomRow {
+        SystemKeyboardBottomRow(leftmostActions: [], rightmostActions: [])
+    }
+    
+    /**
+     A standard `SystemKeyboardBottomRow` that has a certain
+     `leftAction`, given a certain context.
+     */
+    static func standard(
+        for context: KeyboardContext,
+        leftmostAction: KeyboardAction) -> SystemKeyboardBottomRow {
+        SystemKeyboardBottomRow(
+            leftmostActions: standardLeftmostActions(for: context, leftAction: leftmostAction),
+            rightmostActions: standardRightmostActions(for: context)
+        )
+    }
+    
+    /**
+     The standard button builder that is used when no custom
+     builder is provided.
+     */
     static func standardButtonBuilder(
         emojiFallbackText: String = "☺") -> ButtonBuilder {
         return { action in
@@ -59,22 +81,42 @@ public extension SystemKeyboardBottomRow {
             return AnyView(SystemKeyboardButton(action: action, text: text))
         }
     }
+    
+    /**
+     The standard leftmost actions, given a certain context.
+     
+     `leftAction` will always be applied, while `rightAction`
+     will replaced by `nextKeyboard` if the context requires
+     an `inputModeSwitchKey`.
+     */
+    static func standardLeftmostActions(
+        for context: KeyboardContext,
+        leftAction: KeyboardAction,
+        rightAction: KeyboardAction = .keyboardType(.emojis)) -> [KeyboardAction] {
+        var result = [leftAction]
+        result.append(context.needsInputModeSwitchKey ? .nextKeyboard : rightAction)
+        return result
+    }
+    
+    /**
+     The standard rightmost actions, given a certain context.
+     
+     `rightAction` will always be applied, while `leftAction`
+     will only applied if `needsInputModeSwitchKey` is `true`.
+     */
+    static func standardRightmostActions(
+        for context: KeyboardContext,
+        leftAction: KeyboardAction = .character("."),
+        rightAction: KeyboardAction = .newLine) -> [KeyboardAction] {
+        if context.needsInputModeSwitchKey { return [leftAction, rightAction] }
+        return [rightAction]
+    }
 }
 
 extension SystemKeyboardBottomRow {
     
-    func actions(for context: KeyboardContext) -> [KeyboardAction] {
-        let hasNextKeyboard = context.needsInputModeSwitchKey
-        var result = [leftmostAction]
-        result.append(hasNextKeyboard ? .nextKeyboard : .keyboardType(.emojis))
-        result.append(.space)
-        result.append(hasNextKeyboard ? .keyboardType(.emojis) : .keyboardType(.images))
-        result.append(.newLine)
-        return result
-    }
-    
-    func views(for context: KeyboardContext) -> [AnyView] {
-        actions(for: context).map {
+    var actionViews: [AnyView] {
+        actions.map {
             let view = buttonBuilder($0)
             guard $0 == .space else { return AnyView(view) }
             let width = style.bottomRowSpacePercentage

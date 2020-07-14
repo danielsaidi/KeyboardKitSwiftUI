@@ -16,31 +16,33 @@ class NumericSystemKeyboardTests: QuickSpec {
 
     override func spec() {
         
+        let context = MockKeyboardContext()
+        
         describe("numeric system keyboard") {
             
-            it("can be created with English input set") {
-                let view = NumericSystemKeyboard(
-                    inputSet: .englishNumeric)
-                expect(view).toNot(beNil())
+            func view(set: NumericKeyboardInputSet) -> some View {
+                NumericSystemKeyboard(
+                    context: context,
+                    inputSet: set,
+                    customBottomRow: .empty)
             }
             
-            it("can be created with optional topmost view") {
+            it("can be created with English input set") {
+                expect(view(set: .englishNumeric)).toNot(beNil())
+            }
+            
+            it("can be created with optional views and actions") {
                 let view = NumericSystemKeyboard(
+                    context: context,
                     inputSet: .englishNumeric,
-                    topmostView: AnyView(Text("Hello")))
+                    topmostView: AnyView(Text("Hello")),
+                    customBottomRow: .empty)
                 expect(view).toNot(beNil())
             }
             
             it("fails if input set has less than 3 rows") {
                 let set = NumericKeyboardInputSet(inputRows: [["1"], ["2"]])
-                expect({ _ = NumericSystemKeyboard(inputSet: set) }())
-                    .to(throwAssertion())
-            }
-            
-            it("fails if input set has more than 3 rows") {
-                let set = NumericKeyboardInputSet(inputRows: [["1"], ["2"], ["3"], ["4"]])
-                expect({ _ = NumericSystemKeyboard(inputSet: set) }())
-                    .to(throwAssertion())
+                expect({ _ = view(set: set) }()).to(throwAssertion())
             }
         }
     }

@@ -14,26 +14,30 @@ import KeyboardKit
  of input actions, a bottom bar and an optional topmost view.
  
  The view takes an `inputSet`, which determines which inputs
- the keyboard will have and an optional `topmostView`, which
- will be added as a topmost toolbar.
+ the keyboard will have, an optional `topmostView` that will
+ be added topmost, as well as an optional `customBottomRow`,
+ that will replace the standard bottom row if provided.
  
- `IMPORTANT` This is not flexible enough to be correct for a
- lot of countries, since I have just based it on English and
- Swedish keyboards. If it doesn't meet your needs, please do
- let me know how to make a more universally viable approach.
+ `IMPORTANT` This is not yet flexible enough to be used with
+ a lot of countries, since the actions surrounding the input
+ set actions can't be modified.
  */
 public struct NumericSystemKeyboard: View {
     
     public init(
+        context: KeyboardContext,
         inputSet: NumericKeyboardInputSet,
-        topmostView: AnyView? = nil) {
-        assert(inputSet.inputRows.count == 3, "inputSet must contain 3 rows")
+        topmostView: AnyView? = nil,
+        customBottomRow: SystemKeyboardBottomRow? = nil) {
+        assert(inputSet.inputRows.count > 2, "inputSet must contain at least rows")
         self.rows = KeyboardActionRows(characters: inputSet.inputRows)
         self.topmostView = topmostView
+        self.bottomRow = customBottomRow ?? .standard(for: context, leftmostAction: .keyboardType(.alphabetic(.lowercased)))
     }
     
     private let rows: KeyboardActionRows
     private let topmostView: AnyView?
+    private var bottomRow: SystemKeyboardBottomRow!
     
     @EnvironmentObject private var style: SystemKeyboardStyle
     
@@ -47,7 +51,7 @@ public struct NumericSystemKeyboard: View {
                 SystemKeyboardButtonRow(actions: rows[2])
                 SystemKeyboardButton(action: .backspace).frame(width: style.backspaceWidth)
             }
-            SystemKeyboardBottomRow(leftmostAction: .keyboardType(.alphabetic(.lowercased)))
+            bottomRow
         }
     }
 }

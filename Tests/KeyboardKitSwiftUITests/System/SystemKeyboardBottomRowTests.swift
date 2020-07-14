@@ -15,22 +15,49 @@ import SwiftUI
 class SystemKeyboardBottomRowTests: QuickSpec {
 
     override func spec() {
-        
-        var context: KeyboardContext!
+
+        var context: MockKeyboardContext!
         
         beforeEach {
             context = MockKeyboardContext()
         }
         
+        describe("standard bottom row") {
+            
+            it("applies the provided left action") {
+                let row = SystemKeyboardBottomRow.standard(for: context, leftmostAction: .command)
+                let actions = row.actions
+                expect(actions).to(equal([.command, .keyboardType(.emojis), .space, .newLine]))
+            }
+            
+            it("applies right action if one is provided") {
+                let actions = SystemKeyboardBottomRow.standardLeftmostActions(for: context, leftAction: .control, rightAction: .command)
+                expect(actions).to(equal([.control, .command]))
+            }
+            
+            it("replaces right action if context needs input mode switch key") {
+                context.needsInputModeSwitchKey = true
+                let actions = SystemKeyboardBottomRow.standardLeftmostActions(for: context, leftAction: .dictation, rightAction: .command)
+                expect(actions).to(equal([.dictation, .nextKeyboard]))
+            }
+        }
+        
         describe("system keyboard bottom row") {
             
+            it("generates the correct action collection") {
+                let row = SystemKeyboardBottomRow(
+                    leftmostActions: [.backspace],
+                    rightmostActions: [.command])
+                expect(row.actions).to(equal([.backspace, .space, .command]))
+            }
+            
             it("can be created with the default button builder") {
-                let row = SystemKeyboardBottomRow(leftmostAction: .command) { _ in AnyView(Text("HEJ")) }
+                let row = SystemKeyboardBottomRow(leftmostActions: [], rightmostActions: [])
                 expect(row).toNot(beNil())
             }
             
             it("can be created with a custom button builder") {
-                let row = SystemKeyboardBottomRow(leftmostAction: .command) { _ in AnyView(Text("HEJ")) }
+                let row = SystemKeyboardBottomRow(leftmostActions: [], rightmostActions: []) { _ in AnyView(Text("HEJ")) }
                 expect(row).toNot(beNil())
             }
         }
@@ -44,51 +71,50 @@ class SystemKeyboardBottomRowTests: QuickSpec {
             }
         }
         
-        describe("action collection") {
+        describe("standard leftmost actions") {
             
-            it("is correctly setup when context needs input mode switch key") {
-                context.needsInputModeSwitchKey = true
-                let row = SystemKeyboardBottomRow(leftmostAction: .control) { _ in fatalError() }
-                let actions = row.actions(for: context)
-                expect(actions).to(equal([
-                    .control,
-                    .nextKeyboard,
-                    .space,
-                    .keyboardType(.emojis),
-                    .newLine
-                ]))
+            it("applies the default right action if none is provided") {
+                let actions = SystemKeyboardBottomRow.standardLeftmostActions(for: context, leftAction: .backspace)
+                expect(actions).to(equal([.backspace, .keyboardType(.emojis)]))
             }
             
-            it("is correctly setup when context doesn't need input mode switch key") {
-                context.needsInputModeSwitchKey = false
-                let row = SystemKeyboardBottomRow(leftmostAction: .escape) { _ in fatalError() }
-                let actions = row.actions(for: context)
-                expect(actions).to(equal([
-                    .escape,
-                    .keyboardType(.emojis),
-                    .space,
-                    .keyboardType(.images),
-                    .newLine
-                ]))
+            it("applies right action if one is provided") {
+                let actions = SystemKeyboardBottomRow.standardLeftmostActions(for: context, leftAction: .control, rightAction: .command)
+                expect(actions).to(equal([.control, .command]))
+            }
+            
+            it("replaces right action if context needs input mode switch key") {
+                context.needsInputModeSwitchKey = true
+                let actions = SystemKeyboardBottomRow.standardLeftmostActions(for: context, leftAction: .dictation, rightAction: .command)
+                expect(actions).to(equal([.dictation, .nextKeyboard]))
             }
         }
         
-        describe("view collection") {
+        describe("standard rightmost actions") {
             
-            it("is correctly setup when context needs input mode switch key") {
+            beforeEach {
                 context.needsInputModeSwitchKey = true
-                let row = SystemKeyboardBottomRow(leftmostAction: .control) { _ in fatalError() }
-                let actions = row.actions(for: context)
-                let views = row.actions(for: context)
-                expect(views.count).to(equal(actions.count))
             }
             
-            it("is correctly setup when context doesn't need input mode switch key") {
+            it("applies the default actions if none is provided") {
+                let actions = SystemKeyboardBottomRow.standardRightmostActions(for: context)
+                expect(actions).to(equal([.character("."), .newLine]))
+            }
+            
+            it("applies left action if one is provided") {
+                let actions = SystemKeyboardBottomRow.standardRightmostActions(for: context, leftAction: .control)
+                expect(actions).to(equal([.control, .newLine]))
+            }
+            
+            it("applies right action if one is provided") {
+                let actions = SystemKeyboardBottomRow.standardRightmostActions(for: context, rightAction: .command)
+                expect(actions).to(equal([.character("."), .command]))
+            }
+            
+            it("ignores left action if context does not need input mode switch key") {
                 context.needsInputModeSwitchKey = false
-                let row = SystemKeyboardBottomRow(leftmostAction: .escape) { _ in fatalError() }
-                let actions = row.actions(for: context)
-                let views = row.actions(for: context)
-                expect(views.count).to(equal(actions.count))
+                let actions = SystemKeyboardBottomRow.standardRightmostActions(for: context, rightAction: .command)
+                expect(actions).to(equal([.command]))
             }
         }
     }
