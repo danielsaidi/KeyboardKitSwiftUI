@@ -19,21 +19,35 @@
 
 `KeyboardKitSwiftUI` extends [KeyboardKit][KeyboardKit] with `SwiftUI` functionality. 
 
-It's temporarily a separate framework, since Xcode can't handle iOS 13 features in a framework that targets iOS 11. When this is fixed, this library will be added to `KeyboardKit`.
+It's temporarily a separate framework, since Xcode can't handle iOS 13 features in a framework that targets iOS 11. 
+
+When this is fixed or this project stops supporting iOS 11 and 12, this library will be added to `KeyboardKit`.
 
 
-## SwiftUI
+## SwiftUI Support
 
-`KeyboardKitSwiftUI` has tools and views that help you build `KeyboardKit`-based keyboard extensions in SwiftUI.
+`KeyboardKitSwiftUI` has helps you build `KeyboardKit`-based keyboard extensions in SwiftUI.
 
-To setup a custom keyboard to be used with `SwiftUI`, import `KeyboardKitSwiftUI` and set up your input view controller with `setup<Content: View>(with view: Content)`. It takes a custom `SwiftUI` `View` and will use this view to resize the extension.
+To setup a keyboard extension to use `KeyboardKitSwiftUI`, and set up your input view controller with  `setup<Content: View>(with view: Content)`. It takes a custom `SwiftUI` `View` and will use this view to resize the extension. This will also setup the keyboard with an `ObservableKeyboardContext` and a standard keyboard style.
 
-You can then add any views you want to the keyboard view. In `Views`, you can find some views that kan help kick-start your project.
+You can then add any views you want to the keyboard view and use the rich set of extensions and utilities that this library provides.
+
+* `Context` contains an observable context and SwiftUI-specific context extensions.
+* `Extensions` contains SwiftUI-specific extensions.
+* `Gestures` contains SwiftUI-specific keyboard gestures. 
+* `Settings` contains SwiftUI-specific settings extensions.
+* `System` contains views and extensions that helps you create system keyboard mimicking keyboards..
+* `Toast` contains SwiftUI-specific components to show a toast on top of a keyboard extension.
+* `Views` contains SwiftUI-specific keyboard views.
+
+You can read about some of this in the main project's readme collection. 
 
 
 ## Demo application
 
-There is a SwiftUI-specific demo keyboard in the main `KeyboardKit` repository. Just run the demo project, enabe the SwiftUI keyboard in system settings and yo're good to go.   
+There is a SwiftUI-specific demo keyboard in the main `KeyboardKit` repository. 
+
+To try it out, run the demo project, enabe the SwiftUI keyboard in settings and you're good to go.   
 
 
 ## Installation
