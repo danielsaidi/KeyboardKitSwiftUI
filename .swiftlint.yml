@@ -1,4 +1,5 @@
 disabled_rules:
+  - cyclomatic_complexity
   - function_body_length
   - function_parameter_count
   - statement_position
@@ -13,9 +14,13 @@ included:
   - Tests
 
 identifier_name:
+  max_length:
+    warning: 100
+    error: 150   
   excluded:
     - id
     - x
     - y
     - dx
     - dy
+    - vc

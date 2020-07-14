@@ -55,8 +55,8 @@ class View_SystemKeyboardStylesTests: QuickSpec {
         describe("system keyboard button foreground") {
             
             it("is defined") {
-                let Foreground = Text("").systemKeyboardButtonForeground(for: context)
-                expect(Foreground).toNot(beNil())
+                let foreground = Text("").systemKeyboardButtonForeground(for: context)
+                expect(foreground).toNot(beNil())
             }
         }
         
