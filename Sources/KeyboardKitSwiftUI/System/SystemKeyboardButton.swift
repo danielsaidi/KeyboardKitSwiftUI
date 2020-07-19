@@ -49,7 +49,7 @@ public struct SystemKeyboardButton: View {
     public var body: some View {
         buttonContent
             .systemKeyboardButtonStyle(for: action, context: context, style: style)
-            .keyboardAction(action, context: context)
+            .withActionGestures(for: action, context: context)
     }
 }
 
@@ -64,6 +64,7 @@ private extension SystemKeyboardButton {
     }
     
     var buttonContent: AnyView {
+        if action == .nextKeyboard { return AnyView(NextKeyboardButton(controller: context.controller)) }
         if let text = buttonText { return AnyView(self.text(for: text)) }
         if let image = buttonImage { return AnyView(image) }
         return AnyView(Text(""))
@@ -74,5 +75,13 @@ private extension SystemKeyboardButton {
             .minimumScaleFactor(0.1)
             .lineLimit(1)
             .padding(2)
+    }
+}
+
+private extension View {
+    
+    func withActionGestures(for action: KeyboardAction, context: KeyboardContext) -> AnyView {
+        if action == .nextKeyboard { return AnyView(self) }
+        return AnyView(self.keyboardAction(action, context: context))
     }
 }
