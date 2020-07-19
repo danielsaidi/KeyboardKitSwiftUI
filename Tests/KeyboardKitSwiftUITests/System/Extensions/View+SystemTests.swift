@@ -47,7 +47,7 @@ class View_SystemKeyboardStylesTests: QuickSpec {
         describe("system keyboard button font") {
             
             it("is defined") {
-                let font = Text("").systemKeyboardButtonFont(for: .backspace)
+                let font = Text("").systemKeyboardButtonFont(for: .backspace, context: context)
                 expect(font).toNot(beNil())
             }
         }

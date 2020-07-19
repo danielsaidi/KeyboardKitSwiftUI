@@ -29,7 +29,7 @@ public extension View {
             .systemKeyboardButtonBackground(for: action, context: context)
             .systemKeyboardButtonCornerRadius(for: style)
             .systemKeyboardButtonShadow(for: context)
-            .systemKeyboardButtonFont(for: action)
+            .systemKeyboardButtonFont(for: action, context: context)
     }
 }
 
@@ -48,8 +48,10 @@ public extension View {
         cornerRadius(style.buttonCornerRadius)
     }
     
-    func systemKeyboardButtonFont(for action: KeyboardAction) -> some View {
-        font(Font(action.systemFont))
+    func systemKeyboardButtonFont(for action: KeyboardAction, context: KeyboardContext) -> some View {
+        let hasImage = action.systemKeyboardButtonImage(for: context) != nil
+        let rawFont = Font(action.systemFont)
+        return hasImage ? font(rawFont.weight(.light)) : font(rawFont)
     }
     
     func systemKeyboardButtonForeground(for context: KeyboardContext) -> some View {
