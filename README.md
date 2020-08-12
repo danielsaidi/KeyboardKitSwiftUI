@@ -43,6 +43,24 @@ You can then add any views you want to the keyboard view and use the rich set of
 You can read about some of this in the main project's readme collection. 
 
 
+## How to create keyboards with SwiftUI
+
+There is no magic to using this library with SwiftUI. You can use any views you like, and just let them trigger actions when they are tapped, pressed etc.
+
+However, this repo has a bunch of views and utilities to help you simplify this. This is stil very much a work in progress, but my goal is to have great SwiftUI support in KeyboardKit 4.0. So far, the support is pretty basic. 
+
+Basically, you can create keyboards in a wide variety of ways:
+
+* Use any `SwiftUI` views and manually call the action handler when they are tapped, pressed etc.
+* Use any `SwiftUI` views and use `View+KeyboardGestures` to trigger any functions when they are tapped, pressed etc.
+* Use any `SwiftUI` views and use `View+KeyboardAction` to apply a certain keyboard action to the view.
+* Use any `SwiftUI` views and use `View+System` to apply various system look and feel to them, e.g. `systemKeyboardButtonStyle`.
+* Use `SystemKeyboardButton` to create buttons that try to mimic the native look and feel for the provided keyboard action.
+* Use any of the many views in the `Views` namespace to create more complex keyboards.
+
+Note that the `System` namespace is intended to build keyboards that resemble system keyboards. They currently provide little customizations.
+
+
 ## Demo application
 
 There is a SwiftUI-specific demo keyboard in the main `KeyboardKit` repository. 
