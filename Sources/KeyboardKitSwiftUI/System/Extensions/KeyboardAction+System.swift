@@ -10,9 +10,9 @@ import KeyboardKit
 import SwiftUI
 
 /**
- The "system" extensions are just suggestions if you want to
- mimic system keyboards. You do not have to use them in your
- custom keyboards.
+ The `System` extensions help you create keyboard extensions
+ that mimic the native iOS keyboards. You shouldn't use them
+ if you aim for a custom style.
  */
 public extension KeyboardAction {
     
