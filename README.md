@@ -51,10 +51,10 @@ However, this repo has a bunch of views and utilities to help you simplify this.
 
 Basically, you can create keyboards in a wide variety of ways:
 
-* Use any `SwiftUI` views and manually call the action handler when they are tapped, pressed etc.
-* Use any `SwiftUI` views and use `View+KeyboardGestures` to trigger any functions when they are tapped, pressed etc.
-* Use any `SwiftUI` views and use `View+KeyboardAction` to apply a certain keyboard action to the view.
-* Use any `SwiftUI` views and use `View+System` to apply various system look and feel to them, e.g. `systemKeyboardButtonStyle`.
+* Use any views and manually call the action handler when they are tapped, pressed etc.
+* Use any views and use `View+KeyboardGestures` to trigger any functions when they are tapped, pressed etc.
+* Use any views and use `View+KeyboardAction` to apply a certain keyboard action to the view.
+* Use any views and use `View+System` to apply various system look and feel to them, e.g. `systemKeyboardButtonStyle`.
 * Use `SystemKeyboardButton` to create buttons that try to mimic the native look and feel for the provided keyboard action.
 * Use any of the many views in the `Views` namespace to create more complex keyboards.
 
