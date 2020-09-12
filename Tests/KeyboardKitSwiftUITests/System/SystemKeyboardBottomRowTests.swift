@@ -65,7 +65,7 @@ class SystemKeyboardBottomRowTests: QuickSpec {
         describe("standard button builder") {
             
             it("returns a view") {
-                let builder = SystemKeyboardBottomRow.standardButtonBuilder()
+                let builder = SystemKeyboardBottomRow.standardButtonBuilder(emojiButtonText: ":)")
                 let result = builder(.backspace)
                 expect(result).toNot(beNil())
             }

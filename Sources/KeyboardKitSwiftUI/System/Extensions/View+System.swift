@@ -11,8 +11,8 @@ import SwiftUI
 
 /**
  The `System` extensions help you create keyboard extensions
- that mimic the native iOS keyboards. You shouldn't use them
- if you aim for a custom style.
+ that mimic native iOS system keyboards. Don't use them when
+ you aim for a custom keyboard style.
  */
 public extension View {
     

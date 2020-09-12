@@ -10,17 +10,22 @@ import SwiftUI
 import KeyboardKit
 
 /**
- This view mimics a numeric system keyboard, with three rows
- of input actions, a bottom bar and an optional topmost view.
+ This view mimics a native, numeric system keyboard.
  
- The view takes an `inputSet`, which determines which inputs
- the keyboard will have, an optional `topmostView` that will
- be added topmost, as well as an optional `customBottomRow`,
- that will replace the standard bottom row if provided.
+ The keyboard supports three rows of input actions, a bottom
+ row and an optional topmost view. The `inputSet` determines
+ which input actions to show above the bottom bar.
  
- `IMPORTANT` This is not yet flexible enough to be used with
- a lot of countries, since the actions surrounding the input
- set actions can't be modified.
+ If provided, the optional `topmostView` will be added above
+ the input rows. If you don't provide a `customBottomRow`, a
+ `SystemKeyboardBottomRow.standard` row will be used instead,
+ using a `.keyboardType(.alphabetic(.lowercased))` action as
+ its leftmost action.
+ 
+ `IMPORTANT` This view is not yet flexible enough to be used
+ with most locales, since the actions surrounding the inputs
+ cannot be modified. In the future, `inputSet` will probably
+ be replaced by a more specific set of actions.
  */
 public struct NumericSystemKeyboard: View {
     
@@ -29,7 +34,7 @@ public struct NumericSystemKeyboard: View {
         inputSet: NumericKeyboardInputSet,
         topmostView: AnyView? = nil,
         customBottomRow: SystemKeyboardBottomRow? = nil) {
-        assert(inputSet.inputRows.count > 2, "inputSet must contain at least rows")
+        assert(inputSet.inputRows.count > 2, "inputSet must contain at least 3 rows")
         self.rows = KeyboardActionRows(characters: inputSet.inputRows)
         self.topmostView = topmostView
         self.bottomRow = customBottomRow ?? .standard(for: context, leftmostAction: .keyboardType(.alphabetic(.lowercased)))

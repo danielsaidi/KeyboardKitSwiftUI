@@ -13,9 +13,6 @@ import SwiftUI
 /**
  This struct provides static properties that are used by the
  various extensions in `View+System`.
- 
- `TODO` This is not a long-term solution. Instead, the views
- should be injected with a style. I'll look into this later.
  */
 public class SystemKeyboardStyle: ObservableObject {
     

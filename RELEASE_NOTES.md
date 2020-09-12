@@ -1,6 +1,16 @@
 # Release Notes
 
 
+## 3.0.3
+
+This version improves the documentation and adds more configuration options to some views.
+
+
+## 3.0.2
+
+This version improves the documentation and fixes an invalid package reference.
+
+
 ## 3.0.1
 
 This version fixes a bug, where the globe button that is used by the demo keyboards didn't do anything.

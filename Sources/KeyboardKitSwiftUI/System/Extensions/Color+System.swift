@@ -10,12 +10,9 @@ import KeyboardKit
 import SwiftUI
 
 /**
- These colors can be used to mimic the system keyboards. You
- don't have to use them in your custom keyboards.
- 
  The `System` extensions help you create keyboard extensions
- that mimic the native iOS keyboards. You shouldn't use them
- if you aim for a custom style.
+ that mimic native iOS system keyboards. Don't use them when
+ you aim for a custom keyboard style.
  
  `IMPORTANT` The `KeyboardContext`s `userInterfaceStyle` has
  an incorrect state when `keyboardAppearance` is `.dark` and

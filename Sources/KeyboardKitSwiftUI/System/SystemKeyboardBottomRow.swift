@@ -11,29 +11,38 @@ import SwiftUI
 
 /**
  This view mimicks a system keyboard bottom row that is used
- for alphabetic, numeric and symbolic keyboards.
- 
- It has a space bar in its center, and will add any provided
- `leftmostActions` and `rightmostActions` next to it.
+ by native iOS keyboards. It has a center space bar and adds
+ the `leftmostActions` and `rightmostActions` next to it.
  
  You can provide a custom `buttonBuilder` to customize how a
- view is generated for an action. `standardButtonBuilder` is
- used if you don't provide a custom builder.
+ view is created for a certain action. If you don't, it will
+ use the static `standardButtonBuilder` function.
+ 
+ Since emoji support is not yet implemented for SwiftUI, you
+ can provide an empty `emojiButtonText` to hide the button.
  */
 public struct SystemKeyboardBottomRow: View {
     
     public init(
         leftmostActions: [KeyboardAction],
         rightmostActions: [KeyboardAction],
-        buttonBuilder: @escaping ButtonBuilder = Self.standardButtonBuilder()) {
-        self.actions = leftmostActions + [.space] + rightmostActions
-        self.buttonBuilder = buttonBuilder
+        emojiButtonText: String = "☺",
+        buttonBuilder: ButtonBuilder? = nil) {
+        var actions = leftmostActions + [.space] + rightmostActions
+        if emojiButtonText.count == 0 {
+            actions = actions.filter { $0 != .keyboardType(.emojis) }
+        }
+        self.actions = actions
+        self.buttonBuilder = buttonBuilder ?? Self.standardButtonBuilder(emojiButtonText: emojiButtonText)
+        self.emojiButtonText = emojiButtonText
     }
     
     public typealias ButtonBuilder = (KeyboardAction) -> AnyView
     
     let actions: [KeyboardAction]
     private let buttonBuilder: ButtonBuilder
+    private let emojiButtonText: String
+    private var useEmojis: Bool { emojiButtonText.count > 0 }
 
     @EnvironmentObject private var style: SystemKeyboardStyle
     @State private var viewSize: CGSize = .zero
@@ -62,23 +71,25 @@ public extension SystemKeyboardBottomRow {
      */
     static func standard(
         for context: KeyboardContext,
-        leftmostAction: KeyboardAction) -> SystemKeyboardBottomRow {
+        leftmostAction: KeyboardAction,
+        emojiButtonText: String = "☺") -> SystemKeyboardBottomRow {
         SystemKeyboardBottomRow(
             leftmostActions: standardLeftmostActions(for: context, leftAction: leftmostAction),
-            rightmostActions: standardRightmostActions(for: context)
+            rightmostActions: standardRightmostActions(for: context),
+            emojiButtonText: emojiButtonText
         )
     }
     
     /**
-     The standard button builder that is used when no custom
-     builder is provided.
+     This function will be used when a custom `buttonBuilder`
+     is not provided. It will create a `SystemKeyboardButton`
+     for the provided action.
      */
-    static func standardButtonBuilder(
-        emojiFallbackText: String = "☺") -> ButtonBuilder {
+    static func standardButtonBuilder(emojiButtonText: String) -> ButtonBuilder {
         return { action in
-            let isEmojiKeyboardAction = action == .keyboardType(.emojis)
-            let text = isEmojiKeyboardAction ? emojiFallbackText : action.systemKeyboardButtonText
-            return AnyView(SystemKeyboardButton(action: action, text: text))
+            let isEmoji = action == .keyboardType(.emojis)
+            let text = isEmoji ? emojiButtonText : action.systemKeyboardButtonText
+            return AnyView(SystemKeyboardButton(action: action, text: text ?? ""))
         }
     }
     

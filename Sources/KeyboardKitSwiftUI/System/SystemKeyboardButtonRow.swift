@@ -11,16 +11,13 @@ import SwiftUI
 
 /**
  This view mimicks a system keyboard button row that is used
- for alphabetic, numeric and symbolic system keyboards.
+ by native iOS keyboards. It can be used to create an entire
+ row of buttons or be used within another row, e.g. to build
+ a grouped row.
  
- This view can either be used to build an entire row or used
- as part of a keyboard row, e.g. to create button groups.
- 
- You can provide this view with a custom `buttonBuilder`. By
- default, it will use the `standardButtonBuilder`.
- 
- The view used the following injected `@EnvironmentObject`s:
- - `SystemKeyboardStyle`
+ You can provide a custom `buttonBuilder` to customize how a
+ view is created for a certain action. If you don't, it will
+ use the static `standardButtonBuilder` function.
  */
 public struct SystemKeyboardButtonRow: View {
     
@@ -50,8 +47,9 @@ public struct SystemKeyboardButtonRow: View {
 public extension SystemKeyboardButtonRow {
 
     /**
-     The standard button builder that is used as fallback if
-     no custom button builder is provided.
+     This function will be used when a custom `buttonBuilder`
+     is not provided. It will create a `SystemKeyboardButton`
+     for the provided action.
      */
     static func standardButtonBuilder() -> ButtonBuilder {
         return { AnyView(SystemKeyboardButton(action: $0)) }
