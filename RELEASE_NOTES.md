@@ -1,6 +1,11 @@
 # Release Notes
 
 
+## 3.1.0
+
+This version adds a new `ObservableAutocompleteContext`, which can be used to bind autocomplete results to SwiftUI views.
+
+
 ## 3.0.3
 
 This version improves the documentation and adds more configuration options to some views.
