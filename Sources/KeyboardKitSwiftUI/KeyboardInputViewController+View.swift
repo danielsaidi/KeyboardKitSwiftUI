@@ -13,17 +13,18 @@ public extension KeyboardInputViewController {
     
     /**
      Remove all subviews then add a `SwiftUI` view that pins
-     to the edges and resizes the extension to fit the view.
+     to the edges and resizes the extension to fit that view.
      
-     When this function is called, the input vc will convert
-     its `keyboardContext` to an `ObservableKeyboardContext`
-     and provide it to the view as an `@EnvironmentObject`.
+     When this function is called, the input view controller
+     will convert its current `keyboardContext` object to an
+     `ObservableKeyboardContext` then provide it to the view
+     as an `@EnvironmentObject`.
      
-     It will also provide the `SystemKeyboardStyle.standard`
-     style to the view as an `@EnvironmentObject`, to ensure
-     that a standard system keyboard style is defined if you
-     want to create system keyboards. You can change this by
-     just injecting another style after this has been done.
+     The function will also setup another environment object
+     for `SystemKeyboardStyle` and provide it to the view as
+     an `@EnvironmentObject`. You can change the style for a
+     view or an entire hierarchy, by injecting another style
+     as environment object.
      */
     func setup<Content: View>(with view: Content) {
         self.view.subviews.forEach { $0.removeFromSuperview() }

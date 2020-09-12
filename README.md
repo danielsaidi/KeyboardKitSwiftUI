@@ -19,7 +19,7 @@
 
 `KeyboardKitSwiftUI` extends [KeyboardKit][KeyboardKit] with `SwiftUI` functionality. 
 
-This library is temporarily a separate project, since Xcode can't handle iOS 13 features in a framework that targets iOS 11. If this would be a part of [KeyboardKit][KeyboardKit], you would have to add SwiftUI as a weak dependency to avoid crashes on iOS 11 and 12 devices.
+This library is temporarily a separate project, since Xcode can't handle iOS 13 features in a framework that targets iOS 11. If this would be a part of [KeyboardKit][KeyboardKit], you would have to add a weak SwiftUI dependency to your project to avoid crashes on iOS 11 and 12 devices.
 
 Read more about SwiftUI support in the [main repository][KeyboardKit].
 

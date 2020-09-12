@@ -13,9 +13,9 @@ This version improves the documentation and fixes an invalid package reference.
 
 ## 3.0.1
 
-This version fixes a bug, where the globe button that is used by the demo keyboards didn't do anything.
+This version fixes a bug, where the next keyboard "globe" button didn't do anything.
 
-This version also fixes the system image's font weight.
+This version also adjusts the system image font weight, to more closely fit the native keyboards.
 
 
 ## 3.0.0
