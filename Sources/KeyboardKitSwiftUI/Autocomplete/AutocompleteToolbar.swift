@@ -84,8 +84,9 @@ public extension AutocompleteToolbar {
 private extension AutocompleteToolbar {
     
     func view(for word: String) -> some View {
-        Group {
-            Button(action: { self.keyboardContext.textDocumentProxy.replaceCurrentWord(with: word) }) {
+        let action = { self.keyboardContext.textDocumentProxy.replaceCurrentWord(with: word) }
+        return Group {
+            Button(action: action) {
                 buttonBuilder(word)
             }.buttonStyle(PlainButtonStyle())
             
