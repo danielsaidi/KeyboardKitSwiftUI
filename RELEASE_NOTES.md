@@ -3,7 +3,12 @@
 
 ## 3.1.0
 
-This version adds a new `ObservableAutocompleteContext`, which can be used to bind autocomplete results to SwiftUI views.
+This version adds new autocomplete tools:
+
+* `ObservableAutocompleteContext` can be used to bind autocomplete results to views.
+* `AutocompleteToolbar` is a customizable toolbar for displaying autocomplete results.
+
+The toolbar uses the new observable context to populate itself with suggestions.
 
 
 ## 3.0.3
