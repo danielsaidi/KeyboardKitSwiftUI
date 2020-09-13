@@ -1,6 +1,11 @@
 # Release Notes
 
 
+## 3.1.1
+
+This version makes the `.emojiCategory` action use a clear interactable background for system buttons.
+
+
 ## 3.1.0
 
 This version adds new autocomplete tools:

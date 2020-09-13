@@ -47,6 +47,11 @@ class Action_SystemTests: QuickSpec {
                         expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .light))).to(equal(.clearInteractable))
                         expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .dark))).to(equal(.clearInteractable))
                         expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .light))).to(equal(.clearInteractable))
+                    } else if case .emojiCategory = $0 {
+                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .dark))).to(equal(.clearInteractable))
+                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .light))).to(equal(.clearInteractable))
+                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .dark))).to(equal(.clearInteractable))
+                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .light))).to(equal(.clearInteractable))
                     } else if $0.isSystemAction {
                         expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .dark))).to(equal(.systemKeyboardButtonBackgroundColorDarkForDarkColorScheme))
                         expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .light))).to(equal(.systemKeyboardButtonBackgroundColorDarkForDarkColorScheme))

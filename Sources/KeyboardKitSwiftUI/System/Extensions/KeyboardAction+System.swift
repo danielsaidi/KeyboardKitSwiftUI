@@ -22,6 +22,7 @@ public extension KeyboardAction {
      */
     func systemKeyboardButtonBackgroundColor(for context: KeyboardContext) -> Color {
         if case .emoji = self { return .clearInteractable }
+        if case .emojiCategory = self { return .clearInteractable }
         if isSystemAction { return .systemKeyboardButtonBackgroundColorDark(for: context) }
         return .systemKeyboardButtonBackgroundColorLight(for: context)
     }
