@@ -48,10 +48,9 @@ public struct KeyboardImageButton: View {
             image
                 .resizable()
                 .scaledToFit()
-                .onTapGesture(perform: tapAction)
-                .onLongPressGesture(perform: longPressAction)
         }
         .buttonStyle(PlainButtonStyle())
+        .onLongPressGesture(perform: longPressAction)
     }
 }
 
