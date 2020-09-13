@@ -23,6 +23,7 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
     public init(from context: KeyboardContext) {
         actionHandler = context.actionHandler
         controller = context.controller
+        emojiCategory = context.emojiCategory
         hasDictationKey = context.hasDictationKey
         hasFullAccess = context.hasFullAccess
         keyboardType = context.keyboardType
@@ -35,6 +36,7 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
     public var controller: KeyboardInputViewController
     
     @Published public var actionHandler: KeyboardActionHandler
+    @Published public var emojiCategory: EmojiCategory
     @Published public var hasDictationKey: Bool
     @Published public var hasFullAccess: Bool
     @Published public var keyboardType: KeyboardType

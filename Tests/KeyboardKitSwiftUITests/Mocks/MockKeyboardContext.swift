@@ -21,6 +21,7 @@ class MockKeyboardContext: KeyboardContext {
     
     var actionHandler: KeyboardActionHandler = MockKeyboardActionHandler()
     var controller: KeyboardInputViewController = KeyboardInputViewController()
+    var emojiCategory: EmojiCategory = .frequent
     var hasDictationKey = false
     var hasFullAccess = false
     var keyboardAppearanceValue: UIKeyboardAppearance = .light

@@ -24,12 +24,14 @@ class ObservableKeyboardContextTests: QuickSpec {
                     controller: KeyboardInputViewController(),
                     actionHandler: MockKeyboardActionHandler(),
                     keyboardType: .email)
+                standard.emojiCategory = .animals
                 standard.hasFullAccess = true
                 standard.needsInputModeSwitchKey = true
                 
                 let context = ObservableKeyboardContext(from: standard)
                 expect(context.actionHandler).to(be(standard.actionHandler))
                 expect(context.controller).to(be(standard.controller))
+                expect(context.emojiCategory).to(equal(.animals))
                 expect(context.hasDictationKey).to(equal(standard.hasDictationKey))
                 expect(context.hasFullAccess).to(equal(standard.hasFullAccess))
                 expect(context.keyboardType).to(equal(standard.keyboardType))
