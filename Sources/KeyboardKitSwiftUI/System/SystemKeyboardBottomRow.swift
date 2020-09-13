@@ -88,8 +88,8 @@ public extension SystemKeyboardBottomRow {
     static func standardButtonBuilder(emojiButtonText: String) -> ButtonBuilder {
         return { action in
             let isEmoji = action == .keyboardType(.emojis)
-            let text = isEmoji ? emojiButtonText : action.systemKeyboardButtonText
-            return AnyView(SystemKeyboardButton(action: action, text: text ?? ""))
+            if isEmoji { return AnyView(SystemKeyboardButton(action: action, text: emojiButtonText)) }
+            return AnyView(SystemKeyboardButton(action: action))
         }
     }
     
