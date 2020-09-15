@@ -1,6 +1,13 @@
 # Release Notes
 
 
+## 3.1.2
+
+This version makes the `View+Geometry` extension internal.
+
+If you use it, consider copying it from [SwiftUIKit](https://github.com/danielsaidi/SwiftUIKit).
+
+
 ## 3.1.1
 
 This version makes the `.emojiCategory` action use a clear interactable background for system buttons.
