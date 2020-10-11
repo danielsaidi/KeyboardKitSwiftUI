@@ -1,6 +1,11 @@
 # Release Notes
 
 
+## 3.1.3
+
+This version fixes a bug where the long press action of a `KeyboardImageButton` didn't do anything.
+
+
 ## 3.1.2
 
 This version makes the `View+Geometry` extension internal.
@@ -35,9 +40,9 @@ This version improves the documentation and fixes an invalid package reference.
 
 ## 3.0.1
 
-This version fixes a bug, where the next keyboard "globe" button didn't do anything.
+This version fixes a bug where the demo keyboard globe button didn't do anything.
 
-This version also adjusts the system image font weight, to more closely fit the native keyboards.
+This version also adjusts the font weight of system button images.
 
 
 ## 3.0.0

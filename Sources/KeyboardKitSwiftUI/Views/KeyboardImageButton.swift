@@ -44,13 +44,12 @@ public struct KeyboardImageButton: View {
     private let longPressAction: () -> Void
     
     public var body: some View {
-        Button(action: tapAction) {
-            image
-                .resizable()
-                .scaledToFit()
-        }
-        .buttonStyle(PlainButtonStyle())
-        .onLongPressGesture(perform: longPressAction)
+        image
+            .resizable()
+            .scaledToFit()
+            .onTapGesture(perform: tapAction)
+            .onLongPressGesture(perform: longPressAction)
+            .accessibility(addTraits: .isButton)
     }
 }
 
