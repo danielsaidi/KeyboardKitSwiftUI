@@ -3,7 +3,7 @@
 Pod::Spec.new do |s|
   s.name             = 'KeyboardKitSwiftUI'
   s.version          = '3.1.3'
-  s.swift_versions   = ['5.2']
+  s.swift_versions   = ['5.3']
   s.summary          = 'KeyboardKitSwiftUI adds SwiftUI support to KeyboardKit.'
 
   s.description      = <<-DESC
@@ -16,7 +16,7 @@ KeyboardKitSwiftUI makes it possible to build custom keyboard extensions in Swif
   s.source           = { :git => 'https://github.com/danielsaidi/KeyboardKitSwiftUI.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/danielsaidi'
 
-  s.swift_version = '5.2'
+  s.swift_version = '5.3'
   s.ios.deployment_target = '13.0'
   s.source_files = 'Sources/KeyboardKitSwiftUI/**/*.swift'
 
