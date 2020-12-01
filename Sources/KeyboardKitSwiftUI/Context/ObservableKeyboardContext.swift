@@ -24,6 +24,8 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
     public init(from context: KeyboardContext) {
         controller = context.controller
         
+        device = context.device
+        
         actionHandler = context.actionHandler
         emojiCategory = context.emojiCategory
         inputSetProvider = context.inputSetProvider
@@ -40,6 +42,8 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
     }
     
     unowned public var controller: KeyboardInputViewController
+    
+    public let device: UIDevice
     
     @Published public var actionHandler: KeyboardActionHandler
     @Published public var emojiCategory: EmojiCategory

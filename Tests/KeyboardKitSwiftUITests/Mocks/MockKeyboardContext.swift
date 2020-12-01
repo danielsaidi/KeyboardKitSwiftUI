@@ -26,6 +26,7 @@ class MockKeyboardContext: KeyboardContext {
     lazy var inputSetProvider: KeyboardInputSetProvider = { fatalError("Not supported yet") }()
     var keyboardType: KeyboardType = .alphabetic(.lowercased)
     
+    var device: UIDevice = .current
     var deviceOrientation: UIInterfaceOrientation = .portrait
     var hasDictationKey = false
     var hasFullAccess = false
