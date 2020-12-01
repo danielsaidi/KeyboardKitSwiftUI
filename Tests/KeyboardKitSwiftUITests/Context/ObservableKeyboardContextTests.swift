@@ -34,6 +34,7 @@ class ObservableKeyboardContextTests: QuickSpec {
                 expect(context.emojiCategory).to(equal(.animals))
                 expect(context.hasDictationKey).to(equal(standard.hasDictationKey))
                 expect(context.hasFullAccess).to(equal(standard.hasFullAccess))
+                expect(context.inputSetProvider).to(be(standard.inputSetProvider))
                 expect(context.keyboardType).to(equal(standard.keyboardType))
                 expect(context.needsInputModeSwitchKey).to(equal(standard.needsInputModeSwitchKey))
                 expect(context.primaryLanguage).to(beNil())

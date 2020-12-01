@@ -20,30 +20,38 @@ import UIKit
  */
 public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
     
+    
     public init(from context: KeyboardContext) {
-        actionHandler = context.actionHandler
         controller = context.controller
+        
+        actionHandler = context.actionHandler
         emojiCategory = context.emojiCategory
-        hasDictationKey = context.hasDictationKey
-        hasFullAccess = context.hasFullAccess
         inputSetProvider = context.inputSetProvider
         keyboardType = context.keyboardType
+        
+        deviceOrientation = context.deviceOrientation
+        hasDictationKey = context.hasDictationKey
+        hasFullAccess = context.hasFullAccess
         needsInputModeSwitchKey = context.needsInputModeSwitchKey
+        primaryLanguage = context.primaryLanguage
         textDocumentProxy = context.textDocumentProxy
         textInputMode = context.textInputMode
-        primaryLanguage = context.primaryLanguage
+        traitCollection = context.traitCollection
     }
     
-    public var controller: KeyboardInputViewController
+    unowned public var controller: KeyboardInputViewController
     
     @Published public var actionHandler: KeyboardActionHandler
     @Published public var emojiCategory: EmojiCategory
-    @Published public var hasDictationKey: Bool
-    @Published public var hasFullAccess: Bool
     @Published public var inputSetProvider: KeyboardInputSetProvider
     @Published public var keyboardType: KeyboardType
+    
+    @Published public var deviceOrientation: UIInterfaceOrientation
+    @Published public var hasDictationKey: Bool
+    @Published public var hasFullAccess: Bool
     @Published public var needsInputModeSwitchKey: Bool
     @Published public var primaryLanguage: String?
     @Published public var textDocumentProxy: UITextDocumentProxy
     @Published public var textInputMode: UITextInputMode?
+    @Published public var traitCollection: UITraitCollection
 }
