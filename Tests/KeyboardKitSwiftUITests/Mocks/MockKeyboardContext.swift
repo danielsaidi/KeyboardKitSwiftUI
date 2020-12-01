@@ -24,6 +24,7 @@ class MockKeyboardContext: KeyboardContext {
     var emojiCategory: EmojiCategory = .frequent
     var hasDictationKey = false
     var hasFullAccess = false
+    lazy var inputSetProvider: KeyboardInputSetProvider = { fatalError("Not supported yet") }()
     var keyboardAppearanceValue: UIKeyboardAppearance = .light
     var keyboardAppearance: UIKeyboardAppearance { keyboardAppearanceValue }
     var keyboardType: KeyboardType = .alphabetic(.lowercased)

@@ -26,6 +26,7 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
         emojiCategory = context.emojiCategory
         hasDictationKey = context.hasDictationKey
         hasFullAccess = context.hasFullAccess
+        inputSetProvider = context.inputSetProvider
         keyboardType = context.keyboardType
         needsInputModeSwitchKey = context.needsInputModeSwitchKey
         textDocumentProxy = context.textDocumentProxy
@@ -39,6 +40,7 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
     @Published public var emojiCategory: EmojiCategory
     @Published public var hasDictationKey: Bool
     @Published public var hasFullAccess: Bool
+    @Published public var inputSetProvider: KeyboardInputSetProvider
     @Published public var keyboardType: KeyboardType
     @Published public var needsInputModeSwitchKey: Bool
     @Published public var primaryLanguage: String?
