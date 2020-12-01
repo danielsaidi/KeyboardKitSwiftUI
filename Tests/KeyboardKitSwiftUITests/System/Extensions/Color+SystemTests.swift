@@ -17,7 +17,10 @@ class Color_SystemTests: QuickSpec {
     override func spec() {
         
         func context(_ userInterfaceStyle: UIUserInterfaceStyle, _ keyboardAppearance: UIKeyboardAppearance) -> MockKeyboardContext {
-            MockKeyboardContext(userInterfaceStyle, keyboardAppearance)
+            let context = MockKeyboardContext()
+            context.userInterfaceStyle = userInterfaceStyle
+            context.keyboardAppearance = keyboardAppearance
+            return context
         }
         
         func result(for color: Color) -> Color { color }

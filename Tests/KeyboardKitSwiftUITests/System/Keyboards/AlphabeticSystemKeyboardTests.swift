@@ -29,13 +29,13 @@ class AlphabeticSystemKeyboardTests: QuickSpec {
             }
             
             it("can be created with English input set") {
-                expect(view(set: .english)).toNot(beNil())
+                expect(view(set: .alphabetic_en)).toNot(beNil())
             }
             
             it("can be created with optional views and actions") {
                 let view = AlphabeticSystemKeyboard(
                     context: context,
-                    inputSet: .english,
+                    inputSet: .alphabetic_en,
                     state: .lowercased,
                     topmostView: AnyView(Text("Hello")),
                     customBottomRow: .empty)

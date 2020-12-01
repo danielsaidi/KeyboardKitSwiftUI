@@ -34,6 +34,7 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
         deviceOrientation = context.deviceOrientation
         hasDictationKey = context.hasDictationKey
         hasFullAccess = context.hasFullAccess
+        locale = context.locale
         needsInputModeSwitchKey = context.needsInputModeSwitchKey
         primaryLanguage = context.primaryLanguage
         textDocumentProxy = context.textDocumentProxy
@@ -53,6 +54,7 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
     @Published public var deviceOrientation: UIInterfaceOrientation
     @Published public var hasDictationKey: Bool
     @Published public var hasFullAccess: Bool
+    @Published public var locale: Locale
     @Published public var needsInputModeSwitchKey: Bool
     @Published public var primaryLanguage: String?
     @Published public var textDocumentProxy: UITextDocumentProxy

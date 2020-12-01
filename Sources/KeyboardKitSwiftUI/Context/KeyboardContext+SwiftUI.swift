@@ -16,7 +16,7 @@ public extension KeyboardContext {
      derived from the controller's `userInterfaceStyle`.
      */
     var colorScheme: ColorScheme {
-        let style = controller.traitCollection.userInterfaceStyle
+        let style = traitCollection.userInterfaceStyle
         return style == .dark ? .dark : .light
     }
 }

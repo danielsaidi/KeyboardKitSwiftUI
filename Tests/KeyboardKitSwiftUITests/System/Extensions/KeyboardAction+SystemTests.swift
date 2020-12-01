@@ -19,7 +19,10 @@ class Action_SystemTests: QuickSpec {
         let actions = KeyboardAction.testActions
         
         func context(_ userInterfaceStyle: UIUserInterfaceStyle, _ keyboardAppearance: UIKeyboardAppearance) -> KeyboardContext {
-            MockKeyboardContext(userInterfaceStyle, keyboardAppearance)
+            let context = MockKeyboardContext()
+            context.userInterfaceStyle = userInterfaceStyle
+            context.keyboardAppearance = keyboardAppearance
+            return context
         }
         
         var expected: [KeyboardAction]! {
