@@ -37,10 +37,49 @@ public struct SystemKeyboardButtonRowItem: View {
         SystemKeyboardButton(action: action, useModifiers: false)
             .frame(maxWidth: .infinity)
             .frame(height: dimensions.buttonHeight - dimensions.buttonInsets.top - dimensions.buttonInsets.bottom)
+            .applyWidth(for: action, from: dimensions)
             .systemKeyboardButtonStyle(for: action, context: context)
             .padding(dimensions.buttonInsets)
             .frame(height: dimensions.buttonHeight)
             .background(Color.clearInteractable)
             .keyboardAction(action, context: context)
+    }
+}
+
+private extension View {
+    
+    @ViewBuilder
+    func applyWidth(for action: KeyboardAction, from dimensions: SystemKeyboardDimensions) -> some View {
+        if let width = width(for: action, from: dimensions) {
+            self.frame(width: width)
+        } else {
+            self
+        }
+    }
+    
+    func width(for action: KeyboardAction, from dimensions: SystemKeyboardDimensions) -> CGFloat? {
+        switch action {
+        case .shift, .backspace: return dimensions.shortButtonWidth
+        case .keyboardType(let type): return width(for: type, from: dimensions)
+        case .newLine: return dimensions.longButtonWidth
+        default: return nil
+        }
+    }
+    
+    func width(for keyboardType: KeyboardType, from dimensions: SystemKeyboardDimensions) -> CGFloat? {
+        switch keyboardType {
+        case .numeric, .alphabetic: return dimensions.longButtonWidth
+        default: return dimensions.shortButtonWidth
+        }
+    }
+}
+
+private extension KeyboardAction {
+    
+    var isShift: Bool {
+        switch self {
+        case .shift: return true
+        default: return false
+        }
     }
 }

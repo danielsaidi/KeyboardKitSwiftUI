@@ -11,28 +11,26 @@ import Combine
 import SwiftUI
 
 /**
- This struct specifies dimensions for a `SystemKeyboard`. It
- currently uses temporary width values that must be resolved
- in the same dynamic way as height and insets.
+ This struct specifies dimensions for a `SystemKeyboard`.
+ 
+ `IMPORTANT` This is just a first take on dimensions, to get
+ the demo to look good. The class must not use fixed values.
  */
 public struct SystemKeyboardDimensions {
     
     public init(
-        backspaceWidth: CGFloat = 50.0,
-        bottomRowSpacePercentage: CGFloat = 0.5,
         buttonHeight: CGFloat = .standardKeyboardRowHeight(),
         buttonInsets: EdgeInsets = .insets(from: .standardKeyboardRowItemInsets()),
-        shiftWidth: CGFloat = 50.0) {
-        self.backspaceWidth = backspaceWidth
-        self.bottomRowSpacePercentage = bottomRowSpacePercentage
+        longButtonWidth: CGFloat = 100.0,
+        shortButtonWidth: CGFloat = 50.0) {
         self.buttonHeight = buttonHeight
         self.buttonInsets = buttonInsets
-        self.shiftWidth = shiftWidth
+        self.longButtonWidth = longButtonWidth
+        self.shortButtonWidth = shortButtonWidth
     }
     
-    public let backspaceWidth: CGFloat
-    public let bottomRowSpacePercentage: CGFloat
     public let buttonHeight: CGFloat
     public let buttonInsets: EdgeInsets
-    public let shiftWidth: CGFloat
+    public let longButtonWidth: CGFloat
+    public let shortButtonWidth: CGFloat
 }
