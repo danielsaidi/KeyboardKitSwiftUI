@@ -15,6 +15,8 @@ This release contains layout improvements and breaking changes.
 * `SystemKeyboard` is more flexible than the previous keyboards, which have been removed.
 * `SystemKeyboardDimensions` is a new struct that replaces the previous `SystemKeyboardStyle`.
 
+The new input set and keyboard layout capabilities make it easier than ever to create keyboards.
+
 ### Breaking changes
 
 The following views and extensions have been removed and replaced with `SystemKeyboard`:
