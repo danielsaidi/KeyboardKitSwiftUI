@@ -15,8 +15,6 @@ This release contains layout improvements and breaking changes.
 * `SystemKeyboard` is more flexible than the previous keyboards, which have been removed.
 * `SystemKeyboardDimensions` is a new struct that replaces the previous `SystemKeyboardStyle`.
 
-There is also a new `setupAutoResizing` extension that can be used to make SwiftUI extensions automatically resize when the keyboard type changes.
-
 ### Breaking changes
 
 The following views and extensions have been removed and replaced with `SystemKeyboard`:

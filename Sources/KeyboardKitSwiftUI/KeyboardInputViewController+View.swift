@@ -29,28 +29,4 @@ public extension KeyboardInputViewController {
         let controller = KeyboardHostingController(rootView: view)
         controller.add(to: self)
     }
-    
-    /**
-     Call this function to make this extension automatically
-     resize the keyboard view when the keyboard type changes.
-     You must provide a block that returns the keyboard, and
-     a store where the keyboard type publisher's cancellable
-     will be stored.
-     
-     `NOTE` This is quite clunky now, since the main library
-     doesn't target iOS 13, which means that it cannot refer
-     to SwiftUI or Combine and therefore cannot have a store
-     for observables in the view controller base class. This
-     will be improved in KK 4.0, when the two libraries will
-     merge and the deployment target will be raised to 13.
-     */
-    func setupAutoResizing<KeyboardView: View, ObservableStore>(
-        for view: @escaping @autoclosure () -> KeyboardView,
-        storeObservableIn store: inout ObservableStore)
-    where ObservableStore: RangeReplaceableCollection, ObservableStore.Element == AnyCancellable {
-        guard let context = context as? ObservableKeyboardContext else { return }
-        context.$keyboardType
-            .sink { _ in self.setup(with: view()) }
-            .store(in: &store)
-    }
 }
