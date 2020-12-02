@@ -57,28 +57,22 @@ public extension SystemKeyboard {
 
 private extension SystemKeyboard {
     
+    func row(at index: Int, actions: KeyboardActionRow) -> some View {
+        HStack(spacing: 0) {
+            rowEdgeSpacer(at: index)
+            ForEach(Array(actions.enumerated()), id: \.offset) {
+                buttonBuilder($0.element)
+            }
+            rowEdgeSpacer(at: index)
+        }
+    }
+    
     @ViewBuilder
-    func edgeSpacer(at index: Int) -> some View {
+    func rowEdgeSpacer(at index: Int) -> some View {
         if index == 1 {
             Spacer(minLength: secondRowPadding)
         } else {
             EmptyView()
-        }
-    }
-    
-    func row(at index: Int, actions: KeyboardActionRow) -> some View {
-        HStack {
-            edgeSpacer(at: index)
-            row(for: actions)
-            edgeSpacer(at: index)
-        }
-    }
-    
-    func row(for actions: KeyboardActionRow) -> some View {
-        HStack(spacing: 0) {
-            ForEach(Array(actions.enumerated()), id: \.offset) {
-                buttonBuilder($0.element)
-            }
         }
     }
     

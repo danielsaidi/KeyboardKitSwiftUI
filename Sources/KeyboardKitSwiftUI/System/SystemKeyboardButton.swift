@@ -27,22 +27,13 @@ import SwiftUI
  */
 public struct SystemKeyboardButton: View {
     
-    public init(action: KeyboardAction) {
-        self.action = action
-        self.image = nil
-        self.text = nil
-    }
-    
-    public init(action: KeyboardAction, text: String) {
-        self.action = action
-        self.image = nil
-        self.text = text
-    }
-    
-    public init(action: KeyboardAction, image: Image) {
+    public init(
+        action: KeyboardAction,
+        text: String? = nil,
+        image: Image? = nil) {
         self.action = action
         self.image = image
-        self.text = nil
+        self.text = text
     }
     
     private let action: KeyboardAction

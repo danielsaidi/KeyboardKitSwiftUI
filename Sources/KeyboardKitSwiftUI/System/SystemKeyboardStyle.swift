@@ -16,8 +16,7 @@ import SwiftUI
  
  `TODO` This is not a viable way forward, since first of all
  this is layout, not style. Also, layout is a lot harder and
- cannot be specified with single values. Use this style with
- care, because it will gradually be replaced before KK 4.0.
+ cannot be specified with single values.
  */
 public class SystemKeyboardStyle: ObservableObject {
     
@@ -25,7 +24,8 @@ public class SystemKeyboardStyle: ObservableObject {
         backspaceWidth: CGFloat,
         bottomRowSpacePercentage: CGFloat,
         buttonCornerRadius: CGFloat,
-        buttonHeight: CGFloat,
+        buttonHeight: CGFloat = .standardKeyboardRowHeight(),
+        buttonInsets: EdgeInsets = .insets(from: .standardKeyboardRowItemInsets()),
         buttonSpacing: CGFloat,
         padding: EdgeInsets,
         rowSpacing: CGFloat,
@@ -34,6 +34,7 @@ public class SystemKeyboardStyle: ObservableObject {
         self.bottomRowSpacePercentage = bottomRowSpacePercentage
         self.buttonCornerRadius = buttonCornerRadius
         self.buttonHeight = buttonHeight
+        self.buttonInsets = buttonInsets
         self.buttonSpacing = buttonSpacing
         self.padding = padding
         self.rowSpacing = rowSpacing
@@ -43,6 +44,7 @@ public class SystemKeyboardStyle: ObservableObject {
     public let backspaceWidth: CGFloat
     public let bottomRowSpacePercentage: CGFloat
     public let buttonHeight: CGFloat
+    public let buttonInsets: EdgeInsets
     public let buttonSpacing: CGFloat
     public let buttonCornerRadius: CGFloat
     public let padding: EdgeInsets
@@ -61,7 +63,6 @@ public extension SystemKeyboardStyle {
             backspaceWidth: 50.0,
             bottomRowSpacePercentage: 0.5,
             buttonCornerRadius: 4.0,
-            buttonHeight: 42.0,
             buttonSpacing: 6.0,
             padding: EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4),
             rowSpacing: 12.0,

@@ -19,17 +19,27 @@ public extension View {
     /**
      Apply the style that a system keyboard button would use
      for a certain keyboard action, context and style.
+     
+     This makes the button horizontally greedy, which causes
+     it to take up as much width as it can. You can limit it
+     by applying a new explicit width after this modifier.
      */
     func systemKeyboardButtonStyle(
         for action: KeyboardAction,
         context: KeyboardContext,
         style: SystemKeyboardStyle) -> some View {
-        self.systemKeyboardButtonForeground(for: context)
-            .systemKeyboardButtonFrame(for: style)
+        self.frame(maxWidth: .infinity)
+            .frame(height: style.buttonHeight - style.buttonInsets.top - style.buttonInsets.bottom)
+            
+            
             .systemKeyboardButtonBackground(for: action, context: context)
+            .systemKeyboardButtonForeground(for: context)
             .systemKeyboardButtonCornerRadius(for: style)
             .systemKeyboardButtonShadow(for: context)
             .systemKeyboardButtonFont(for: action, context: context)
+            .padding(style.buttonInsets)
+            .frame(height: style.buttonHeight)
+            .background(Color.clearInteractable)
     }
 }
 
@@ -56,11 +66,6 @@ public extension View {
     
     func systemKeyboardButtonForeground(for context: KeyboardContext) -> some View {
         foregroundColor(.systemKeyboardButtonForegroundColor(for: context))
-    }
-    
-    func systemKeyboardButtonFrame(for style: SystemKeyboardStyle)  -> some View {
-        self.frame(height: style.buttonHeight)
-            .frame(maxWidth: .infinity)
     }
     
     func systemKeyboardButtonShadow(for context: KeyboardContext) -> some View {

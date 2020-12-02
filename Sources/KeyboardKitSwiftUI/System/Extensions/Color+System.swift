@@ -101,3 +101,10 @@ internal extension Color {
         .white
     }
 }
+
+private extension KeyboardContext {
+    
+    var userInterfaceStyle: UIUserInterfaceStyle {
+        traitCollection.userInterfaceStyle
+    }
+}

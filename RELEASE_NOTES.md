@@ -23,6 +23,11 @@ Removing the system keyboard style will however happen over a longer period, and
 * `SystemKeyboardBottomRow`
 * `SystemKeyboardButtonRow`
 * `SystemKeyboardVStack`
+* `View+systemKeyboardButtonFrame`
+
+### Breaking changes
+
+* `systemKeyboardButtonStyle` no longer applies a height from the style.
 
 
 ## 3.1.3
