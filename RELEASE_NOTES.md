@@ -1,5 +1,36 @@
 # Release Notes
 
+SwiftUI support is currently an experimental feature, where I use this separate library to find a good fit with the main library.
+
+As such, to be able to move swiftly (pun intended) and not get stuck with a bunch of deprecations and having to manage migrations et.al., I will allow breaking changes between minor versions.
+
+In `v4.0`, this library will become a part of the main library. After that, semver will apply to the SwiftUI parts as well.  
+
+
+## 3.2.0
+
+This release contains layout improvements and breaking changes.
+
+* There is a new `SystemKeyboard` that takes a keyboard layout and renders it as button rows. 
+* `SystemKeyboard` is more flexible than the previous keyboards, which have been removed.
+* `SystemKeyboardDimensions` is a new struct that replaces the previous `SystemKeyboardStyle`.
+
+### Breaking changes
+
+The following views and extensions have been removed and replaced with `SystemKeyboard`:
+
+* `AlphabeticSystemKeyboard`
+* `NumericSystemKeyboard`
+* `SymbolicSystemKeyboard`
+* `SystemKeyboardBottomRow`
+* `SystemKeyboardButtonRow`
+* `SystemKeyboardStyle`
+* `SystemKeyboardVStack`
+* `View+systemKeyboardButtonCornerRadius`
+* `View+systemKeyboardButtonFrame`
+
+Even though much is removed, I hope that this makes it a lot easier to create systme keyboards in SwiftUI.
+
 
 ## 3.1.3
 

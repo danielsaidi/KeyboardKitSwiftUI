@@ -12,26 +12,26 @@ import UIKit
 
 class MockKeyboardContext: KeyboardContext {
     
-    init() {}
+    var controller: KeyboardInputViewController = KeyboardInputViewController()
     
-    init(_ userInterfaceStyle: UIUserInterfaceStyle, _ keyboardAppearance: UIKeyboardAppearance) {
-        self.userInterfaceStyleValue = userInterfaceStyle
-        self.keyboardAppearanceValue = keyboardAppearance
-    }
+    var device: UIDevice = .current
     
     var actionHandler: KeyboardActionHandler = MockKeyboardActionHandler()
-    var controller: KeyboardInputViewController = KeyboardInputViewController()
     var emojiCategory: EmojiCategory = .frequent
+    lazy var keyboardLayoutProvider: KeyboardLayoutProvider = { fatalError("Not implemented yet") }()
+    lazy var keyboardInputProvider: KeyboardInputProvider = { fatalError("Not implemented yet") }()
+    var keyboardType: KeyboardType = .alphabetic(.lowercased)
+    
+    var deviceOrientation: UIInterfaceOrientation = .portrait
     var hasDictationKey = false
     var hasFullAccess = false
     var keyboardAppearanceValue: UIKeyboardAppearance = .light
-    var keyboardAppearance: UIKeyboardAppearance { keyboardAppearanceValue }
-    var keyboardType: KeyboardType = .alphabetic(.lowercased)
+    var keyboardAppearance: UIKeyboardAppearance = .dark
+    var locale: Locale = .current
     var needsInputModeSwitchKey = false
     var primaryLanguage: String?
     var textDocumentProxy: UITextDocumentProxy = UIInputViewController().textDocumentProxy
     var textInputMode: UITextInputMode?
     var traitCollection: UITraitCollection = .current
-    var userInterfaceStyleValue: UIUserInterfaceStyle = .light
-    var userInterfaceStyle: UIUserInterfaceStyle { userInterfaceStyleValue }
+    var userInterfaceStyle: UIUserInterfaceStyle = .light
 }

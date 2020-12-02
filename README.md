@@ -44,6 +44,15 @@ end
 ```
 
 
+## Important information
+
+SwiftUI support is currently an experimental feature, where I use this separate library to find a good fit with the main library.
+
+As such, to be able to move swiftly (pun intended) and not get stuck with a bunch of deprecations and having to manage migrations et.al., I will allow breaking changes between minor versions.
+
+In `v4.0`, this library will become a part of the main library. After that, semver will apply to the SwiftUI parts as well.  
+
+
 ## Contact me
 
 Feel free to reach out if you have questions or if you want to contribute in any way:

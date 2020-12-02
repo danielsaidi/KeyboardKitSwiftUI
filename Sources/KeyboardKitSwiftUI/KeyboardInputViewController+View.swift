@@ -6,8 +6,9 @@
 //  Copyright © 2020 Daniel Saidi. All rights reserved.
 //
 
-import SwiftUI
+import Combine
 import KeyboardKit
+import SwiftUI
 
 public extension KeyboardInputViewController {
     
@@ -19,20 +20,12 @@ public extension KeyboardInputViewController {
      will convert its current `keyboardContext` object to an
      `ObservableKeyboardContext` then provide it to the view
      as an `@EnvironmentObject`.
-     
-     The function will also setup another environment object
-     for `SystemKeyboardStyle` and provide it to the view as
-     an `@EnvironmentObject`. You can change the style for a
-     view or an entire hierarchy, by injecting another style
-     as environment object.
      */
     func setup<Content: View>(with view: Content) {
         self.view.subviews.forEach { $0.removeFromSuperview() }
         let newContext = ObservableKeyboardContext(from: context)
         self.context = newContext
-        let view = view
-            .environmentObject(newContext)
-            .environmentObject(SystemKeyboardStyle.standard)
+        let view = view.environmentObject(newContext)
         let controller = KeyboardHostingController(rootView: view)
         controller.add(to: self)
     }

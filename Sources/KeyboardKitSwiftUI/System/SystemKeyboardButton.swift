@@ -11,53 +11,61 @@ import SwiftUI
 
 /**
  This view mimics the buttons that are used in an iOS system
- keyboard. It wraps a view and applies a button, drop shadow
- etc. to it, as well as gestures for the provided `action`.
+ keyboard. It wraps a view then applies a button shape, drop
+ shadow etc. outside of it. It also applies gestures for the
+ provided `action`.
  
- You can provide the button with a custom text and image. If
- you don't, the view uses the library standard text or image
- for the provided `action`.
+ You can provide a custom text and image. If you don't, this
+ view will use the standard system text and/or image for the
+ provided `action`, using the `systemKeyboardButtonText` and
+ `systemKeyboardButtonImage` action extensions.
  
- The view applies the `systemKeyboardButtonStyle` as well as
- the `keyboardAction` modifiers. You can use those modifiers
- on custom views as well, if you don't want to use this view.
+ The view basically just applies `systemKeyboardButtonStyle`
+ and `keyboardAction` modifiers to the button content. These
+ modifiers can be applied to any other view as well. You can
+ disable the modifiers by setting `withModifiers` to `false`,
+ which will make it only generate the correct `buttonContent`.
  */
 public struct SystemKeyboardButton: View {
     
-    public init(action: KeyboardAction) {
-        self.action = action
-        self.image = nil
-        self.text = nil
-    }
-    
-    public init(action: KeyboardAction, text: String) {
-        self.action = action
-        self.image = nil
-        self.text = text
-    }
-    
-    public init(action: KeyboardAction, image: Image) {
+    public init(
+        action: KeyboardAction,
+        text: String? = nil,
+        image: Image? = nil,
+        useModifiers: Bool = true) {
         self.action = action
         self.image = image
-        self.text = nil
+        self.text = text
+        self.useModifiers = useModifiers
     }
     
     private let action: KeyboardAction
     private let image: Image?
     private let text: String?
+    private let useModifiers: Bool
     
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @EnvironmentObject var context: ObservableKeyboardContext
-    @EnvironmentObject var style: SystemKeyboardStyle
     
+    @ViewBuilder
     public var body: some View {
-        buttonContent
-            .systemKeyboardButtonStyle(for: action, context: context, style: style)
-            .withGestures(for: action, context: context)
+        if !useModifiers {
+            buttonContent
+        } else {
+            buttonContent
+            .systemKeyboardButtonStyle(for: action, context: context)
+            .keyboardAction(action, context: context)
+        }
     }
 }
 
 private extension SystemKeyboardButton {
+    
+    var buttonContent: AnyView {
+        if action == .nextKeyboard { return AnyView(NextKeyboardButton(controller: context.controller)) }
+        if let text = buttonText { return AnyView(self.text(for: text)) }
+        if let image = buttonImage { return AnyView(image) }
+        return AnyView(Text(""))
+    }
     
     var buttonText: String? {
         text ?? action.systemKeyboardButtonText
@@ -67,25 +75,10 @@ private extension SystemKeyboardButton {
         image ?? action.systemKeyboardButtonImage(for: context)
     }
     
-    var buttonContent: AnyView {
-        if action == .nextKeyboard { return AnyView(NextKeyboardButton(controller: context.controller)) }
-        if let text = buttonText { return AnyView(self.text(for: text)) }
-        if let image = buttonImage { return AnyView(image) }
-        return AnyView(Text(""))
-    }
-    
     func text(for text: String) -> some View {
         Text(text)
             .minimumScaleFactor(0.1)
             .lineLimit(1)
             .padding(2)
-    }
-}
-
-private extension View {
-    
-    func withGestures(for action: KeyboardAction, context: KeyboardContext) -> AnyView {
-        if action == .nextKeyboard { return AnyView(self) }
-        return AnyView(self.keyboardAction(action, context: context))
     }
 }
