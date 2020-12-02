@@ -30,9 +30,7 @@ public extension KeyboardInputViewController {
         self.view.subviews.forEach { $0.removeFromSuperview() }
         let newContext = ObservableKeyboardContext(from: context)
         self.context = newContext
-        let view = view
-            .environmentObject(newContext)
-            .environmentObject(SystemKeyboardStyle.standard)
+        let view = view.environmentObject(newContext)
         let controller = KeyboardHostingController(rootView: view)
         controller.add(to: self)
     }

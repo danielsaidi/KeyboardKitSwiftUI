@@ -13,6 +13,7 @@ This release contains layout improvements.
 
 * There is a new `SystemKeyboard` that takes a keyboard layout and renders it as button rows. 
 * `SystemKeyboard` is more flexible than the previous keyboards, which have been removed.
+* `SystemKeyboardDimensions` is a new struct that replaces the previous `SystemKeyboardStyle`.
 
 ### Breaking changes
 
@@ -23,15 +24,10 @@ The following views and extensions have been removed and replaced with the new `
 * `SymbolicSystemKeyboard`
 * `SystemKeyboardBottomRow`
 * `SystemKeyboardButtonRow`
+* `SystemKeyboardStyle`
 * `SystemKeyboardVStack`
 * `View+systemKeyboardButtonCornerRadius`
 * `View+systemKeyboardButtonFrame`
-
-More breaking changes:
-
-* I have removed unused properties from `SystemKeyboardStyle`.
-* `View+systemKeyboardButtonStyle` no longer requires a style.
-* `View+systemKeyboardButtonStyle` no longer applies a height from the style.
 
 
 ## 3.1.3

@@ -11,12 +11,15 @@ import SwiftUI
 
 /**
  This view mimics native system keyboards, like the standard
- alphabetic, numeric and symbolic keyboards.
+ alphabetic, numeric and symbolic system keyboards.
  
- You can provide the keyboard with a `KeyboardLayout` and it
- will convert the layout actions to buttons. You can provide
- a custom `buttonBuilder`. By default, `SystemKeyboardButton`
- views will be generated.
+ The keyboard view takes a `keyboardLayout` and converts the
+ actions to buttons. You can provide a custom `buttonBuilder`
+ if you don't want to use `SystemKeyboardButtonRowItem`.
+ 
+ You can also provide a custom `dimensions` value to control
+ the size of various button items. This is a new approach to
+ simplify button sizes. It may change between minor versions.
  */
 public struct SystemKeyboard: View {
     
@@ -31,8 +34,6 @@ public struct SystemKeyboard: View {
     private let rows: KeyboardActionRows
     
     public typealias ButtonBuilder = (KeyboardAction) -> AnyView
-    
-    @EnvironmentObject private var style: SystemKeyboardStyle
     
     public var body: some View {
         VStack(spacing: 0) {
@@ -50,7 +51,9 @@ public extension SystemKeyboard {
      when no custom builder is provided to the view.
      */
     static func standardButtonBuilder(action: KeyboardAction) -> AnyView {
-        AnyView(SystemKeyboardButtonRowItem(action: action))
+        AnyView(SystemKeyboardButtonRowItem(
+                    action: action,
+                    dimensions: SystemKeyboardDimensions()))
     }
 }
 

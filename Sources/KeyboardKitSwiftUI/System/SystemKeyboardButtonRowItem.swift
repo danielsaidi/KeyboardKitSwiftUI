@@ -21,22 +21,25 @@ import SwiftUI
  */
 public struct SystemKeyboardButtonRowItem: View {
     
-    public init(action: KeyboardAction) {
+    public init(
+        action: KeyboardAction,
+        dimensions: SystemKeyboardDimensions) {
         self.action = action
+        self.dimensions = dimensions
     }
     
     private let action: KeyboardAction
+    private let dimensions: SystemKeyboardDimensions
     
     @EnvironmentObject var context: ObservableKeyboardContext
-    @EnvironmentObject var style: SystemKeyboardStyle
     
     public var body: some View {
         SystemKeyboardButton(action: action, useModifiers: false)
             .frame(maxWidth: .infinity)
-            .frame(height: style.buttonHeight - style.buttonInsets.top - style.buttonInsets.bottom)
+            .frame(height: dimensions.buttonHeight - dimensions.buttonInsets.top - dimensions.buttonInsets.bottom)
             .systemKeyboardButtonStyle(for: action, context: context)
-            .padding(style.buttonInsets)
-            .frame(height: style.buttonHeight)
+            .padding(dimensions.buttonInsets)
+            .frame(height: dimensions.buttonHeight)
             .background(Color.clearInteractable)
             .keyboardAction(action, context: context)
     }
