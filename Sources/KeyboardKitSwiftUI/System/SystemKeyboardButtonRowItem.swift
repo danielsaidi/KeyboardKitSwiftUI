@@ -11,13 +11,13 @@ import SwiftUI
 
 /**
  This view is meant to be used within a `SystemKeyboard` and
- is the standard view that will be used if no custom view is
- provided when such a keyboard is created.
+ is the default view if no custom view is provided.
  
- This view wraps a `SystemKeyboardButton` and will adjust it
- to be used in a keyboard row. This involves applying height
- and paddings and new actions in a way that make the buttons
- in a keyboard appear to be separated, but be fully tappable.
+ This view wraps a `SystemKeyboardButton`, without modifiers.
+ It then adjusts the button to be used within a keyboard row.
+ This involves applying height and paddings and new gestures
+ in a way that make the buttons in a keyboard seem separated,
+ but actually stick together with the padding being tappable.
  */
 public struct SystemKeyboardButtonRowItem: View {
     
@@ -34,7 +34,7 @@ public struct SystemKeyboardButtonRowItem: View {
         SystemKeyboardButton(action: action, useModifiers: false)
             .frame(maxWidth: .infinity)
             .frame(height: style.buttonHeight - style.buttonInsets.top - style.buttonInsets.bottom)
-            .systemKeyboardButtonStyle(for: action, context: context, style: style)
+            .systemKeyboardButtonStyle(for: action, context: context)
             .padding(style.buttonInsets)
             .frame(height: style.buttonHeight)
             .background(Color.clearInteractable)

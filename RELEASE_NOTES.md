@@ -24,11 +24,14 @@ The following views and extensions have been removed and replaced with the new `
 * `SystemKeyboardBottomRow`
 * `SystemKeyboardButtonRow`
 * `SystemKeyboardVStack`
+* `View+systemKeyboardButtonCornerRadius`
 * `View+systemKeyboardButtonFrame`
 
-### Breaking changes
+More breaking changes:
 
-* `systemKeyboardButtonStyle` no longer applies a height from the style.
+* I have removed unused properties from `SystemKeyboardStyle`.
+* `View+systemKeyboardButtonStyle` no longer requires a style.
+* `View+systemKeyboardButtonStyle` no longer applies a height from the style.
 
 
 ## 3.1.3

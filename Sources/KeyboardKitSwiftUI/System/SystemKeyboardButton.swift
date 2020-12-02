@@ -53,7 +53,7 @@ public struct SystemKeyboardButton: View {
             buttonContent
         } else {
             buttonContent
-            .systemKeyboardButtonStyle(for: action, context: context, style: style)
+            .systemKeyboardButtonStyle(for: action, context: context)
             .keyboardAction(action, context: context)
         }
     }

@@ -24,9 +24,6 @@ class SystemKeyboardButtonStyleTests: QuickSpec {
                 expect(style.buttonCornerRadius).to(equal(4.0))
                 expect(style.buttonHeight).to(equal(.standardKeyboardRowHeight()))
                 expect(style.buttonInsets).to(equal(.insets(from: .standardKeyboardRowItemInsets())))
-                expect(style.buttonSpacing).to(equal(6.0))
-                expect(style.padding).to(equal(EdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4)))
-                expect(style.rowSpacing).to(equal(12.0))
                 expect(style.shiftWidth).to(equal(50.0))
             }
         }

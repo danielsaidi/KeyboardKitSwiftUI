@@ -23,7 +23,7 @@ class View_SystemKeyboardStylesTests: QuickSpec {
         describe("system keyboard button style") {
             
             it("is defined") {
-                let result = Text("").systemKeyboardButtonStyle(for: .backspace, context: context, style: .standard)
+                let result = Text("").systemKeyboardButtonStyle(for: .backspace, context: context)
                 expect(result).toNot(beNil())
             }
         }
@@ -33,14 +33,6 @@ class View_SystemKeyboardStylesTests: QuickSpec {
             it("is defined") {
                 let background = Text("").systemKeyboardButtonBackground(for: .backspace, context: context)
                 expect(background).toNot(beNil())
-            }
-        }
-        
-        describe("system keyboard button corner radius") {
-            
-            it("is defined") {
-                let value = Text("").systemKeyboardButtonCornerRadius(for: .standard)
-                expect(value).toNot(beNil())
             }
         }
         
