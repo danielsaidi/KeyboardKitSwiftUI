@@ -22,36 +22,51 @@ import SwiftUI
  
  The view basically just applies `systemKeyboardButtonStyle`
  and `keyboardAction` modifiers to the button content. These
- modifiers can be applied to any view, to create a view that
- mimics a system button.
+ modifiers can be applied to any other view as well. You can
+ disable the modifiers by setting `withModifiers` to `false`,
+ which will make it only generate the correct `buttonContent`.
  */
 public struct SystemKeyboardButton: View {
     
     public init(
         action: KeyboardAction,
         text: String? = nil,
-        image: Image? = nil) {
+        image: Image? = nil,
+        useModifiers: Bool = true) {
         self.action = action
         self.image = image
         self.text = text
+        self.useModifiers = useModifiers
     }
     
     private let action: KeyboardAction
     private let image: Image?
     private let text: String?
+    private let useModifiers: Bool
     
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @EnvironmentObject var context: ObservableKeyboardContext
     @EnvironmentObject var style: SystemKeyboardStyle
     
+    @ViewBuilder
     public var body: some View {
-        buttonContent
+        if !useModifiers {
+            buttonContent
+        } else {
+            buttonContent
             .systemKeyboardButtonStyle(for: action, context: context, style: style)
-            .withGestures(for: action, context: context)
+            .keyboardAction(action, context: context)
+        }
     }
 }
 
 private extension SystemKeyboardButton {
+    
+    var buttonContent: AnyView {
+        if action == .nextKeyboard { return AnyView(NextKeyboardButton(controller: context.controller)) }
+        if let text = buttonText { return AnyView(self.text(for: text)) }
+        if let image = buttonImage { return AnyView(image) }
+        return AnyView(Text(""))
+    }
     
     var buttonText: String? {
         text ?? action.systemKeyboardButtonText
@@ -61,25 +76,10 @@ private extension SystemKeyboardButton {
         image ?? action.systemKeyboardButtonImage(for: context)
     }
     
-    var buttonContent: AnyView {
-        if action == .nextKeyboard { return AnyView(NextKeyboardButton(controller: context.controller)) }
-        if let text = buttonText { return AnyView(self.text(for: text)) }
-        if let image = buttonImage { return AnyView(image) }
-        return AnyView(Text(""))
-    }
-    
     func text(for text: String) -> some View {
         Text(text)
             .minimumScaleFactor(0.1)
             .lineLimit(1)
             .padding(2)
-    }
-}
-
-private extension View {
-    
-    func withGestures(for action: KeyboardAction, context: KeyboardContext) -> AnyView {
-        if action == .nextKeyboard { return AnyView(self) }
-        return AnyView(self.keyboardAction(action, context: context))
     }
 }

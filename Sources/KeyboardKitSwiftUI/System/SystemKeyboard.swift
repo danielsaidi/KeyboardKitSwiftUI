@@ -50,7 +50,7 @@ public extension SystemKeyboard {
      when no custom builder is provided to the view.
      */
     static func standardButtonBuilder(action: KeyboardAction) -> AnyView {
-        AnyView(SystemKeyboardButton(action: action))
+        AnyView(SystemKeyboardButtonRowItem(action: action))
     }
 }
 

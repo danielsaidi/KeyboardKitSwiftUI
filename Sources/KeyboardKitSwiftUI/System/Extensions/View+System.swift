@@ -28,18 +28,11 @@ public extension View {
         for action: KeyboardAction,
         context: KeyboardContext,
         style: SystemKeyboardStyle) -> some View {
-        self.frame(maxWidth: .infinity)
-            .frame(height: style.buttonHeight - style.buttonInsets.top - style.buttonInsets.bottom)
-            
-            
-            .systemKeyboardButtonBackground(for: action, context: context)
+        self.systemKeyboardButtonBackground(for: action, context: context)
             .systemKeyboardButtonForeground(for: context)
             .systemKeyboardButtonCornerRadius(for: style)
             .systemKeyboardButtonShadow(for: context)
             .systemKeyboardButtonFont(for: action, context: context)
-            .padding(style.buttonInsets)
-            .frame(height: style.buttonHeight)
-            .background(Color.clearInteractable)
     }
 }
 

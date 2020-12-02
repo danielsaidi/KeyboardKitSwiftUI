@@ -18,17 +18,19 @@ public extension View {
     func keyboardAction(
         _ action: KeyboardAction,
         context: KeyboardContext) -> some View {
-        self.keyboardAction(action, actionHandler: context.actionHandler)
+        keyboardAction(action, actionHandler: context.actionHandler)
     }
     
     /**
      Apply gestures for a certain keyboard action, using the
      provided action handler.
      */
+    @ViewBuilder
     func keyboardAction(
         _ action: KeyboardAction,
         actionHandler: KeyboardActionHandler) -> some View {
-        self.keyboardGestures(
+        if action == .nextKeyboard { self }
+        keyboardGestures(
             tapAction: { actionHandler.handle(.tap, on: action) },
             doubleTapAction: { actionHandler.handle(.doubleTap, on: action) },
             longPressAction: { actionHandler.handle(.longPress, on: action) },
