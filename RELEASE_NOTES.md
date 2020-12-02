@@ -5,13 +5,23 @@
 
 This release contains layout improvements.
 
+* The introduction of `input sets` and `keyboard layouts` will drastically change how button layout must be handled.
 * There is a new `SystemKeyboard` that takes a keyboard layout. It's more flexible than the previous keyboards, which now are deprecated.
+* Due to this, many system views are deprecated and the system keyboard style will become obsolete.
+
+Removing the system keyboard style will however happen over a longer period, and will be complete until KeyboardKit 4.0.
+
+### Important
+
+`SystemKeyboardStyle` has a todo that explains why it will gradually be replaced until KeyboardKit 4.0.
 
 ### Deprecations
 
 * `AlphabeticSystemKeyboard`
 * `NumericSystemKeyboard`
 * `SymbolicSystemKeyboard`
+* `SystemKeyboardBottomRow`
+* `SystemKeyboardVStack`
 
 
 ## 3.1.3

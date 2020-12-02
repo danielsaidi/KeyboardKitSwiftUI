@@ -14,11 +14,8 @@ import SwiftUI
  alphabetic, numeric and symbolic keyboards.
  
  You can provide the keyboard with any `KeyboardLayout`. The
- leyboard will then present the layout rows in separate rows `SystemKeyboardButtonRow`
- aim to present the actions as closely as
- possible to how they would appear in a native keyboard. Any
- styling is done in `SystemKeyboardButtonRow` and any nested
- views it may use.
+ keyboard will then present the layout rows in separate rows,
+ with a `SystemKeyboardButtonRow` for each row.
  */
 public struct SystemKeyboard: View {
     
@@ -28,8 +25,10 @@ public struct SystemKeyboard: View {
     
     private let rows: KeyboardActionRows
     
+    @EnvironmentObject private var style: SystemKeyboardStyle
+    
     public var body: some View {
-        SystemKeyboardVStack {
+        VStack(spacing: 0) {
             ForEach(rows.enumerated().map { $0 }, id: \.offset) {
                 row(at: $0.offset, actions: $0.element)
             }

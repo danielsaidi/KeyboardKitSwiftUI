@@ -13,6 +13,11 @@ import SwiftUI
 /**
  This struct provides static properties that are used by the
  various extensions in `View+System`.
+ 
+ `TODO` This is not a viable way forward, since first of all
+ this is layout, not style. Also, layout is a lot harder and
+ cannot be specified with single values. Use this style with
+ care, because it will gradually be replaced before KK 4.0.
  */
 public class SystemKeyboardStyle: ObservableObject {
     
