@@ -60,14 +60,6 @@ class View_SystemKeyboardStylesTests: QuickSpec {
             }
         }
         
-        describe("system keyboard button frame") {
-            
-            it("is defined") {
-                let value = Text("").systemKeyboardButtonFrame(for: .standard)
-                expect(value).toNot(beNil())
-            }
-        }
-        
         describe("system keyboard button shadow") {
             
             it("is defined") {
