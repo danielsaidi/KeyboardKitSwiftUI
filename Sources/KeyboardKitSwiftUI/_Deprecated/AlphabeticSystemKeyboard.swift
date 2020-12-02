@@ -9,23 +9,7 @@
 import SwiftUI
 import KeyboardKit
 
-/**
- This view mimics a native, alphabetic system keyboard.
- 
- The keyboard supports three rows of input actions, a bottom
- row and an optional topmost view. The `inputSet` determines
- which input actions to show above the bottom bar.
- 
- If provided, the optional `topmostView` will be added above
- the input rows. If you don't provide a `customBottomRow`, a
- `SystemKeyboardBottomRow.standard` row will be used instead,
- using a `.keyboardType(.numeric)` leftmost action.
- 
- `IMPORTANT` This view is not yet flexible enough to be used
- with most locales, since the actions surrounding the inputs
- cannot be modified. In the future, `inputSet` will probably
- be replaced by a more specific set of actions.
- */
+@available(*, deprecated, message: "Use SystemKeyboard with a keyboard layout instead")
 public struct AlphabeticSystemKeyboard: View {
     
     public init(

@@ -1,6 +1,19 @@
 # Release Notes
 
 
+## 3.2.0
+
+This release contains layout improvements.
+
+* There is a new `SystemKeyboard` that takes a keyboard layout. It's more flexible than the previous keyboards, which now are deprecated.
+
+### Deprecations
+
+* `AlphabeticSystemKeyboard`
+* `NumericSystemKeyboard`
+* `SymbolicSystemKeyboard`
+
+
 ## 3.1.3
 
 This version fixes a bug where the long press action of a `KeyboardImageButton` didn't do anything.
