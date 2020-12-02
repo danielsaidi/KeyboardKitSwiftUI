@@ -23,13 +23,16 @@ public struct SystemKeyboardButtonRowItem: View {
     
     public init(
         action: KeyboardAction,
-        dimensions: SystemKeyboardDimensions) {
+        dimensions: SystemKeyboardDimensions,
+        keyboardSize: CGSize) {
         self.action = action
         self.dimensions = dimensions
+        self.keyboardSize = keyboardSize
     }
     
     private let action: KeyboardAction
     private let dimensions: SystemKeyboardDimensions
+    private let keyboardSize: CGSize
     
     @EnvironmentObject var context: ObservableKeyboardContext
     
@@ -37,7 +40,7 @@ public struct SystemKeyboardButtonRowItem: View {
         SystemKeyboardButton(action: action, useModifiers: false)
             .frame(maxWidth: .infinity)
             .frame(height: dimensions.buttonHeight - dimensions.buttonInsets.top - dimensions.buttonInsets.bottom)
-            .applyWidth(for: action, from: dimensions)
+            .applyWidth(for: action, from: dimensions, keyboardWidth: keyboardSize.width)
             .systemKeyboardButtonStyle(for: action, context: context)
             .padding(dimensions.buttonInsets)
             .frame(height: dimensions.buttonHeight)
@@ -49,19 +52,24 @@ public struct SystemKeyboardButtonRowItem: View {
 private extension View {
     
     @ViewBuilder
-    func applyWidth(for action: KeyboardAction, from dimensions: SystemKeyboardDimensions) -> some View {
-        if let width = width(for: action, from: dimensions) {
+    func applyWidth(
+        for action: KeyboardAction,
+        from dimensions: SystemKeyboardDimensions,
+        keyboardWidth: CGFloat) -> some View {
+        if let width = width(for: action, from: dimensions, keyboardWidth: keyboardWidth) {
             self.frame(width: width)
         } else {
             self
         }
     }
     
-    func width(for action: KeyboardAction, from dimensions: SystemKeyboardDimensions) -> CGFloat? {
+    func width(
+        for action: KeyboardAction,
+        from dimensions: SystemKeyboardDimensions,
+        keyboardWidth: CGFloat) -> CGFloat? {
         switch action {
         case .shift, .backspace: return dimensions.shortButtonWidth
-        case .keyboardType(let type): return width(for: type, from: dimensions)
-        case .newLine: return dimensions.longButtonWidth
+        case .space: return keyboardWidth * 0.5
         default: return nil
         }
     }

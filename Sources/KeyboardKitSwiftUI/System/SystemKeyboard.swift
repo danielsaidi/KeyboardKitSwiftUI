@@ -20,20 +20,27 @@ import SwiftUI
  You can also provide a custom `dimensions` value to control
  the size of various button items. This is a new approach to
  simplify button sizes. It may change between minor versions.
+ 
+ `IMPORTANT` The dimension thing is just a temp hack to make
+ the demo app look decent. It will change very soon, perhaps
+ as soon as in the next minor version. Things may break.
  */
-public struct SystemKeyboard: View {
+public struct SystemKeyboard<Button: View>: View {
     
     public init(
         layout: KeyboardLayout,
-        buttonBuilder: @escaping ButtonBuilder = standardButtonBuilder) {
+        buttonBuilder: @escaping ButtonBuilder) {
         self.rows = layout.actionRows
         self.buttonBuilder = buttonBuilder
     }
     
-    private let buttonBuilder: ButtonBuilder
+    private var buttonBuilder: ButtonBuilder
     private let rows: KeyboardActionRows
     
-    public typealias ButtonBuilder = (KeyboardAction) -> AnyView
+    @State private var size: CGSize = .zero
+    
+    public typealias ButtonBuilder = (KeyboardAction, KeyboardSize) -> Button
+    public typealias KeyboardSize = CGSize
     
     public var body: some View {
         VStack(spacing: 0) {
@@ -41,6 +48,16 @@ public struct SystemKeyboard: View {
                 row(at: $0.offset, actions: $0.element)
             }
         }
+        .bindSize(to: $size)
+    }
+}
+
+public extension SystemKeyboard where Button == SystemKeyboardButtonRowItem {
+    
+    init(layout: KeyboardLayout) {
+        self.rows = layout.actionRows
+        self.buttonBuilder = { _, _ in fatalError() }
+        self.buttonBuilder = standardButtonBuilder
     }
 }
 
@@ -50,10 +67,11 @@ public extension SystemKeyboard {
      This is the standard `buttonBuilder`, that will be used
      when no custom builder is provided to the view.
      */
-    static func standardButtonBuilder(action: KeyboardAction) -> AnyView {
-        AnyView(SystemKeyboardButtonRowItem(
-                    action: action,
-                    dimensions: SystemKeyboardDimensions()))
+    func standardButtonBuilder(action: KeyboardAction, keyboardSize: KeyboardSize) -> SystemKeyboardButtonRowItem {
+        SystemKeyboardButtonRowItem(
+            action: action,
+            dimensions: SystemKeyboardDimensions(),
+            keyboardSize: keyboardSize)
     }
 }
 
@@ -64,7 +82,7 @@ private extension SystemKeyboard {
         HStack(spacing: 0) {
             rowEdgeSpacer(at: index)
             ForEach(Array(actions.enumerated()), id: \.offset) {
-                buttonBuilder($0.element)
+                buttonBuilder($0.element, size)
             }
             rowEdgeSpacer(at: index)
         }
@@ -85,6 +103,7 @@ private extension SystemKeyboard {
      */
     var secondRowPadding: CGFloat {
         guard Locale.current.identifier.starts(with: "en") else { return 0 }
+        guard UIDevice.current.userInterfaceIdiom == .phone else { return 0 }
         return max(0, 20 * CGFloat(rows[0].count - rows[1].count))
     }
 }
