@@ -9,16 +9,7 @@
 import KeyboardKit
 import SwiftUI
 
-/**
- This view mimicks a system keyboard button row that is used
- by native iOS keyboards. It can be used to create an entire
- row of buttons or be used within another row, e.g. to build
- a grouped row.
- 
- You can provide a custom `buttonBuilder` to customize how a
- view is created for a certain action. If you don't, it will
- use the static `standardButtonBuilder` function.
- */
+@available(*, deprecated, message: "Use SystemKeyboard with a keyboard layout instead")
 public struct SystemKeyboardButtonRow: View {
     
     public init(

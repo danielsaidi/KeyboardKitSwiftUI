@@ -9,18 +9,7 @@
 import KeyboardKit
 import SwiftUI
 
-/**
- This view mimicks a system keyboard bottom row that is used
- by native iOS keyboards. It has a center space bar and adds
- the `leftmostActions` and `rightmostActions` next to it.
- 
- You can provide a custom `buttonBuilder` to customize how a
- view is created for a certain action. If you don't, it will
- use the static `standardButtonBuilder` function.
- 
- Since emoji support is not yet implemented for SwiftUI, you
- can provide an empty `emojiButtonText` to hide the button.
- */
+@available(*, deprecated, message: "Use SystemKeyboard with a keyboard layout instead")
 public struct SystemKeyboardBottomRow: View {
     
     public init(

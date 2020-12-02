@@ -21,6 +21,7 @@ Removing the system keyboard style will however happen over a longer period, and
 * `NumericSystemKeyboard`
 * `SymbolicSystemKeyboard`
 * `SystemKeyboardBottomRow`
+* `SystemKeyboardButtonRow`
 * `SystemKeyboardVStack`
 
 

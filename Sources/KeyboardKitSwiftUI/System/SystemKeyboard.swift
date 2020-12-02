@@ -38,14 +38,27 @@ public struct SystemKeyboard: View {
 
 private extension SystemKeyboard {
     
+    @ViewBuilder
+    func edgeSpacer(at index: Int) -> some View {
+        if index == 1 {
+            Spacer(minLength: secondRowPadding)
+        } else {
+            EmptyView()
+        }
+    }
+    
     func row(at index: Int, actions: KeyboardActionRow) -> some View {
         HStack {
-            if index == 1 {
-                Spacer(minLength: secondRowPadding)
-            }
-            SystemKeyboardButtonRow(actions: actions)
-            if index == 1 {
-                Spacer(minLength: secondRowPadding)
+            edgeSpacer(at: index)
+            row(for: actions)
+            edgeSpacer(at: index)
+        }
+    }
+    
+    func row(for actions: KeyboardActionRow) -> some View {
+        HStack(spacing: 0) {
+            ForEach(Array(actions.enumerated()), id: \.offset) {
+                SystemKeyboardButton(action: $0.element)
             }
         }
     }
