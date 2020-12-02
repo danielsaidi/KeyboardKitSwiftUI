@@ -31,7 +31,7 @@ public extension View {
         actionHandler: KeyboardActionHandler) -> some View {
         if action == .nextKeyboard {
             self
-        } else  {
+        } else {
             self.keyboardGestures(
                 tapAction: { actionHandler.handle(.tap, on: action) },
                 doubleTapAction: { actionHandler.handle(.doubleTap, on: action) },
