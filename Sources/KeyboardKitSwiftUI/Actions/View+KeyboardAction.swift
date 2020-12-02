@@ -29,11 +29,14 @@ public extension View {
     func keyboardAction(
         _ action: KeyboardAction,
         actionHandler: KeyboardActionHandler) -> some View {
-        if action == .nextKeyboard { self }
-        keyboardGestures(
-            tapAction: { actionHandler.handle(.tap, on: action) },
-            doubleTapAction: { actionHandler.handle(.doubleTap, on: action) },
-            longPressAction: { actionHandler.handle(.longPress, on: action) },
-            repeatAction: { actionHandler.handle(.repeatPress, on: action) })
+        if action == .nextKeyboard {
+            self
+        } else {
+            self.keyboardGestures(
+                tapAction: { actionHandler.handle(.tap, on: action) },
+                doubleTapAction: { actionHandler.handle(.doubleTap, on: action) },
+                longPressAction: { actionHandler.handle(.longPress, on: action) },
+                repeatAction: { actionHandler.handle(.repeatPress, on: action) })
+        }
     }
 }
