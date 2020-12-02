@@ -10,8 +10,8 @@ import SwiftUI
 import KeyboardKit
 
 /**
- This stack wraps another view that mimics a system keyboard.
- It wraps it in a `VStack` and appleies the correct padding.
+ This stack wraps another view that mimics a system keyboard
+ in a `VStack` and applies the correct padding for the style.
  */
 public struct SystemKeyboardVStack<Content: View>: View {
     
