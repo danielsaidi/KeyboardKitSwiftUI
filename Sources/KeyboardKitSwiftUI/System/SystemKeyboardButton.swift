@@ -45,7 +45,6 @@ public struct SystemKeyboardButton: View {
     private let useModifiers: Bool
     
     @EnvironmentObject var context: ObservableKeyboardContext
-    @EnvironmentObject var style: SystemKeyboardStyle
     
     @ViewBuilder
     public var body: some View {
