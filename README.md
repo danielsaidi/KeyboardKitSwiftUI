@@ -15,11 +15,17 @@
 </p>
 
 
-## About KeyboardKitSwiftUI
+## About KeyboardKit
 
-`KeyboardKitSwiftUI` extends [KeyboardKit][KeyboardKit] with `SwiftUI` functionality. 
+`KeyboardKit` is a helps you create custom keyboard extensions for `iOS` and `ipadOS`. It provides you with a rich set of `tools` and `actions`, `haptic` and `audio` feedback, `input sets`, `keyboard layouts` etc. and lets you create keyboards with `characters`, `numbers`, `symbols`, `emojis`, `images` or entirely custom ones.
 
-This library is temporarily a separate project, since Xcode can't handle iOS 13 features in a framework that targets iOS 11. If this would be a part of [KeyboardKit][KeyboardKit], you would have to add a weak SwiftUI dependency to your project to avoid crashes on iOS 11 and 12 devices.
+You can create native looking keyboards like the example below, or completely custom keyboards:
+
+<p align="center">
+    <img src ="Resources/Demo.gif" width="300" />
+</p>
+
+`KeyboardKitSwiftUI` extends [KeyboardKit][KeyboardKit] with `SwiftUI` support. It's temporarily a separate project, since SwiftUI requires iOS 13 and KeyboardKit targets iOS 11. It'll become part of the main library in version `4.0`.
 
 Read more about SwiftUI support in the [main repository][KeyboardKit].
 
@@ -36,21 +42,21 @@ https://github.com/danielsaidi/KeyboardKitSwiftUI.git
 ```ruby
 target 'MyApp' do
   pod 'KeyboardKit'
+  pod 'KeyboardKitSwiftUI'
 end
 
 target 'MyKeyboard' do
   pod 'KeyboardKit'
+  pod 'KeyboardKitSwiftUI'
 end
 ```
 
 
 ## Important information
 
-SwiftUI support is currently an experimental feature, where I use this separate library to find a good fit with the main library.
+SwiftUI support is currently in development, where I use this separate library to find a good fit with the main library. As such, to be able to move swiftly (pun intended) and not struggle with a bunch of deprecations, I will allow breaking changes between minor versions.
 
-As such, to be able to move swiftly (pun intended) and not get stuck with a bunch of deprecations and having to manage migrations et.al., I will allow breaking changes between minor versions.
-
-In `v4.0`, this library will become a part of the main library. After that, semver will apply to the SwiftUI parts as well.  
+This library will become a part of the main library in version `4.0`. After that, semver will apply to the SwiftUI parts as well.  
 
 
 ## Contact me
