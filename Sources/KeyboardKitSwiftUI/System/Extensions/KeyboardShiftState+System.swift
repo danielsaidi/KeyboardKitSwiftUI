@@ -11,8 +11,7 @@ import SwiftUI
 
 /**
  The `System` extensions help you create keyboard extensions
- that mimic native iOS system keyboards. Don't use them when
- you aim for a custom keyboard style.
+ that mimic native iOS system keyboards.
  */
 public extension KeyboardShiftState {
     
