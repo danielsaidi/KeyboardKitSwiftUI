@@ -18,10 +18,6 @@ public extension KeyboardShiftState {
     /**
      The image that can be used to indicate that this is the
      current shift state.
-     
-     Note that this can't be used for buttons that switch to
-     this state, since system shift state buttons should use
-     the system image of the current shift state.
      */
     var systemImage: Image {
         switch self {
