@@ -7,6 +7,13 @@ As such, to be able to move swiftly (pun intended) and not get stuck with a bunc
 In `v4.0`, this library will become a part of the main library. After that, semver will apply to the SwiftUI parts as well.  
 
 
+## 3.3.0
+
+This release contains a lot of changes in the main library.
+
+In this library, the observable context has received a `keyboardBehavior` property and the dismiss keyboard action has an icon. 
+
+
 ## 3.2.0
 
 This release contains layout improvements and breaking changes.

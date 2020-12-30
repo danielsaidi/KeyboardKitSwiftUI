@@ -3,12 +3,10 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/danielsaidi/KeyboardKitSwiftUI">
-        <img src="https://badge.fury.io/gh/danielsaidi%2FKeyboardKitSwiftUI.svg?style=flat" alt="Version" />
-    </a>
+    <img src="https://img.shields.io/github/v/release/danielsaidi/KeyboardKitSwiftUI?color=%2300550&sort=semver" alt="Version" />
     <img src="https://img.shields.io/cocoapods/p/KeyboardKitSwiftUI.svg?style=flat" alt="Platform" />
     <img src="https://img.shields.io/badge/Swift-5.3-orange.svg" alt="Swift 5.3" />
-    <img src="https://badges.frapsoft.com/os/mit/mit.svg?style=flat&v=102" alt="License" />
+    <img src="https://img.shields.io/github/license/danielsaidi/KeyboardKitSwiftUI" alt="MIT License" />
     <a href="https://twitter.com/danielsaidi">
         <img src="https://img.shields.io/badge/contact-@danielsaidi-blue.svg?style=flat" alt="Twitter: @danielsaidi" />
     </a>
@@ -68,13 +66,18 @@ Feel free to reach out if you have questions or if you want to contribute in any
 * Web site: [danielsaidi.com][Website]
 
 
-## Supporters
+## Clients
 
 KeyboardKit is proudly supported by:
 
-[![Anomaly Software](Resources/logos/anomaly.png "Anomaly Software")](http://anomaly.net.au/)
+<a href="http://anomaly.net.au">
+    <img src="Resources/logos/anomaly.png" alt="Anomaly Software Logo" title="Anomaly Software" width=150 />
+</a>
+<a href="https://www.milocreative.com">
+    <img src="Resources/logos/milo.png" alt="Milo Creative Logo" title="Milo Creative" width=150 />
+</a>
 
-Your company can support KeyboardKit by either sponsoring the project on GitHub Sponsors or by paying for consultation. I'ld be happy to help you out with your keyboard needs. 
+Your company can support KeyboardKit by either sponsoring the project on GitHub Sponsors or by paying for consultation.  I'ld be happy to help you out with your keyboard needs.
 
 
 ## License

@@ -13,10 +13,10 @@ let package = Package(
             targets: ["KeyboardKitSwiftUI"])
     ],
     dependencies: [
-        //.package(url: "https://github.com/danielsaidi/KeyboardKit.git", from: "3.2.0"),
-        .package(url: "https://github.com/danielsaidi/KeyboardKit.git", .branch("master")),
+        .package(url: "https://github.com/danielsaidi/KeyboardKit.git", from: "3.3.0"),
+        //.package(url: "https://github.com/danielsaidi/KeyboardKit.git", .branch("master")),
         .package(url: "https://github.com/Quick/Quick.git", from: "2.2.0"),
-        .package(url: "https://github.com/Quick/Nimble.git", from: "8.0.0"),
+        .package(url: "https://github.com/Quick/Nimble.git", from: "9.0.0"),
         .package(url: "https://github.com/danielsaidi/Mockery.git", from: "0.6.0")
     ],
     targets: [
