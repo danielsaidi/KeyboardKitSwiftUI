@@ -33,6 +33,7 @@ public extension View {
             self
         } else {
             self.keyboardGestures(
+                action: action,
                 tapAction: { actionHandler.handle(.tap, on: action) },
                 doubleTapAction: { actionHandler.handle(.doubleTap, on: action) },
                 longPressAction: { actionHandler.handle(.longPress, on: action) },

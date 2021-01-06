@@ -14,7 +14,7 @@ import SwiftUI
 public struct SecondaryInputCalloutStyle {
     
     public init(
-        backgroundColor: Color = .white,
+        backgroundColor: Color = .secondary,
         borderColor: Color = Color.black.opacity(0.3),
         cornerRadius: CGFloat = 5,
         font: Font = .body,

@@ -12,8 +12,9 @@ import SwiftUI
 /**
  This context can be used to control `SecondaryInputCallout`
  callouts that appear as users long press a keyboard button.
+ You can use `.shared` to get/set a shared context.
  
- You should not use this contexst directly, but rather apply
+ You shouldn't use this context directly, but rather apply a
  `.secondaryInputCallout` to any keyboard view (this is auto
  applied when you use a `SystemKeyboard`), then also apply a
  `.secondaryInputCalloutGesture` to any keyboard button that
@@ -33,29 +34,36 @@ public class SecondaryInputCalloutContext: ObservableObject {
     
     // MARK: - Initialization
     
-    public init(context: ObservableKeyboardContext) {
+    public init(
+        actionProvider: SecondaryCalloutActionProvider,
+        context: KeyboardContext) {
+        self.actionProvider = actionProvider
         self.context = context
     }
     
     
+    // MARK: - Dependencies
+    
+    private let actionProvider: SecondaryCalloutActionProvider
+    private let context: KeyboardContext
+    
+    
     // MARK: - Properties
     
-    private let context: ObservableKeyboardContext
+    public static var shared: SecondaryInputCalloutContext!
+    
+    static let coordinateSpace = "com.keyboardkit.coordinate.SecondaryInputCallout"
+    
+    public var isActive: Bool { actions.isEmpty }
+    public var isLeading: Bool { !isTrailing }
+    public var isTrailing: Bool { alignment.horizontal == .trailing }
+    public var selectedAction: KeyboardAction? { isIndexValid(selectedIndex) ? actions[selectedIndex] : nil }
     
     @Published private(set) var actions: [KeyboardAction] = []
     @Published private(set) var alignment: Alignment = .leading
     @Published private(set) var buttonFrame: CGRect = .zero
     @Published private(set) var selectedIndex: Int = -1
     
-    public static let coordinateSpace = "com.keyboardkit.coordinate.SecondaryInputCallout"
- 
-    public var isActive: Bool { actions.isEmpty }
-    public var isLeading: Bool { !isTrailing }
-    public var isTrailing: Bool { alignment.horizontal == .trailing }
-    
-    public var selectedAction: KeyboardAction? {
-        isIndexWithinBounds(selectedIndex) ? actions[selectedIndex] : nil
-    }
     
     
     // MARK: - Functions
@@ -80,7 +88,9 @@ public class SecondaryInputCalloutContext: ObservableObject {
         HapticFeedback.selectionChanged.trigger()
     }
     
-    open func update(actions: [KeyboardAction], geo: GeometryProxy, alignment: Alignment? = nil) {
+    open func updateInputs(for action: KeyboardAction?, geo: GeometryProxy, alignment: Alignment? = nil) {
+        guard let action = action else { return }
+        let actions = actionProvider.secondaryCalloutActions(for: action, in: context)
         let coordinateSpace = Self.coordinateSpace
         self.buttonFrame = geo.frame(in: .named(coordinateSpace))
         self.alignment = alignment ?? getAlignment(for: geo)
@@ -97,7 +107,7 @@ public class SecondaryInputCalloutContext: ObservableObject {
         let offset = Int(abs(translation) / buttonWidth)
         let index = isLeading ? offset : actions.count - offset - 1
         let currentIndex = self.selectedIndex
-        let newIndex = isIndexWithinBounds(index) ? index : startIndex
+        let newIndex = isIndexValid(index) ? index : startIndex
         if currentIndex != newIndex { triggerHapticFeedbackForSelectionChange() }
         self.selectedIndex = newIndex
     }
@@ -112,7 +122,7 @@ private extension SecondaryInputCalloutContext {
         isLeading ? 0 : actions.count - 1
     }
     
-    func isIndexWithinBounds(_ index: Int) -> Bool {
+    func isIndexValid(_ index: Int) -> Bool {
         index >= 0 && index < actions.count
     }
     

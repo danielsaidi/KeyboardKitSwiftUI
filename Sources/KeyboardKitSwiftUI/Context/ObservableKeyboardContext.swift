@@ -32,6 +32,7 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
         keyboardInputSetProvider = context.keyboardInputSetProvider
         keyboardLayoutProvider = context.keyboardLayoutProvider
         keyboardType = context.keyboardType
+        secondaryCalloutActionProvider = context.secondaryCalloutActionProvider
         
         deviceOrientation = context.deviceOrientation
         hasDictationKey = context.hasDictationKey
@@ -42,6 +43,10 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
         textDocumentProxy = context.textDocumentProxy
         textInputMode = context.textInputMode
         traitCollection = context.traitCollection
+        
+        SecondaryInputCalloutContext.shared = SecondaryInputCalloutContext(
+            actionProvider: context.secondaryCalloutActionProvider,
+            context: self)
     }
     
     unowned public var controller: KeyboardInputViewController
@@ -54,6 +59,7 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
     @Published public var keyboardInputSetProvider: KeyboardInputSetProvider
     @Published public var keyboardLayoutProvider: KeyboardLayoutProvider
     @Published public var keyboardType: KeyboardType
+    @Published public var secondaryCalloutActionProvider: SecondaryCalloutActionProvider
     
     @Published public var deviceOrientation: UIInterfaceOrientation
     @Published public var hasDictationKey: Bool

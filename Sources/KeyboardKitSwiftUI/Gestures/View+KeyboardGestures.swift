@@ -21,16 +21,20 @@ public extension View {
      for public use.
      */
     func keyboardGestures(
+        action: KeyboardAction? = nil,
         tapAction: KeyboardGestureAction? = nil,
         doubleTapAction: KeyboardGestureAction? = nil,
         longPressAction: KeyboardGestureAction? = nil,
-        repeatAction: KeyboardGestureAction? = nil) -> some View {
+        repeatAction: KeyboardGestureAction? = nil,
+        secondaryInputCalloutContext: SecondaryInputCalloutContext = .shared) -> some View {
         KeyboardGestures(
             view: self,
+            action: action,
             tapAction: tapAction,
             doubleTapAction: doubleTapAction,
             longPressAction: longPressAction,
-            repeatAction: repeatAction)
+            repeatAction: repeatAction,
+            secondaryInputCalloutContext: secondaryInputCalloutContext)
     }
 }
 
@@ -46,40 +50,61 @@ struct KeyboardGestures<Content: View>: View {
     
     init(
         view: Content,
-        tapAction: KeyboardGestureAction? = nil,
-        doubleTapAction: KeyboardGestureAction? = nil,
-        longPressAction: KeyboardGestureAction? = nil,
-        repeatAction: KeyboardGestureAction? = nil) {
+        action: KeyboardAction?,
+        tapAction: KeyboardGestureAction?,
+        doubleTapAction: KeyboardGestureAction?,
+        longPressAction: KeyboardGestureAction?,
+        repeatAction: KeyboardGestureAction?,
+        secondaryInputCalloutContext: SecondaryInputCalloutContext) {
         self.view = view
+        self.action = action
         self.tapAction = tapAction
         self.doubleTapAction = doubleTapAction
         self.longPressAction = longPressAction
         self.repeatAction = repeatAction
+        self.secondaryInputCalloutContext = secondaryInputCalloutContext
     }
     
     let view: Content
+    let action: KeyboardAction?
     let tapAction: KeyboardGestureAction?
     let doubleTapAction: KeyboardGestureAction?
     let longPressAction: KeyboardGestureAction?
     let repeatAction: KeyboardGestureAction?
+    let secondaryInputCalloutContext: SecondaryInputCalloutContext
     
     @State private var isRepeatPressActive = false
     
     private let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     
     var body: some View {
-        view.onReceive(timer) { _ in self.handleRepeatPress() }
-            .gesture(TapGesture().onEnded(handleTap))
-            .simultaneousGesture(
-                TapGesture(count: 2).onEnded(handleDoubleTap))
-            .simultaneousGesture(
-                LongPressGesture().onEnded { _ in self.handleLongPress() })
-            .simultaneousGesture(
-                LongPressGesture(minimumDuration: 1)
-                    .onEnded { _ in self.beginRepeatGesture() })
-            .simultaneousGesture(
-                DragGesture(minimumDistance: 0)
-                    .onEnded { _ in self.endRepeatGesture() })
+        view.overlay(GeometryReader { geo in
+            Color.white.opacity(0.0001)
+                .onReceive(timer) { _ in self.handleRepeatPress() }
+                .gesture(TapGesture().onEnded(handleTap))
+                .simultaneousGesture(
+                    TapGesture(count: 2).onEnded(handleDoubleTap))
+                .simultaneousGesture(
+                    LongPressGesture().onEnded { _ in self.handleLongPress() })
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: 1)
+                        .onEnded { _ in self.beginRepeatGesture() })
+                .simultaneousGesture(
+                    DragGesture(minimumDistance: 0)
+                        .onEnded { _ in self.endRepeatGesture() })
+                .simultaneousGesture(
+                    LongPressGesture()
+                        .onEnded { _ in  secondaryInputCalloutContext.updateInputs(for: action, geo: geo) }
+                        .sequenced(before: DragGesture(minimumDistance: 0))
+                        .onChanged {
+                            switch $0 {
+                            case .first: break
+                            case .second(_, let drag): secondaryInputCalloutContext.updateSelection(with: drag)
+                            }
+                        }
+                        .onEnded { _ in secondaryInputCalloutContext.endDragGesture() }
+                )
+        })
     }
 }
 
