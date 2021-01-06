@@ -49,6 +49,7 @@ public struct SystemKeyboard<Button: View>: View {
             }
         }
         .bindSize(to: $size)
+        .secondaryInputCallout()
     }
 }
 
