@@ -1,5 +1,5 @@
 //
-//  SecondaryCalloutActionProvider.swift
+//  SecondaryInputCalloutContext.swift
 //  KeyboardKit
 //
 //  Created by Daniel Saidi on 2021-01-06.
@@ -10,19 +10,19 @@ import KeyboardKit
 import SwiftUI
 
 /**
- This context can be used to control secondary input callout
- bubbles that appears as users long press a keyboard button.
+ This context can be used to control `SecondaryInputCallout`
+ callouts that appear as users long press a keyboard button.
  
- You can override parts of this implementation when you need
- to customize it in any way. However, the implementation has
- been designed to work like the native callout.
+ You should not use this contexst directly, but rather apply
+ `.secondaryInputCallout` to any keyboard view (this is auto
+ applied when you use a `SystemKeyboard`), then also apply a
+ `.secondaryInputCalloutGesture` to any keyboard button that
+ should trigger it (this is also auto applied when you use a
+ `SystemKeyboardButton` or the standard gestures modifier).
  
- You should create a shared context instance and refer to it
- from both the callout view and the gestures that control it.
- Since this context is not yet added to the main repo (since
- it has no support for observable classes), `KeyboardContext`
- has a new, computed `secondaryInputCalloutContext` that you
- can use to get a correctly configured callout context.
+ However, if you need to, you can override some parts of the
+ implementation to customize it. However, the implementation
+ has been designed to work like the native callout.
  
  `IMPORTANT` This is still an experimental feature, that may
  change a lot before it's stable. It can change in any minor
@@ -30,9 +30,15 @@ import SwiftUI
  */
 public class SecondaryInputCalloutContext: ObservableObject {
     
+    
+    // MARK: - Initialization
+    
     public init(context: ObservableKeyboardContext) {
         self.context = context
     }
+    
+    
+    // MARK: - Properties
     
     private let context: ObservableKeyboardContext
     
@@ -51,6 +57,9 @@ public class SecondaryInputCalloutContext: ObservableObject {
         isIndexWithinBounds(selectedIndex) ? actions[selectedIndex] : nil
     }
     
+    
+    // MARK: - Functions
+    
     open func endDragGesture() {
         handleSelectedAction()
         resetSelection()
@@ -67,7 +76,11 @@ public class SecondaryInputCalloutContext: ObservableObject {
         buttonFrame = .zero
     }
     
-    func update(actions: [KeyboardAction], geo: GeometryProxy, alignment: Alignment? = nil) {
+    open func triggerHapticFeedbackForSelectionChange() {
+        HapticFeedback.selectionChanged.trigger()
+    }
+    
+    open func update(actions: [KeyboardAction], geo: GeometryProxy, alignment: Alignment? = nil) {
         let coordinateSpace = Self.coordinateSpace
         self.buttonFrame = geo.frame(in: .named(coordinateSpace))
         self.alignment = alignment ?? getAlignment(for: geo)
@@ -75,18 +88,23 @@ public class SecondaryInputCalloutContext: ObservableObject {
         self.selectedIndex = startIndex
     }
     
-    func updateSelection(with dragValue: DragGesture.Value?) {
+    open func updateSelection(with dragValue: DragGesture.Value?) {
         guard let value = dragValue, buttonFrame != .zero else { return }
         if shouldReset(for: value) { return resetSelection() }
         guard shouldUpdateSelection(with: value) else { return }
-        // TODO: Trigger haptic feedback
         let translation = value.translation.width
         let buttonWidth = buttonFrame.size.width
         let offset = Int(abs(translation) / buttonWidth)
         let index = isLeading ? offset : actions.count - offset - 1
-        self.selectedIndex = isIndexWithinBounds(index) ? index : startIndex
+        let currentIndex = self.selectedIndex
+        let newIndex = isIndexWithinBounds(index) ? index : startIndex
+        if currentIndex != newIndex { triggerHapticFeedbackForSelectionChange() }
+        self.selectedIndex = newIndex
     }
 }
+
+
+// MARK: - Private functionality
 
 private extension SecondaryInputCalloutContext {
     

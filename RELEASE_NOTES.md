@@ -17,7 +17,8 @@ This release also has breaking changes to experimental features.
 
 This release has new features for secondary callout actions.
 
-* `SecondaryCalloutActionContext` is a new context for controlling the secondary action callout view.
+* `SecondaryInputCalloutContext` is a new context for controlling the secondary action callout view.
+* `SecondaryInputCalloutStyle` is a new struct for styling `SecondaryInputCallout`.
 
 ### Breaking changes
 
