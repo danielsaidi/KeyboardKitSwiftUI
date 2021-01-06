@@ -38,6 +38,7 @@ public struct SystemKeyboard<Button: View>: View {
     private let rows: KeyboardActionRows
     
     @State private var size: CGSize = .zero
+    @EnvironmentObject var context: ObservableKeyboardContext
     
     public typealias ButtonBuilder = (KeyboardAction, KeyboardSize) -> Button
     public typealias KeyboardSize = CGSize
@@ -49,7 +50,7 @@ public struct SystemKeyboard<Button: View>: View {
             }
         }
         .bindSize(to: $size)
-        .secondaryInputCallout()
+        .secondaryInputCallout(for: context, style: secondaryInputCalloutStyle(for: context))
     }
 }
 
@@ -106,5 +107,13 @@ private extension SystemKeyboard {
         guard Locale.current.identifier.starts(with: "en") else { return 0 }
         guard UIDevice.current.userInterfaceIdiom == .phone else { return 0 }
         return max(0, 20 * CGFloat(rows[0].count - rows[1].count))
+    }
+    
+    func secondaryInputCalloutStyle(for context: KeyboardContext) -> SecondaryInputCalloutStyle {
+        let action = KeyboardAction.character("")
+        var style = SecondaryInputCalloutStyle.standard
+        style.backgroundColor = action.systemKeyboardButtonBackgroundColor(for: context)
+        style.textColor = .primary
+        return style
     }
 }

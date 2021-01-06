@@ -93,16 +93,7 @@ struct KeyboardGestures<Content: View>: View {
                     DragGesture(minimumDistance: 0)
                         .onEnded { _ in self.endRepeatGesture() })
                 .simultaneousGesture(
-                    LongPressGesture()
-                        .onEnded { _ in  secondaryInputCalloutContext.updateInputs(for: action, geo: geo) }
-                        .sequenced(before: DragGesture(minimumDistance: 0))
-                        .onChanged {
-                            switch $0 {
-                            case .first: break
-                            case .second(_, let drag): secondaryInputCalloutContext.updateSelection(with: drag)
-                            }
-                        }
-                        .onEnded { _ in secondaryInputCalloutContext.endDragGesture() }
+                    view.secondaryInputCalloutGesture(action: action, geo: geo, context: secondaryInputCalloutContext)
                 )
         })
     }

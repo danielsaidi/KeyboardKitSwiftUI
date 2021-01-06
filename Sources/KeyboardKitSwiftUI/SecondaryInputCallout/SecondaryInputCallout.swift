@@ -31,6 +31,7 @@ public struct SecondaryInputCallout: View {
     }
     
     @ObservedObject var context: SecondaryInputCalloutContext
+    
     private let style: SecondaryInputCalloutStyle
     
     static let coordinateSpace = SecondaryInputCalloutContext.coordinateSpace
@@ -76,6 +77,7 @@ private extension SecondaryInputCallout {
                     .background(context.selectedIndex == $0.offset ? style.selectedBackgroundColor : .clear)
                     .cornerRadius(style.cornerRadius)
                     .frame(context.buttonFrame.size)
+                    .foregroundColor(style.textColor)
             }
         }
         .background(calloutBackground)
