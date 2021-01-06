@@ -113,7 +113,7 @@ private extension SystemKeyboard {
         let action = KeyboardAction.character("")
         var style = SecondaryInputCalloutStyle.standard
         style.backgroundColor = action.systemKeyboardButtonBackgroundColor(for: context)
-        style.textColor = .primary
+        style.textColor = .white
         return style
     }
 }

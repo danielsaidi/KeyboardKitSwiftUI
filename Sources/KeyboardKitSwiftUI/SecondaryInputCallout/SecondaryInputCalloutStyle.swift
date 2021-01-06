@@ -14,7 +14,7 @@ import SwiftUI
 public struct SecondaryInputCalloutStyle {
     
     public init(
-        backgroundColor: Color = .primary,
+        backgroundColor: Color = .white,
         borderColor: Color = Color.black.opacity(0.3),
         cornerRadius: CGFloat = 5,
         font: Font = .body,
@@ -22,7 +22,7 @@ public struct SecondaryInputCalloutStyle {
         selectedBackgroundPadding: CGFloat = 8,
         shadowColor: Color = Color.black.opacity(0.1),
         shadowRadius: CGFloat = 5,
-        textColor: Color = .primary) {
+        textColor: Color = .white) {
         self.backgroundColor = backgroundColor
         self.borderColor = borderColor
         self.cornerRadius = cornerRadius
