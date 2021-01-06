@@ -7,6 +7,26 @@ As such, to be able to move swiftly (pun intended) and not get stuck with a bunc
 In `v4.0`, this library will become a part of the main library. After that, semver will apply to the SwiftUI parts as well.  
 
 
+## 3.4.0
+
+This release contains a lot of changes in the main library to support secondary callout actions.
+
+This release also has breaking changes to experimental features.
+
+### New features
+
+This release has new features for secondary callout actions.
+
+* `SecondaryCalloutActionContext` is a new context for controlling the secondary action callout view.
+
+### Breaking changes
+
+This release also has breaking changes to experimental features.
+
+* `ObservableKeyboardContext` `keyboardInputProvider` has been renamed to `keyboardInputSetProvider`
+
+
+
 ## 3.3.0
 
 This release contains a lot of changes in the main library.
