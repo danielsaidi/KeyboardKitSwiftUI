@@ -17,7 +17,7 @@ public extension View {
      */
     func inputCallout(
         context: InputCalloutContext = .shared,
-        style: InputCalloutStyle = .standard) -> some View{
+        style: InputCalloutStyle = .standard) -> some View {
         ZStack {
             self
             InputCallout(context: context, style: style)
