@@ -6,6 +6,7 @@
 //  Copyright © 2021 Daniel Saidi. All rights reserved.
 //
 
+import KeyboardKit
 import SwiftUI
 
 /**
@@ -19,16 +20,23 @@ import SwiftUI
  */
 public struct InputCalloutStyle {
     
-    public let backgroundColor: Color = .white
-    public let borderColor: Color = Color.black.opacity(0.3)
-    public let calloutSize: CGSize = CGSize(width: 60, height:70)
-    public let cornerRadius: CGFloat = 5
-    public let font: Font = .title
-    public let shadowColor: Color = Color.black.opacity(0.1)
-    public let shadowRadius: CGFloat = 5
+    public var backgroundColor: Color = .white
+    public var borderColor: Color = Color.black.opacity(0.3)
+    public var calloutSize: CGSize = CGSize(width: 60, height:70)
+    public var cornerRadius: CGFloat = 5
+    public var font: Font = .title
+    public var shadowColor: Color = Color.black.opacity(0.1)
+    public var shadowRadius: CGFloat = 5
 }
 
 public extension InputCalloutStyle {
     
     static var standard = InputCalloutStyle()
+    
+    static func systemStyle(for context: KeyboardContext) -> InputCalloutStyle {
+        let action = KeyboardAction.character("")
+        var style = InputCalloutStyle.standard
+        style.backgroundColor = action.systemKeyboardButtonBackgroundColor(for: context)
+        return style
+    }
 }

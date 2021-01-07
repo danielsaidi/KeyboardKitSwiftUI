@@ -16,7 +16,7 @@ public extension View {
      able to present an input callout.
      */
     func inputCallout(
-        context: InputCalloutContext,
+        context: InputCalloutContext = .shared,
         style: InputCalloutStyle = .standard) -> some View{
         ZStack {
             self

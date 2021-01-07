@@ -50,7 +50,8 @@ public struct SystemKeyboard<Button: View>: View {
             }
         }
         .bindSize(to: $size)
-        .secondaryInputCallout(for: context, style: secondaryInputCalloutStyle(for: context))
+        .inputCallout(style: .systemStyle(for: context))
+        .secondaryInputCallout(for: context, style: .systemStyle(for: context))
     }
 }
 
@@ -79,6 +80,13 @@ public extension SystemKeyboard {
 
 
 private extension SystemKeyboard {
+
+    func inputCalloutStyle(for context: KeyboardContext) -> InputCalloutStyle {
+        let action = KeyboardAction.character("")
+        var style = InputCalloutStyle.standard
+        style.backgroundColor = action.systemKeyboardButtonBackgroundColor(for: context)
+        return style
+    }
     
     func row(at index: Int, actions: KeyboardActionRow) -> some View {
         HStack(spacing: 0) {
@@ -107,12 +115,5 @@ private extension SystemKeyboard {
         guard Locale.current.identifier.starts(with: "en") else { return 0 }
         guard UIDevice.current.userInterfaceIdiom == .phone else { return 0 }
         return max(0, 20 * CGFloat(rows[0].count - rows[1].count))
-    }
-    
-    func secondaryInputCalloutStyle(for context: KeyboardContext) -> SecondaryInputCalloutStyle {
-        let action = KeyboardAction.character("")
-        var style = SecondaryInputCalloutStyle.standard
-        style.backgroundColor = action.systemKeyboardButtonBackgroundColor(for: context)
-        return style
     }
 }

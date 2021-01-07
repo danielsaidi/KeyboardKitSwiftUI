@@ -26,6 +26,7 @@ public extension View {
         doubleTapAction: KeyboardGestureAction? = nil,
         longPressAction: KeyboardGestureAction? = nil,
         repeatAction: KeyboardGestureAction? = nil,
+        inputCalloutContext: InputCalloutContext = .shared,
         secondaryInputCalloutContext: SecondaryInputCalloutContext = .shared) -> some View {
         KeyboardGestures(
             view: self,
@@ -34,6 +35,7 @@ public extension View {
             doubleTapAction: doubleTapAction,
             longPressAction: longPressAction,
             repeatAction: repeatAction,
+            inputCalloutContext: inputCalloutContext,
             secondaryInputCalloutContext: secondaryInputCalloutContext)
     }
 }
@@ -55,6 +57,7 @@ struct KeyboardGestures<Content: View>: View {
         doubleTapAction: KeyboardGestureAction?,
         longPressAction: KeyboardGestureAction?,
         repeatAction: KeyboardGestureAction?,
+        inputCalloutContext: InputCalloutContext,
         secondaryInputCalloutContext: SecondaryInputCalloutContext) {
         self.view = view
         self.action = action
@@ -62,16 +65,19 @@ struct KeyboardGestures<Content: View>: View {
         self.doubleTapAction = doubleTapAction
         self.longPressAction = longPressAction
         self.repeatAction = repeatAction
+        self.inputCalloutContext = inputCalloutContext
         self.secondaryInputCalloutContext = secondaryInputCalloutContext
     }
     
-    let view: Content
-    let action: KeyboardAction?
-    let tapAction: KeyboardGestureAction?
-    let doubleTapAction: KeyboardGestureAction?
-    let longPressAction: KeyboardGestureAction?
-    let repeatAction: KeyboardGestureAction?
-    let secondaryInputCalloutContext: SecondaryInputCalloutContext
+    private let view: Content
+    private let action: KeyboardAction?
+    private let tapAction: KeyboardGestureAction?
+    private let doubleTapAction: KeyboardGestureAction?
+    private let longPressAction: KeyboardGestureAction?
+    private let repeatAction: KeyboardGestureAction?
+    
+    private let inputCalloutContext: InputCalloutContext
+    private let secondaryInputCalloutContext: SecondaryInputCalloutContext
     
     @State private var isRepeatPressActive = false
     
@@ -92,9 +98,8 @@ struct KeyboardGestures<Content: View>: View {
                 .simultaneousGesture(
                     DragGesture(minimumDistance: 0)
                         .onEnded { _ in self.endRepeatGesture() })
-                .simultaneousGesture(
-                    view.secondaryInputCalloutGesture(action: action, geo: geo, context: secondaryInputCalloutContext)
-                )
+                .simultaneousGesture(view.inputCalloutGesture(action: action, geo: geo, context: inputCalloutContext))
+                .simultaneousGesture(view.secondaryInputCalloutGesture(action: action, geo: geo, context: secondaryInputCalloutContext))
         })
     }
 }

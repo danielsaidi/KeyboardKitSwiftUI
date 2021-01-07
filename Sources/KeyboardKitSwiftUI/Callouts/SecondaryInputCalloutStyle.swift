@@ -6,6 +6,7 @@
 //  Copyright © 2021 Daniel Saidi. All rights reserved.
 //
 
+import KeyboardKit
 import SwiftUI
 
 /**
@@ -57,4 +58,11 @@ public struct SecondaryInputCalloutStyle {
 public extension SecondaryInputCalloutStyle {
     
     static var standard = SecondaryInputCalloutStyle()
+    
+    static func systemStyle(for context: KeyboardContext) -> SecondaryInputCalloutStyle {
+        let action = KeyboardAction.character("")
+        var style = SecondaryInputCalloutStyle.standard
+        style.backgroundColor = action.systemKeyboardButtonBackgroundColor(for: context)
+        return style
+    }
 }
