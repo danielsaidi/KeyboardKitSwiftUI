@@ -68,6 +68,15 @@ public class SecondaryInputCalloutContext: ObservableObject {
     
     // MARK: - Functions
     
+    /**
+     The visible button frame for the button view's geometry
+     proxy. You should adjust it, so that the button padding
+     and shadow is not included.
+     */
+    open func buttonFrame(for geo: GeometryProxy) -> CGRect {
+        geo.frame(in: .named(Self.coordinateSpace)).insetBy(dx: 5, dy: 5)
+    }
+    
     open func endDragGesture() {
         handleSelectedAction()
         resetSelection()
@@ -91,8 +100,7 @@ public class SecondaryInputCalloutContext: ObservableObject {
     open func updateInputs(for action: KeyboardAction?, geo: GeometryProxy, alignment: Alignment? = nil) {
         guard let action = action else { return }
         let actions = actionProvider.secondaryCalloutActions(for: action, in: context)
-        let coordinateSpace = Self.coordinateSpace
-        self.buttonFrame = geo.frame(in: .named(coordinateSpace))
+        self.buttonFrame = self.buttonFrame(for: geo)
         self.alignment = alignment ?? getAlignment(for: geo)
         self.actions = isLeading ? actions : actions.reversed()
         self.selectedIndex = startIndex
