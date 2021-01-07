@@ -9,20 +9,29 @@ In `v4.0`, this library will become a part of the main library. After that, semv
 
 ## 3.4.0
 
-This release contains a lot of changes in the main library to support secondary callout actions.
-
-This release also has breaking changes to experimental features.
+This release adds support for input callouts and secondary input callouts.
 
 ### New features
 
-This release has new features for secondary callout actions.
+This release has new features for callouts.
 
-* `SecondaryInputCalloutContext` is a new context for controlling the secondary action callout view.
-* `SecondaryInputCalloutStyle` is a new struct for styling `SecondaryInputCallout`.
+* `CalloutStyle` is a shared style for keyboard button callout.
+* `InputCallout` is a callout that can highlight the currently pressed keyboard button.
+* `InputCalloutContext` can be used to control `InputCallout` views.
+* `InputCalloutStyle` can be used to style `InputCallout` views.
+* `SecondaryInputCallout` is a callout that can present secondary actions for the currently pressed keyboard button.
+* `SecondaryInputCalloutContext` can be used to control `SecondaryInputCallout` views.
+* `SecondaryInputCalloutStyle` can be used to style `SecondaryInputCallout` views.
+* `View+InputCallout` can be used to wrap any view in a `ZStack` with a topmost `InputCallout`
+* `View+SecondaryInputCallout` can be used to wrap any view in a `ZStack` with a topmost `SecondaryInputCallout`
+
+### Behavior changes
+
+* `View+KeyboardGestures` has been extended with gestures for `InputCallout` and `SecondaryInputCallout`.
 
 ### Breaking changes
 
-This release also has breaking changes to experimental features.
+This release has breaking changes to experimental features.
 
 * `ObservableKeyboardContext` `keyboardInputProvider` has been renamed to `keyboardInputSetProvider`
 
