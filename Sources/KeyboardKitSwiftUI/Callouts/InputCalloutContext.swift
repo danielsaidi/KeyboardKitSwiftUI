@@ -13,9 +13,6 @@ import SwiftUI
  This context can be used to control input callout views, to
  present the currently typed character.
  
- The context will automatically dismiss itself when the user
- hasn't typed anything for a short while.
- 
  You can use `.shared` to get/set a shared context.
  
  You can inherit this class and override any `open` function
@@ -72,19 +69,6 @@ open class InputCalloutContext: ObservableObject {
     open func updateInput(for action: KeyboardAction?, geo: GeometryProxy) {
         self.action = action
         self.buttonFrame = self.buttonFrame(for: geo)
-        tryReset(after: 0.5)
-    }
-}
-
-private extension InputCalloutContext {
-    
-    func tryReset(after seconds: Double) {
-        let tag = Int.random(in: 0...100_000)
-        asyncTag = tag
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            guard tag == self.asyncTag else { return }
-            self.reset()
-        }
     }
 }
 
