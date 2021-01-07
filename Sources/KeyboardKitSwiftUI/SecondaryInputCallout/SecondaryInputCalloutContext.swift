@@ -74,7 +74,7 @@ public class SecondaryInputCalloutContext: ObservableObject {
      and shadow is not included.
      */
     open func buttonFrame(for geo: GeometryProxy) -> CGRect {
-        geo.frame(in: .named(Self.coordinateSpace)).insetBy(dx: 5, dy: 5)
+        geo.frame(in: .named(Self.coordinateSpace)).insetBy(dx: 3, dy: 3)
     }
     
     /**
