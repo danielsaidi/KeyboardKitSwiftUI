@@ -10,6 +10,9 @@ import SwiftUI
 
 /**
  This struct can be used to style a `SecondaryInputCallout`.
+ 
+ You can modify the `.standard` style instance to change the
+ default global style of a `SecondaryInputCallout`.
  */
 public struct SecondaryInputCalloutStyle {
     
@@ -18,11 +21,12 @@ public struct SecondaryInputCalloutStyle {
         borderColor: Color = Color.black.opacity(0.3),
         cornerRadius: CGFloat = 5,
         font: Font = .body,
+        selectedTextColor: Color = Color.white,
         selectedBackgroundColor: Color = Color.blue,
         selectedBackgroundPadding: CGFloat = 8,
         shadowColor: Color = Color.black.opacity(0.1),
         shadowRadius: CGFloat = 5,
-        textColor: Color = .white) {
+        textColor: Color = .primary) {
         self.backgroundColor = backgroundColor
         self.borderColor = borderColor
         self.cornerRadius = cornerRadius
@@ -50,7 +54,5 @@ public extension SecondaryInputCalloutStyle {
     /**
      This is the standard `SecondaryInputCallout` style.
      */
-    static var standard: SecondaryInputCalloutStyle {
-        SecondaryInputCalloutStyle()
-    }
+    static var standard = SecondaryInputCalloutStyle()
 }
