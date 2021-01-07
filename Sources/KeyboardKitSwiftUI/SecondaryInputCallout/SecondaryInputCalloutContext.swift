@@ -54,7 +54,7 @@ public class SecondaryInputCalloutContext: ObservableObject {
     
     static let coordinateSpace = "com.keyboardkit.coordinate.SecondaryInputCallout"
     
-    public var isActive: Bool { actions.isEmpty }
+    public var isActive: Bool { !actions.isEmpty }
     public var isLeading: Bool { !isTrailing }
     public var isTrailing: Bool { alignment.horizontal == .trailing }
     public var selectedAction: KeyboardAction? { isIndexValid(selectedIndex) ? actions[selectedIndex] : nil }
@@ -122,6 +122,8 @@ public class SecondaryInputCalloutContext: ObservableObject {
         self.alignment = alignment ?? getAlignment(for: geo)
         self.actions = isLeading ? actions : actions.reversed()
         self.selectedIndex = startIndex
+        guard isActive else { return }
+        triggerHapticFeedbackForSelectionChange()
     }
     
     /**
