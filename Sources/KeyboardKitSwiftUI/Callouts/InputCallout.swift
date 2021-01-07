@@ -45,7 +45,6 @@ public struct InputCallout: View {
         .shadow(color: style.borderColor, radius: 0.4)
         .shadow(color: style.shadowColor, radius: style.shadowRadius)
         .opacity(context.isActive ? 1 : 0)
-        .onTapGesture(perform: context.reset)
     }
 }
 
