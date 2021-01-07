@@ -32,16 +32,19 @@ public extension View {
     func secondaryInputCalloutGesture(
         action: KeyboardAction?,
         geo: GeometryProxy,
-        context: SecondaryInputCalloutContext) -> some Gesture {
+        inputContext: InputCalloutContext = .shared,
+        secondaryContext: SecondaryInputCalloutContext = .shared) -> some Gesture {
         LongPressGesture()
-            .onEnded { _ in  context.updateInputs(for: action, geo: geo) }
+            .onEnded { _ in
+                inputContext.reset()
+                secondaryContext.updateInputs(for: action, geo: geo) }
             .sequenced(before: DragGesture(minimumDistance: 0))
             .onChanged {
                 switch $0 {
                 case .first: break
-                case .second(_, let drag): context.updateSelection(with: drag)
+                case .second(_, let drag): secondaryContext.updateSelection(with: drag)
                 }
             }
-            .onEnded { _ in context.endDragGesture() }
+            .onEnded { _ in secondaryContext.endDragGesture() }
     }
 }

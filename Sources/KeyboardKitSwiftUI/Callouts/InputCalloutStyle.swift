@@ -21,10 +21,10 @@ import SwiftUI
 public struct InputCalloutStyle {
     
     public var backgroundColor: Color = .white
-    public var borderColor: Color = Color.black.opacity(0.3)
-    public var calloutSize: CGSize = CGSize(width: 60, height: 65)
+    public var borderColor: Color = Color.black.opacity(0.5)
+    public var calloutSize: CGSize = CGSize(width: 50, height: 50)
     public var cornerRadius: CGFloat = 5
-    public var font: Font = .title
+    public var font: Font = Font.largeTitle.weight(.light)
     public var shadowColor: Color = Color.black.opacity(0.1)
     public var shadowRadius: CGFloat = 5
 }

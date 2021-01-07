@@ -85,50 +85,56 @@ struct KeyboardGestures<Content: View>: View {
     
     var body: some View {
         view.overlay(GeometryReader { geo in
-            Color.white.opacity(0.0001)
+            Color.clearInteractable
                 .onReceive(timer) { _ in self.handleRepeatPress() }
-                .gesture(TapGesture().onEnded(handleTap))
+                .gesture(tapGesture)
+                .simultaneousGesture(doubleTapGesture)
+                .simultaneousGesture(longPressGesture)
+                .simultaneousGesture(dragGesture(for: geo))
                 .simultaneousGesture(
-                    TapGesture(count: 2).onEnded(handleDoubleTap))
-                .simultaneousGesture(
-                    LongPressGesture().onEnded { _ in self.handleLongPress() })
-                .simultaneousGesture(
-                    LongPressGesture(minimumDuration: 1)
-                        .onEnded { _ in self.beginRepeatGesture() })
-                .simultaneousGesture(
-                    DragGesture(minimumDistance: 0)
-                        .onEnded { _ in self.endRepeatGesture() })
-                .simultaneousGesture(view.inputCalloutGesture(action: action, geo: geo, context: inputCalloutContext))
-                .simultaneousGesture(view.secondaryInputCalloutGesture(action: action, geo: geo, context: secondaryInputCalloutContext))
+                    view.secondaryInputCalloutGesture(
+                        action: action,
+                        geo: geo,
+                        inputContext: inputCalloutContext,
+                        secondaryContext: secondaryInputCalloutContext))
         })
     }
 }
 
 private extension KeyboardGestures {
     
-    func beginRepeatGesture() {
-        isRepeatPressActive = true
+    var doubleTapGesture: some Gesture {
+        TapGesture(count: 2).onEnded {
+            doubleTapAction?()
+        }
     }
     
-    func endRepeatGesture() {
-        isRepeatPressActive = false
+    func dragGesture(for geo: GeometryProxy) -> some Gesture {
+        DragGesture(minimumDistance: 0)
+            .onChanged { _ in
+                if secondaryInputCalloutContext.isActive { return }
+                inputCalloutContext.updateInput(for: action, geo: geo) }
+            .onEnded { _ in
+                inputCalloutContext.reset()
+                isRepeatPressActive = false }
     }
     
-    func handleDoubleTap() {
-        doubleTapAction?()
-    }
-    
-    func handleLongPress() {
-        longPressAction?()
-    }
-    
-    func handleTap() {
-        isRepeatPressActive = false
-        tapAction?()
+    var longPressGesture: some Gesture {
+        LongPressGesture().onEnded { _ in
+            self.longPressAction?()
+            self.isRepeatPressActive = true }
     }
     
     func handleRepeatPress() {
         guard isRepeatPressActive else { return }
         repeatAction?()
+    }
+    
+    var tapGesture: some Gesture {
+        TapGesture().onEnded {
+            tapAction?()
+            isRepeatPressActive = false
+            inputCalloutContext.reset()
+        }
     }
 }

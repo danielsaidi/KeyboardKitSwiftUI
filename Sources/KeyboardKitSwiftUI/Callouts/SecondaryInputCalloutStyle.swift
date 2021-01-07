@@ -22,7 +22,7 @@ public struct SecondaryInputCalloutStyle {
     
     public init(
         backgroundColor: Color = .white,
-        borderColor: Color = Color.black.opacity(0.3),
+        borderColor: Color = Color.black.opacity(0.5),
         cornerRadius: CGFloat = 5,
         font: Font = .body,
         selectedBackgroundColor: Color = Color.blue,

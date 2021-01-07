@@ -23,17 +23,4 @@ public extension View {
             InputCallout(context: context, style: style)
         }.coordinateSpace(name: InputCallout.coordinateSpace)
     }
-    
-    /**
-     This modifier can be applied to any view that should be
-     presenting a secondary input callout when long pressed.
-     */
-    func inputCalloutGesture(
-        action: KeyboardAction?,
-        geo: GeometryProxy,
-        context: InputCalloutContext) -> some Gesture {
-        DragGesture(minimumDistance: 0, coordinateSpace: .local)
-            .onChanged { _ in context.updateInput(for: action, geo: geo) }
-            .onEnded { _ in context.reset() }
-    }
 }
