@@ -13,14 +13,16 @@ import SwiftUI
  This context can be used to control secondary input callout
  views that can show secondary actions for a keyboard action.
  
+ The context will automatically dismiss itself when the user
+ ends the secondary gesture or drags too far down.
+ 
  You can use `.shared` to get/set a shared context.
  
  You can inherit this class and override any `open` function
  to modify the callout behavior.
  
- `IMPORTANT` This is still an experimental feature, that may
- change a lot before it's stable. It can change in any minor
- release before 4.0.
+ `IMPORTANT` This is an experimental feature that could have
+ breaking changes in any minor release before 4.0.
  */
 open class SecondaryInputCalloutContext: ObservableObject {
     
@@ -62,8 +64,7 @@ open class SecondaryInputCalloutContext: ObservableObject {
     
     /**
      The visible button frame for the button view's geometry
-     proxy. You should adjust it, so that the button padding
-     and shadow is not included.
+     proxy. It should not include button inset nor shadow.
      */
     open func buttonFrame(for geo: GeometryProxy) -> CGRect {
         geo.frame(in: .named(Self.coordinateSpace)).insetBy(dx: 3, dy: 3)

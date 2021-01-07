@@ -34,6 +34,5 @@ public extension View {
         context: InputCalloutContext) -> some Gesture {
         DragGesture(minimumDistance: 0, coordinateSpace: .local)
             .onChanged { _ in context.updateInput(for: action, geo: geo) }
-            .onEnded { _ in context.reset() }
     }
 }
