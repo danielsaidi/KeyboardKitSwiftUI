@@ -10,9 +10,9 @@ import KeyboardKit
 import SwiftUI
 
 /**
- This context can be used to control `SecondaryInputCallout`
- callouts that appear as users long press a keyboard button.
- You can use `.shared` to get/set a shared context.
+ This context can control `SecondaryInputCallout` views that
+ appear as a user long presses keyboard buttons. You can use
+ `.shared` to get/set a shared context.
  
  You shouldn't use this context directly, but rather apply a
  `.secondaryInputCallout` to any keyboard view (this is auto

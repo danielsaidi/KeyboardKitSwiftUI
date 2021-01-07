@@ -10,16 +10,12 @@ import KeyboardKit
 import SwiftUI
 
 /**
- This view is a callout bubble that can be used to present a
- list of secondary actions for a keyboard action.
- 
- `NOTE` This callout only supports input characters, not any
- kind of keyboard actions. Therefore, it will filter out all
- `.character` actions from the context and just ignore other
- actions that it can't present.
+ This callout can be used to present secondary input actions
+ for a certain keyboard action. It only supports `.character`
+ actions and will ignore any other actions.
  
  `TODO` The callout bubble shape does not look like a native
- callout bubble. We should improve this with a custom path.
+ callout bubble. It should be improved with a custom path.
  */
 public struct SecondaryInputCallout: View {
     
