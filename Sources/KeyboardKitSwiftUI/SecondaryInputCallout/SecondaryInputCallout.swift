@@ -47,7 +47,7 @@ public struct SecondaryInputCallout: View {
         .shadow(color: style.borderColor, radius: 0.4)
         .shadow(color: style.shadowColor, radius: style.shadowRadius)
         .opacity(context.isActive ? 0 : 1)
-        .onTapGesture(perform: context.resetSelection)
+        .onTapGesture(perform: context.reset)
     }
 }
 

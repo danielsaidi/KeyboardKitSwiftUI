@@ -77,26 +77,44 @@ public class SecondaryInputCalloutContext: ObservableObject {
         geo.frame(in: .named(Self.coordinateSpace)).insetBy(dx: 5, dy: 5)
     }
     
+    /**
+     Handle the end of a secondary input drag gesture, which
+     should commit the selected action and reset the context.
+     */
     open func endDragGesture() {
         handleSelectedAction()
-        resetSelection()
+        reset()
     }
     
+    /**
+     Handle the selected action, if any. By default, it will
+     be handled by the context's action handler.
+     */
     open func handleSelectedAction() {
         guard let action = selectedAction else { return }
         context.actionHandler.handle(.tap, on: action, sender: nil)
     }
     
-    open func resetSelection() {
+    /**
+     Reset the context.
+     */
+    open func reset() {
         actions = []
         selectedIndex = -1
         buttonFrame = .zero
     }
     
+    /**
+     Trigger a haptic feedback for selection change. You can
+     override this to change or disable the haptic feedback.
+     */
     open func triggerHapticFeedbackForSelectionChange() {
         HapticFeedback.selectionChanged.trigger()
     }
     
+    /**
+     Update the input actions for a certain keyboard action.
+     */
     open func updateInputs(for action: KeyboardAction?, geo: GeometryProxy, alignment: Alignment? = nil) {
         guard let action = action else { return }
         let actions = actionProvider.secondaryCalloutActions(for: action, in: context)
@@ -106,9 +124,13 @@ public class SecondaryInputCalloutContext: ObservableObject {
         self.selectedIndex = startIndex
     }
     
+    /**
+     Update the selected input action when a drag gesture is
+     changed by a drag gesture.
+     */
     open func updateSelection(with dragValue: DragGesture.Value?) {
         guard let value = dragValue, buttonFrame != .zero else { return }
-        if shouldReset(for: value) { return resetSelection() }
+        if shouldReset(for: value) { return reset() }
         guard shouldUpdateSelection(with: value) else { return }
         let translation = value.translation.width
         let buttonWidth = buttonFrame.size.width
