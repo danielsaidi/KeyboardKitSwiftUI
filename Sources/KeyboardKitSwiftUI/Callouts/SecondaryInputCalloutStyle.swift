@@ -21,37 +21,25 @@ import SwiftUI
 public struct SecondaryInputCalloutStyle {
     
     public init(
-        backgroundColor: Color = .white,
-        borderColor: Color = Color.black.opacity(0.5),
-        cornerRadius: CGFloat = 5,
+        callout: CalloutStyle = .standard,
         font: Font = .body,
         selectedBackgroundColor: Color = Color.blue,
         selectedBackgroundPadding: CGFloat = 8,
         selectedTextColor: Color = Color.white,
-        shadowColor: Color = Color.black.opacity(0.1),
-        shadowRadius: CGFloat = 5,
         textColor: Color = .primary) {
-        self.backgroundColor = backgroundColor
-        self.borderColor = borderColor
-        self.cornerRadius = cornerRadius
+        self.callout = callout
         self.font = font
         self.selectedBackgroundColor = selectedBackgroundColor
         self.selectedBackgroundPadding = selectedBackgroundPadding
         self.selectedTextColor = selectedTextColor
-        self.shadowColor = shadowColor
-        self.shadowRadius = shadowRadius
         self.textColor = textColor
     }
     
-    public var backgroundColor: Color
-    public var borderColor: Color
-    public var cornerRadius: CGFloat
+    public var callout: CalloutStyle
     public var font: Font
     public var selectedBackgroundColor: Color
     public var selectedBackgroundPadding: CGFloat
     public var selectedTextColor: Color
-    public var shadowColor: Color
-    public var shadowRadius: CGFloat
     public var textColor: Color
 }
 
@@ -60,9 +48,8 @@ public extension SecondaryInputCalloutStyle {
     static var standard = SecondaryInputCalloutStyle()
     
     static func systemStyle(for context: KeyboardContext) -> SecondaryInputCalloutStyle {
-        let action = KeyboardAction.character("")
         var style = SecondaryInputCalloutStyle.standard
-        style.backgroundColor = action.systemKeyboardButtonBackgroundColor(for: context)
+        style.callout = .systemStyle(for: context)
         return style
     }
 }

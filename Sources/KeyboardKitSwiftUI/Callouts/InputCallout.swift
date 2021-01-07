@@ -32,18 +32,19 @@ public struct InputCallout: View {
     @ObservedObject private var context: InputCalloutContext
     
     private let style: InputCalloutStyle
+    private var callout: CalloutStyle { style.callout }
     
     static let coordinateSpace = InputCalloutContext.coordinateSpace
     
     public var body: some View {
         ZStack(alignment: .bottom) {
             buttonArea
-            callout
+            calloutView
         }
         .position(x: positionX, y: positionY)
         .compositingGroup()
-        .shadow(color: style.borderColor, radius: 0.4)
-        .shadow(color: style.shadowColor, radius: style.shadowRadius)
+        .shadow(color: callout.borderColor, radius: 0.4)
+        .shadow(color: callout.shadowColor, radius: callout.shadowRadius)
         .opacity(context.isActive ? 1 : 0)
     }
 }
@@ -57,22 +58,22 @@ private extension InputCallout {
     }
     
     var buttonAreaBackground: some View {
-        let radius = style.cornerRadius
+        let radius = callout.cornerRadius
         return CustomRoundedRectangle(bottomLeft: radius, bottomRight: radius)
-            .foregroundColor(style.backgroundColor)
+            .foregroundColor(callout.backgroundColor)
     }
     
-    var callout: some View {
+    var calloutView: some View {
         Text(context.input ?? "")
             .font(style.font)
             .frame(width: style.calloutSize.width, height: style.calloutSize.height)
-            .background(calloutBackground)
+            .background(calloutViewBackground)
             .offset(y: -context.buttonFrame.size.height)
     }
     
-    var calloutBackground: some View {
-        RoundedRectangle(cornerRadius: style.cornerRadius)
-            .foregroundColor(style.backgroundColor)
+    var calloutViewBackground: some View {
+        RoundedRectangle(cornerRadius: callout.cornerRadius)
+            .foregroundColor(callout.backgroundColor)
     }
     
     var positionX: CGFloat {

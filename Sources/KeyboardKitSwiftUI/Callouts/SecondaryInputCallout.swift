@@ -32,19 +32,20 @@ public struct SecondaryInputCallout: View {
     @ObservedObject private var context: SecondaryInputCalloutContext
     
     private let style: SecondaryInputCalloutStyle
+    private var callout: CalloutStyle { style.callout }
     
     static let coordinateSpace = SecondaryInputCalloutContext.coordinateSpace
     
     public var body: some View {
         ZStack(alignment: context.alignment) {
             buttonArea
-            callout
+            calloutView
         }
         .font(style.font)
         .compositingGroup()
         .position(x: positionX, y: positionY)
-        .shadow(color: style.borderColor, radius: 0.4)
-        .shadow(color: style.shadowColor, radius: style.shadowRadius)
+        .shadow(color: callout.borderColor, radius: 0.4)
+        .shadow(color: callout.shadowColor, radius: callout.shadowRadius)
         .opacity(context.isActive ? 1 : 0)
         .onTapGesture(perform: context.reset)
     }
@@ -63,34 +64,34 @@ private extension SecondaryInputCallout {
     }
     
     var buttonAreaBackground: some View {
-        let radius = style.cornerRadius
+        let radius = callout.cornerRadius
         return CustomRoundedRectangle(bottomLeft: radius, bottomRight: radius)
-            .foregroundColor(style.backgroundColor)
+            .foregroundColor(callout.backgroundColor)
     }
     
-    var callout: some View {
+    var calloutView: some View {
         HStack(spacing: 0) {
             ForEach(Array(inputs.enumerated()), id: \.offset) {
                 Text($0.element)
                     .padding(style.selectedBackgroundPadding)
                     .background(isSelected($0.offset) ? style.selectedBackgroundColor : .clear)
-                    .cornerRadius(style.cornerRadius)
+                    .cornerRadius(callout.cornerRadius)
                     .frame(context.buttonFrame.size)
                     .foregroundColor(isSelected($0.offset) ? style.selectedTextColor : style.textColor)
             }
         }
-        .background(calloutBackground)
+        .background(calloutViewBackground)
         .offset(y: -context.buttonFrame.height)
     }
     
-    var calloutBackground: some View {
-        let radius = style.cornerRadius
+    var calloutViewBackground: some View {
+        let radius = callout.cornerRadius
         return CustomRoundedRectangle(
             topLeft: radius,
             topRight: radius,
             bottomLeft: context.isTrailing ? radius : 0,
             bottomRight: context.isTrailing ? 0 : radius)
-            .foregroundColor(style.backgroundColor)
+            .foregroundColor(callout.backgroundColor)
     }
     
     var positionX: CGFloat {

@@ -20,13 +20,18 @@ import SwiftUI
  */
 public struct InputCalloutStyle {
     
-    public var backgroundColor: Color = .white
-    public var borderColor: Color = Color.black.opacity(0.5)
-    public var calloutSize: CGSize = CGSize(width: 50, height: 50)
-    public var cornerRadius: CGFloat = 5
-    public var font: Font = Font.largeTitle.weight(.light)
-    public var shadowColor: Color = Color.black.opacity(0.1)
-    public var shadowRadius: CGFloat = 5
+    public init(
+        callout: CalloutStyle = .standard,
+        calloutSize: CGSize = CGSize(width: 50, height: 50),
+        font: Font = Font.largeTitle.weight(.light)) {
+        self.callout = callout
+        self.calloutSize = calloutSize
+        self.font = font
+    }
+    
+    public var callout: CalloutStyle
+    public var calloutSize: CGSize
+    public var font: Font
 }
 
 public extension InputCalloutStyle {
@@ -34,9 +39,8 @@ public extension InputCalloutStyle {
     static var standard = InputCalloutStyle()
     
     static func systemStyle(for context: KeyboardContext) -> InputCalloutStyle {
-        let action = KeyboardAction.character("")
         var style = InputCalloutStyle.standard
-        style.backgroundColor = action.systemKeyboardButtonBackgroundColor(for: context)
+        style.callout = .systemStyle(for: context)
         return style
     }
 }

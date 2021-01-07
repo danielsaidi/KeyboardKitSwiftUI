@@ -84,7 +84,7 @@ private extension SystemKeyboard {
     func inputCalloutStyle(for context: KeyboardContext) -> InputCalloutStyle {
         let action = KeyboardAction.character("")
         var style = InputCalloutStyle.standard
-        style.backgroundColor = action.systemKeyboardButtonBackgroundColor(for: context)
+        style.callout.backgroundColor = action.systemKeyboardButtonBackgroundColor(for: context)
         return style
     }
     
