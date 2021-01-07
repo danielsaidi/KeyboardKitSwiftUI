@@ -80,6 +80,7 @@ struct KeyboardGestures<Content: View>: View {
     private let secondaryInputCalloutContext: SecondaryInputCalloutContext
     
     @State private var isRepeatPressActive = false
+    @State private var isInputCalloutEnabled = true
     
     private let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     
@@ -91,15 +92,13 @@ struct KeyboardGestures<Content: View>: View {
                 .simultaneousGesture(doubleTapGesture)
                 .simultaneousGesture(longPressGesture)
                 .simultaneousGesture(dragGesture(for: geo))
-                .simultaneousGesture(
-                    view.secondaryInputCalloutGesture(
-                        action: action,
-                        geo: geo,
-                        inputContext: inputCalloutContext,
-                        secondaryContext: secondaryInputCalloutContext))
+                .simultaneousGesture(secondaryInputCalloutGesture(for: geo))
         })
     }
 }
+
+
+// MARK: - Gestures
 
 private extension KeyboardGestures {
     
@@ -112,8 +111,7 @@ private extension KeyboardGestures {
     func dragGesture(for geo: GeometryProxy) -> some Gesture {
         DragGesture(minimumDistance: 0)
             .onChanged { _ in
-                if secondaryInputCalloutContext.isActive { return }
-                inputCalloutContext.updateInput(for: action, geo: geo) }
+                tryShowInputCallout(for: geo) }
             .onEnded { _ in
                 inputCalloutContext.reset()
                 isRepeatPressActive = false }
@@ -125,16 +123,45 @@ private extension KeyboardGestures {
             self.isRepeatPressActive = true }
     }
     
-    func handleRepeatPress() {
-        guard isRepeatPressActive else { return }
-        repeatAction?()
+    func secondaryInputCalloutGesture(for geo: GeometryProxy) -> some Gesture {
+        LongPressGesture()
+            .onEnded { _ in
+                inputCalloutContext.reset()
+                isInputCalloutEnabled = false
+                secondaryInputCalloutContext.updateInputs(for: action, geo: geo) }
+            .sequenced(before: DragGesture(minimumDistance: 0))
+            .onChanged {
+                switch $0 {
+                case .first: break
+                case .second(_, let drag):
+                    secondaryInputCalloutContext.updateSelection(with: drag)
+                }
+            }
+            .onEnded { _ in
+                isInputCalloutEnabled = true
+                secondaryInputCalloutContext.endDragGesture() }
     }
     
     var tapGesture: some Gesture {
         TapGesture().onEnded {
             tapAction?()
-            isRepeatPressActive = false
             inputCalloutContext.reset()
         }
+    }
+}
+
+
+// MARK: - Functions
+
+private extension KeyboardGestures {
+    
+    func handleRepeatPress() {
+        guard isRepeatPressActive else { return }
+        repeatAction?()
+    }
+    
+    func tryShowInputCallout(for geo: GeometryProxy) {
+        guard isInputCalloutEnabled else { return }
+        inputCalloutContext.updateInput(for: action, geo: geo)
     }
 }
