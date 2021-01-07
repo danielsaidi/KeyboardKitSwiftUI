@@ -44,14 +44,30 @@ open class InputCalloutContext: ObservableObject {
     
     // MARK: - Functions
     
+    /**
+     The visible button frame for the button view's geometry
+     proxy. You should adjust it, so that the button padding
+     and shadow is not included.
+     */
+    open func buttonFrame(for geo: GeometryProxy) -> CGRect {
+        geo.frame(in: .named(Self.coordinateSpace)).insetBy(dx: 3, dy: 3)
+    }
+    
+    /**
+     Reset the context, which will reset all state and cause
+     any callouts to dismiss.
+     */
     open func reset() {
         action = nil
         buttonFrame = .zero
     }
     
+    /**
+     Update the current input for a certain keyboard action.
+     */
     open func updateInput(for action: KeyboardAction?, geo: GeometryProxy) {
         self.action = action
-        self.buttonFrame = geo.frame(in: .named(Self.coordinateSpace))
+        self.buttonFrame = self.buttonFrame(for: geo)
     }
 }
 

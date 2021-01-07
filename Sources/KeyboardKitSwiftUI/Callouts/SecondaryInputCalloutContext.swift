@@ -88,7 +88,8 @@ open class SecondaryInputCalloutContext: ObservableObject {
     }
     
     /**
-     Reset the context.
+     Reset the context, which will reset all state and cause
+     any callouts to dismiss.
      */
     open func reset() {
         actions = []
@@ -108,7 +109,7 @@ open class SecondaryInputCalloutContext: ObservableObject {
      Update the input actions for a certain keyboard action.
      */
     open func updateInputs(for action: KeyboardAction?, geo: GeometryProxy, alignment: Alignment? = nil) {
-        guard let action = action else { return }
+        guard let action = action else { return reset() }
         let actions = actionProvider.secondaryCalloutActions(for: action, in: context)
         self.buttonFrame = self.buttonFrame(for: geo)
         self.alignment = alignment ?? getAlignment(for: geo)
