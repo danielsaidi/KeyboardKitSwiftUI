@@ -74,10 +74,10 @@ private extension SecondaryInputCallout {
             ForEach(Array(inputs.enumerated()), id: \.offset) {
                 Text($0.element)
                     .padding(style.selectedBackgroundPadding)
-                    .background(context.selectedIndex == $0.offset ? style.selectedBackgroundColor : .clear)
+                    .background(isSelected($0.offset) ? style.selectedBackgroundColor : .clear)
                     .cornerRadius(style.cornerRadius)
                     .frame(context.buttonFrame.size)
-                    .foregroundColor(style.textColor)
+                    .foregroundColor(isSelected($0.offset) ? style.selectedTextColor : style.textColor)
             }
         }
         .background(calloutBackground)
@@ -103,6 +103,10 @@ private extension SecondaryInputCallout {
     
     var positionY: CGFloat {
         context.buttonFrame.origin.y + context.buttonFrame.size.height/2
+    }
+    
+    func isSelected(_ offset: Int) -> Bool {
+        context.selectedIndex == offset
     }
 }
 

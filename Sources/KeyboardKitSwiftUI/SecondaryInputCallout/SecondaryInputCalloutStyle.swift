@@ -21,9 +21,9 @@ public struct SecondaryInputCalloutStyle {
         borderColor: Color = Color.black.opacity(0.3),
         cornerRadius: CGFloat = 5,
         font: Font = .body,
-        selectedTextColor: Color = Color.white,
         selectedBackgroundColor: Color = Color.blue,
         selectedBackgroundPadding: CGFloat = 8,
+        selectedTextColor: Color = Color.white,
         shadowColor: Color = Color.black.opacity(0.1),
         shadowRadius: CGFloat = 5,
         textColor: Color = .primary) {
@@ -33,6 +33,7 @@ public struct SecondaryInputCalloutStyle {
         self.font = font
         self.selectedBackgroundColor = selectedBackgroundColor
         self.selectedBackgroundPadding = selectedBackgroundPadding
+        self.selectedTextColor = selectedTextColor
         self.shadowColor = shadowColor
         self.shadowRadius = shadowRadius
         self.textColor = textColor
@@ -44,6 +45,7 @@ public struct SecondaryInputCalloutStyle {
     public var font: Font
     public var selectedBackgroundColor: Color
     public var selectedBackgroundPadding: CGFloat
+    public var selectedTextColor: Color
     public var shadowColor: Color
     public var shadowRadius: CGFloat
     public var textColor: Color
