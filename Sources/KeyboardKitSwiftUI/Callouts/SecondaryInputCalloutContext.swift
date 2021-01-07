@@ -10,26 +10,19 @@ import KeyboardKit
 import SwiftUI
 
 /**
- This context can control `SecondaryInputCallout` views that
- appear as a user long presses keyboard buttons. You can use
- `.shared` to get/set a shared context.
+ This context can be used to control secondary input callout
+ views that can show secondary actions for a keyboard action.
  
- You shouldn't use this context directly, but rather apply a
- `.secondaryInputCallout` to any keyboard view (this is auto
- applied when you use a `SystemKeyboard`), then also apply a
- `.secondaryInputCalloutGesture` to any keyboard button that
- should trigger it (this is also auto applied when you use a
- `SystemKeyboardButton` or the standard gestures modifier).
+ You can use `.shared` to get/set a shared context.
  
- However, if you need to, you can override some parts of the
- implementation to customize it. However, the implementation
- has been designed to work like the native callout.
+ You can inherit this class and override any `open` function
+ to modify the callout behavior.
  
  `IMPORTANT` This is still an experimental feature, that may
  change a lot before it's stable. It can change in any minor
  release before 4.0.
  */
-public class SecondaryInputCalloutContext: ObservableObject {
+open class SecondaryInputCalloutContext: ObservableObject {
     
     
     // MARK: - Initialization
@@ -63,7 +56,6 @@ public class SecondaryInputCalloutContext: ObservableObject {
     @Published private(set) var alignment: Alignment = .leading
     @Published private(set) var buttonFrame: CGRect = .zero
     @Published private(set) var selectedIndex: Int = -1
-    
     
     
     // MARK: - Functions

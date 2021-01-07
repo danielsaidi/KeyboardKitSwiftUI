@@ -12,10 +12,8 @@ import SwiftUI
 public extension View {
     
     /**
-     This modifier can be applied to any keyboard views that
-     should be able to present secondary input callouts. You
-     can then use the same context to control whether or not
-     the callout will appear or not.
+     This modifier can be applied to any view that should be
+     able to present a secondary input callout.
      */
     func secondaryInputCallout(
         for keyboardContext: KeyboardContext,
@@ -29,7 +27,7 @@ public extension View {
     
     /**
      This modifier can be applied to any view that should be
-     triggering a secondary input callout.
+     presenting a secondary input callout when long pressed.
      */
     func secondaryInputCalloutGesture(
         action: KeyboardAction?,

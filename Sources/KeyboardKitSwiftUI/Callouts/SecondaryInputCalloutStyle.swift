@@ -9,10 +9,13 @@
 import SwiftUI
 
 /**
- This struct can be used to style a `SecondaryInputCallout`.
+ This struct can be used to style `SecondaryInputCallout`s.
  
  You can modify the `.standard` style instance to change the
- default global style of a `SecondaryInputCallout`.
+ standard global style of all `SecondaryInputCallout` views.
+ 
+ `IMPORTANT` This is an experimental feature that could have
+ breaking changes in any minor release before 4.0.
  */
 public struct SecondaryInputCalloutStyle {
     
@@ -53,8 +56,5 @@ public struct SecondaryInputCalloutStyle {
 
 public extension SecondaryInputCalloutStyle {
     
-    /**
-     This is the standard `SecondaryInputCallout` style.
-     */
     static var standard = SecondaryInputCalloutStyle()
 }

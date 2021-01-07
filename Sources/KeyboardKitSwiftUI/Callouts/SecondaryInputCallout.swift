@@ -11,11 +11,14 @@ import SwiftUI
 
 /**
  This callout can be used to present secondary input actions
- for a certain keyboard action. It only supports `.character`
- actions and will ignore any other actions.
+ for akeyboard actions. It only supports `character` actions
+ and will ignore any other actions.
  
  `TODO` The callout bubble shape does not look like a native
  callout bubble. It should be improved with a custom path.
+ 
+ `IMPORTANT` This is an experimental feature that could have
+ breaking changes in any minor release before 4.0.
  */
 public struct SecondaryInputCallout: View {
     
@@ -26,7 +29,7 @@ public struct SecondaryInputCallout: View {
         self.style = style
     }
     
-    @ObservedObject var context: SecondaryInputCalloutContext
+    @ObservedObject private var context: SecondaryInputCalloutContext
     
     private let style: SecondaryInputCalloutStyle
     
