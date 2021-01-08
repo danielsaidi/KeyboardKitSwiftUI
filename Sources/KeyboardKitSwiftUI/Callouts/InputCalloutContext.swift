@@ -36,7 +36,8 @@ open class InputCalloutContext: ObservableObject {
     static let coordinateSpace = "com.keyboardkit.coordinate.InputCallout"
     
     public var input: String? { action?.input }
-    public var isActive: Bool { input != nil }
+    open var isActive: Bool { input != nil && isEnabled }
+    open var isEnabled: Bool { UIDevice.current.userInterfaceIdiom == .phone }
     
     private var asyncTag = 0
     

@@ -11,6 +11,10 @@ In `v4.0`, this library will become a part of the main library. After that, semv
 
 This release adds curves to the callout bubbles.
 
+### Behavior changes
+
+* `InputCalloutContext` has a new `isEnabled` property that is only trued for phones, since this callout should not be displayed for iPads.
+
 ### New features
 
 * `CalloutCurve` is a new shape that can be used to smoothen the two parts of a callout bubble.
