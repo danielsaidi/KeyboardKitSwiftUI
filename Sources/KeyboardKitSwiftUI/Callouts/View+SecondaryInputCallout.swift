@@ -22,6 +22,6 @@ public extension View {
         return ZStack {
             self
             SecondaryInputCallout(context: context, style: style)
-        }.coordinateSpace(name: SecondaryInputCallout.coordinateSpace)
+        }.coordinateSpace(name: SecondaryInputCalloutContext.coordinateSpace)
     }
 }

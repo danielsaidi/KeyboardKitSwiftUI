@@ -37,12 +37,10 @@ public struct SecondaryInputCallout: View {
     private let style: SecondaryInputCalloutStyle
     private var callout: CalloutStyle { style.callout }
     
-    static let coordinateSpace = SecondaryInputCalloutContext.coordinateSpace
-    
     public var body: some View {
-        ZStack(alignment: context.alignment) {
-            buttonArea
+        VStack(alignment: context.alignment.horizontal, spacing: 0) {
             calloutView
+            buttonArea
         }
         .font(style.font)
         .compositingGroup()
@@ -53,6 +51,9 @@ public struct SecondaryInputCallout: View {
         .onTapGesture(perform: context.reset)
     }
 }
+
+
+// MARK: - Private Properties
 
 private extension SecondaryInputCallout {
     
@@ -78,13 +79,12 @@ private extension SecondaryInputCallout {
                 Text($0.element)
                     .padding(style.selectedBackgroundPadding)
                     .background(isSelected($0.offset) ? style.selectedBackgroundColor : .clear)
+                    .foregroundColor(isSelected($0.offset) ? style.selectedTextColor : style.textColor)
                     .cornerRadius(callout.cornerRadius)
                     .frame(context.buttonFrame.size)
-                    .foregroundColor(isSelected($0.offset) ? style.selectedTextColor : style.textColor)
             }
         }
         .background(calloutViewBackground)
-        .offset(y: -context.buttonFrame.height)
     }
     
     var calloutViewBackground: some View {
@@ -105,13 +105,22 @@ private extension SecondaryInputCallout {
     }
     
     var positionY: CGFloat {
-        context.buttonFrame.origin.y + context.buttonFrame.size.height/2
+        context.buttonFrame.origin.y
     }
+}
+
+
+// MARK: - Private Functions
+
+private extension SecondaryInputCallout {
     
     func isSelected(_ offset: Int) -> Bool {
         context.selectedIndex == offset
     }
 }
+
+
+// MARK: - Private Extensions
 
 private extension KeyboardAction {
     
