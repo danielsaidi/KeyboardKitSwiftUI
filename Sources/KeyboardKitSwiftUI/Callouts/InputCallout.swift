@@ -85,10 +85,3 @@ private extension InputCallout {
         context.buttonFrame.origin.y + context.buttonFrame.size.height - style.calloutSize.height/2
     }
 }
-
-private extension View {
-    
-    func frame(_ size: CGSize) -> some View {
-        self.frame(width: size.width, height: size.height)
-    }
-}

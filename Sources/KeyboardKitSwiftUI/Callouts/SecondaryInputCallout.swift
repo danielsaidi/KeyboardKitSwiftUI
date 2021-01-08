@@ -110,13 +110,6 @@ private extension SecondaryInputCallout {
     }
 }
 
-private extension View {
-    
-    func frame(_ size: CGSize) -> some View {
-        self.frame(width: size.width, height: size.height)
-    }
-}
-
 private extension KeyboardAction {
     
     var input: String? {
