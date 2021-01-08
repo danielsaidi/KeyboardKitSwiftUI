@@ -22,7 +22,7 @@ public struct SecondaryInputCalloutStyle {
     
     public init(
         callout: CalloutStyle = .standard,
-        font: Font = .body,
+        font: Font = Self.standardFont,
         selectedBackgroundColor: Color = Color.blue,
         selectedBackgroundPadding: CGFloat = 8,
         selectedTextColor: Color = Color.white,
@@ -46,6 +46,14 @@ public struct SecondaryInputCalloutStyle {
 public extension SecondaryInputCalloutStyle {
     
     static var standard = SecondaryInputCalloutStyle()
+    
+    static var standardFont: Font {
+        if #available(iOS 14.0, *) {
+            return .title3
+        } else {
+            return .body
+        }
+    }
     
     static func systemStyle(for context: KeyboardContext) -> SecondaryInputCalloutStyle {
         var style = SecondaryInputCalloutStyle.standard

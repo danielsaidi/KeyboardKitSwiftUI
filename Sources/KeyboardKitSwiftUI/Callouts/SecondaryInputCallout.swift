@@ -17,6 +17,9 @@ import SwiftUI
  `TODO` The callout bubble shape does not look like a native
  callout bubble. It should be improved with a custom path.
  
+ `TODO` This callout bubble currently breaks when wide chars
+ are added to it. We should fix this in a later update.
+ 
  `IMPORTANT` This is an experimental feature that could have
  breaking changes in any minor release before 4.0.
  */
