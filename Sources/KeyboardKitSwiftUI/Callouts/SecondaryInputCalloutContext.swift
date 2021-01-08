@@ -64,10 +64,11 @@ open class SecondaryInputCalloutContext: ObservableObject {
     
     /**
      The visible button frame for the button view's geometry
-     proxy. It should not include button inset nor shadow.
+     proxy. You can apply an inset by subclassing this class
+     or adjusting the style.
      */
     open func buttonFrame(for geo: GeometryProxy) -> CGRect {
-        geo.frame(in: .named(Self.coordinateSpace)).insetBy(dx: 3, dy: 5)
+        geo.frame(in: .named(Self.coordinateSpace))
     }
     
     /**

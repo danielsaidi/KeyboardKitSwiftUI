@@ -24,6 +24,7 @@ public struct CalloutStyle {
     public init(
         backgroundColor: Color = .white,
         borderColor: Color = Color.black.opacity(0.5),
+        buttonOverlayInset: CGSize = .zero,
         cornerRadius: CGFloat = 5,
         curveSize: CGFloat = 10,
         shadowColor: Color = Color.black.opacity(0.1),
@@ -31,6 +32,7 @@ public struct CalloutStyle {
         textColor: Color = .primary) {
         self.backgroundColor = backgroundColor
         self.borderColor = borderColor
+        self.buttonOverlayInset = buttonOverlayInset
         self.cornerRadius = cornerRadius
         self.curveSize = curveSize
         self.shadowColor = shadowColor
@@ -40,6 +42,7 @@ public struct CalloutStyle {
     
     public var backgroundColor: Color
     public var borderColor: Color
+    public var buttonOverlayInset: CGSize
     public var cornerRadius: CGFloat
     public var curveSize: CGFloat
     public var shadowColor: Color
@@ -55,6 +58,8 @@ public extension CalloutStyle {
         let action = KeyboardAction.character("")
         var style = CalloutStyle.standard
         style.backgroundColor = action.systemKeyboardButtonBackgroundColor(for: context)
+        style.buttonOverlayInset.width -= 3
+        style.buttonOverlayInset.height -= 5
         return style
     }
 }

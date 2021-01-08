@@ -78,16 +78,8 @@ public extension SystemKeyboard {
     }
 }
 
-
 private extension SystemKeyboard {
 
-    func inputCalloutStyle(for context: KeyboardContext) -> InputCalloutStyle {
-        let action = KeyboardAction.character("")
-        var style = InputCalloutStyle.standard
-        style.callout.backgroundColor = action.systemKeyboardButtonBackgroundColor(for: context)
-        return style
-    }
-    
     func row(at index: Int, actions: KeyboardActionRow) -> some View {
         HStack(spacing: 0) {
             rowEdgeSpacer(at: index)
