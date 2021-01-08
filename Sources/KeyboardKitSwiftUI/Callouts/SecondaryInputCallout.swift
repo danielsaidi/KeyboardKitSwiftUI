@@ -61,20 +61,26 @@ private extension SecondaryInputCallout {
     var calloutInputs: [String] { context.actions.compactMap { $0.input } }
     var cornerRadius: CGFloat { style.callout.cornerRadius }
     var curveSize: CGFloat { style.callout.curveSize }
+    var isLeading: Bool { !isTrailing }
+    var isTrailing: Bool { context.alignment.horizontal == .trailing }
     
     var buttonArea: some View {
         HStack(alignment: .top, spacing: 0) {
-            calloutCurve.rotationEffect(.degrees(90))
-            Text("")
-                .frame(buttonSize)
-                .background(buttonAreaBackground)
-            calloutCurve
+            calloutCurveLeading
+            buttonAreaText
+            calloutCurveTrailing
         }
     }
     
     var buttonAreaBackground: some View {
         CustomRoundedRectangle(bottomLeft: cornerRadius, bottomRight: cornerRadius)
             .foregroundColor(backgroundColor)
+    }
+    
+    var buttonAreaText: some View {
+        Text("")
+            .frame(buttonSize)
+            .background(buttonAreaBackground)
     }
     
     var callout: some View {
@@ -102,6 +108,17 @@ private extension SecondaryInputCallout {
         CalloutCurve()
             .frame(width: curveSize, height: curveSize)
             .foregroundColor(backgroundColor)
+    }
+    
+    var calloutCurveLeading: some View {
+        calloutCurve
+            .rotationEffect(.degrees(90))
+            .offset(y: isLeading ? -1 : 0)
+    }
+    
+    var calloutCurveTrailing: some View {
+        calloutCurve
+            .offset(y: isTrailing ? -1 : 0)
     }
     
     var calloutEdge: some View {
