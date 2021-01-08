@@ -58,8 +58,8 @@ public extension CalloutStyle {
         let action = KeyboardAction.character("")
         var style = CalloutStyle.standard
         style.backgroundColor = action.systemKeyboardButtonBackgroundColor(for: context)
-        style.buttonOverlayInset.width -= 3
-        style.buttonOverlayInset.height -= 5
+        style.buttonOverlayInset.width = 3
+        style.buttonOverlayInset.height = 6
         return style
     }
 }

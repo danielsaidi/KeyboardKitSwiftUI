@@ -39,20 +39,22 @@ public struct InputCallout: View {
         }
         .position(x: positionX, y: positionY)
         .compositingGroup()
-        .shadow(color: style.callout.borderColor, radius: 0.4)
-        .shadow(color: style.callout.shadowColor, radius: style.callout.shadowRadius)
+        .shadow(color: calloutStyle.borderColor, radius: 0.4)
+        .shadow(color: calloutStyle.shadowColor, radius: calloutStyle.shadowRadius)
         .opacity(context.isActive ? 1 : 0)
     }
 }
 
 private extension InputCallout {
     
-    var backgroundColor: Color { style.callout.backgroundColor }
-    var buttonFrame: CGRect { context.buttonFrame }
+    var backgroundColor: Color { calloutStyle.backgroundColor }
+    var buttonFrame: CGRect { context.buttonFrame.insetBy(dx: buttonInset.width, dy: buttonInset.height) }
+    var buttonInset: CGSize { calloutStyle.buttonOverlayInset }
     var buttonSize: CGSize { buttonFrame.size }
     var calloutSize: CGSize { style.calloutSize }
-    var cornerRadius: CGFloat { style.callout.cornerRadius }
-    var curveSize: CGFloat { style.callout.curveSize }
+    var calloutStyle: CalloutStyle { style.callout }
+    var cornerRadius: CGFloat { calloutStyle.cornerRadius }
+    var curveSize: CGFloat { calloutStyle.curveSize }
     
     var buttonArea: some View {
         HStack(alignment: .top, spacing: 0) {
@@ -64,7 +66,7 @@ private extension InputCallout {
     
     var buttonAreaText: some View {
         Text("")
-            .frame(context.buttonFrame.size)
+            .frame(buttonSize)
             .background(buttonAreaBackground)
     }
     

@@ -41,8 +41,8 @@ public struct SecondaryInputCallout: View {
         .font(style.font)
         .compositingGroup()
         .position(x: positionX, y: positionY)
-        .shadow(color: style.callout.borderColor, radius: 0.4)
-        .shadow(color: style.callout.shadowColor, radius: style.callout.shadowRadius)
+        .shadow(color: calloutStyle.borderColor, radius: 0.4)
+        .shadow(color: calloutStyle.shadowColor, radius: calloutStyle.shadowRadius)
         .opacity(context.isActive ? 1 : 0)
         .onTapGesture(perform: context.reset)
     }
@@ -53,14 +53,17 @@ public struct SecondaryInputCallout: View {
 
 private extension SecondaryInputCallout {
     
-    var backgroundColor: Color { style.callout.backgroundColor }
-    var buttonFrame: CGRect { context.buttonFrame }
+    var backgroundColor: Color { calloutStyle.backgroundColor }
+    var buttonFrame: CGRect { context.buttonFrame.insetBy(dx: buttonInset.width, dy: buttonInset.height) }
+    var buttonInset: CGSize { calloutStyle.buttonOverlayInset }
     var buttonSize: CGSize { buttonFrame.size }
     var calloutInputs: [String] { context.actions.compactMap { $0.input } }
-    var cornerRadius: CGFloat { style.callout.cornerRadius }
-    var curveSize: CGFloat { style.callout.curveSize }
+    var calloutStyle: CalloutStyle { style.callout }
+    var cornerRadius: CGFloat { calloutStyle.cornerRadius }
+    var curveSize: CGFloat { calloutStyle.curveSize }
     var isLeading: Bool { !isTrailing }
     var isTrailing: Bool { context.alignment.horizontal == .trailing }
+    var verticalPaddingAdjustment: CGFloat { 2 * style.verticalPadding }
     
     var buttonArea: some View {
         HStack(alignment: .top, spacing: 0) {
@@ -92,12 +95,12 @@ private extension SecondaryInputCallout {
     var calloutBody: some View {
         HStack(spacing: 0) {
             ForEach(Array(calloutInputs.enumerated()), id: \.offset) {
-                Text("  ")
-                    .padding(style.selectedBackgroundPadding)
-                    .background(isSelected($0.offset) ? style.selectedBackgroundColor : .clear)
-                    .cornerRadius(cornerRadius)
+                Text($0.element)
                     .frame(buttonSize)
-                    .overlay(Text($0.element).foregroundColor(isSelected($0.offset) ? style.selectedTextColor : style.textColor))
+                    .background(isSelected($0.offset) ? style.selectedBackgroundColor : .clear)
+                    .foregroundColor(isSelected($0.offset) ? style.selectedTextColor : style.textColor)
+                    .cornerRadius(cornerRadius)
+                    .padding(.vertical, style.verticalPadding)
             }
         }.background(backgroundColor)
     }
@@ -121,7 +124,7 @@ private extension SecondaryInputCallout {
     
     var calloutEdge: some View {
         CustomRoundedRectangle(topLeft: cornerRadius, bottomLeft: cornerRadius)
-            .frame(width: curveSize, height: buttonSize.height)
+            .frame(width: curveSize, height: buttonSize.height + 2 * style.verticalPadding)
             .foregroundColor(backgroundColor)
     }
     
@@ -133,7 +136,7 @@ private extension SecondaryInputCallout {
     }
     
     var positionY: CGFloat {
-        buttonFrame.origin.y
+        buttonFrame.origin.y - style.verticalPadding
     }
 }
 
