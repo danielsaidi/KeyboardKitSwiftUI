@@ -12,6 +12,11 @@ import SwiftUI
 /**
  This struct can be used to style `InputCallout` views.
  
+ Note that the `calloutSize` width is not the total width of
+ the callout, but the total size beyond the button area. The
+ width is split on both sides. So the standard `26` width is
+ causing the callout to go `13` points on each side.
+ 
  You can modify the `.standard` style instance to change the
  standard global style of all `InputCallout` views.
  
@@ -22,7 +27,7 @@ public struct InputCalloutStyle {
     
     public init(
         callout: CalloutStyle = .standard,
-        calloutSize: CGSize = CGSize(width: 50, height: 50),
+        calloutSize: CGSize = CGSize(width: 26, height: 50),
         font: Font = Font.largeTitle.weight(.light)) {
         self.callout = callout
         self.calloutSize = calloutSize

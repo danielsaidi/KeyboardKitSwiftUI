@@ -14,9 +14,6 @@ import SwiftUI
  above the pressed keyboard button. It supports `.character`
  actions and will ignore any other actions.
  
- `TODO` The callout bubble shape does not look like a native
- callout bubble. It should be improved with a custom path.
- 
  `IMPORTANT` This is an experimental feature that could have
  breaking changes in any minor release before 4.0.
  */
@@ -32,60 +29,75 @@ public struct InputCallout: View {
     @ObservedObject private var context: InputCalloutContext
     
     private let style: InputCalloutStyle
-    private var callout: CalloutStyle { style.callout }
     
     static let coordinateSpace = InputCalloutContext.coordinateSpace
     
     public var body: some View {
         ZStack(alignment: .bottom) {
             buttonArea
-            calloutView
+            callout
         }
         .position(x: positionX, y: positionY)
         .compositingGroup()
-        .shadow(color: callout.borderColor, radius: 0.4)
-        .shadow(color: callout.shadowColor, radius: callout.shadowRadius)
+        .shadow(color: style.callout.borderColor, radius: 0.4)
+        .shadow(color: style.callout.shadowColor, radius: style.callout.shadowRadius)
         .opacity(context.isActive ? 1 : 0)
     }
 }
 
 private extension InputCallout {
     
+    var backgroundColor: Color { style.callout.backgroundColor }
+    var buttonFrame: CGRect { context.buttonFrame }
+    var buttonSize: CGSize { buttonFrame.size }
+    var calloutSize: CGSize { style.calloutSize }
+    var cornerRadius: CGFloat { style.callout.cornerRadius }
+    var curveSize: CGFloat { style.callout.curveSize }
+    
     var buttonArea: some View {
+        HStack(alignment: .top, spacing: 0) {
+            calloutCurve.rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
+            buttonAreaText
+            calloutCurve
+        }
+    }
+    
+    var buttonAreaText: some View {
         Text("")
             .frame(context.buttonFrame.size)
             .background(buttonAreaBackground)
     }
     
     var buttonAreaBackground: some View {
-        let radius = callout.cornerRadius
-        return CustomRoundedRectangle(bottomLeft: radius, bottomRight: radius)
-            .foregroundColor(callout.backgroundColor)
+        CustomRoundedRectangle(bottomLeft: cornerRadius, bottomRight: cornerRadius)
+            .foregroundColor(backgroundColor)
     }
     
-    var calloutView: some View {
+    var callout: some View {
         Text(context.input ?? "")
             .font(style.font)
-            .frame(width: calloutViewMinWidth, height: style.calloutSize.height)
-            .background(calloutViewBackground)
-            .offset(y: -context.buttonFrame.size.height)
+            .frame(width: buttonSize.width + calloutSize.width, height: calloutSize.height)
+            .background(calloutBackground)
+            .offset(y: -buttonSize.height)
     }
     
-    var calloutViewMinWidth: CGFloat {
-        max(style.calloutSize.width, context.buttonFrame.size.width + 26)
+    var calloutBackground: some View {
+        RoundedRectangle(cornerRadius: cornerRadius)
+            .foregroundColor(backgroundColor)
     }
     
-    var calloutViewBackground: some View {
-        RoundedRectangle(cornerRadius: callout.cornerRadius)
-            .foregroundColor(callout.backgroundColor)
+    var calloutCurve: some View {
+        CalloutCurve()
+            .frame(width: curveSize, height: curveSize)
+            .foregroundColor(backgroundColor)
+            .offset(y: -1)
     }
     
     var positionX: CGFloat {
-        context.buttonFrame.origin.x + context.buttonFrame.size.width/2
-        
+        buttonFrame.origin.x + buttonSize.width/2
     }
     
     var positionY: CGFloat {
-        context.buttonFrame.origin.y + context.buttonFrame.size.height - style.calloutSize.height/2
+        buttonFrame.origin.y + buttonSize.height - calloutSize.height/2
     }
 }

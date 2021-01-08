@@ -9,11 +9,13 @@ In `v4.0`, this library will become a part of the main library. After that, semv
 
 ## 3.4.2
 
-This release adds curves to the callout bubbles.
+This release adds curves and behavior changes to the callout bubbles.
 
 ### Behavior changes
 
+* `InputCallout` has curves between the button area and the callout.
 * `InputCalloutContext` has a new `isEnabled` property that is only trued for phones, since this callout should not be displayed for iPads.
+* `SecondaryInputCallout` has curves between the button area and the callout.
 
 ### New features
 

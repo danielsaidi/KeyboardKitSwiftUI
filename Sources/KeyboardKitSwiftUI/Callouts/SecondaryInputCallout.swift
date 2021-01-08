@@ -14,9 +14,6 @@ import SwiftUI
  for akeyboard actions. It only supports `character` actions
  and will ignore any other actions.
  
- `TODO` The callout bubble shape does not look like a native
- callout bubble. It should be improved with a custom path.
- 
  `TODO` This callout bubble currently breaks when wide chars
  are added to it. We should fix this in a later update.
  
@@ -57,7 +54,8 @@ public struct SecondaryInputCallout: View {
 private extension SecondaryInputCallout {
     
     var backgroundColor: Color { style.callout.backgroundColor }
-    var buttonSize: CGSize { context.buttonFrame.size }
+    var buttonFrame: CGRect { context.buttonFrame }
+    var buttonSize: CGSize { buttonFrame.size }
     var calloutInputs: [String] { context.actions.compactMap { $0.input } }
     var cornerRadius: CGFloat { style.callout.cornerRadius }
     var curveSize: CGFloat { style.callout.curveSize }
@@ -98,7 +96,7 @@ private extension SecondaryInputCallout {
                     .padding(style.selectedBackgroundPadding)
                     .background(isSelected($0.offset) ? style.selectedBackgroundColor : .clear)
                     .foregroundColor(isSelected($0.offset) ? style.selectedTextColor : style.textColor)
-                    .cornerRadius(style.callout.cornerRadius)
+                    .cornerRadius(cornerRadius)
                     .frame(buttonSize)
             }
         }.background(backgroundColor)
@@ -130,12 +128,12 @@ private extension SecondaryInputCallout {
     var positionX: CGFloat {
         let buttonWidth = buttonSize.width
         let adjustment = (CGFloat(calloutInputs.count) * buttonWidth)/2
-        let signedAdjustment = context.isTrailing ? -adjustment + buttonWidth : adjustment
-        return context.buttonFrame.origin.x + signedAdjustment
+        let signedAdjustment = isTrailing ? -adjustment + buttonWidth : adjustment
+        return buttonFrame.origin.x + signedAdjustment
     }
     
     var positionY: CGFloat {
-        context.buttonFrame.origin.y
+        buttonFrame.origin.y
     }
 }
 
