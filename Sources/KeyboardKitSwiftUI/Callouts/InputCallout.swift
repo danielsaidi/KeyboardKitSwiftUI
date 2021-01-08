@@ -66,9 +66,13 @@ private extension InputCallout {
     var calloutView: some View {
         Text(context.input ?? "")
             .font(style.font)
-            .frame(width: style.calloutSize.width, height: style.calloutSize.height)
+            .frame(width: calloutViewMinWidth, height: style.calloutSize.height)
             .background(calloutViewBackground)
             .offset(y: -context.buttonFrame.size.height)
+    }
+    
+    var calloutViewMinWidth: CGFloat {
+        max(style.calloutSize.width, context.buttonFrame.size.width + 26)
     }
     
     var calloutViewBackground: some View {
