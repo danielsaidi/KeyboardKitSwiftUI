@@ -25,12 +25,14 @@ public struct CalloutStyle {
         backgroundColor: Color = .white,
         borderColor: Color = Color.black.opacity(0.5),
         cornerRadius: CGFloat = 5,
+        curveSize: CGFloat = 10,
         shadowColor: Color = Color.black.opacity(0.1),
         shadowRadius: CGFloat = 5,
         textColor: Color = .primary) {
         self.backgroundColor = backgroundColor
         self.borderColor = borderColor
         self.cornerRadius = cornerRadius
+        self.curveSize = curveSize
         self.shadowColor = shadowColor
         self.shadowRadius = shadowRadius
         self.textColor = textColor
@@ -39,6 +41,7 @@ public struct CalloutStyle {
     public var backgroundColor: Color
     public var borderColor: Color
     public var cornerRadius: CGFloat
+    public var curveSize: CGFloat
     public var shadowColor: Color
     public var shadowRadius: CGFloat
     public var textColor: Color

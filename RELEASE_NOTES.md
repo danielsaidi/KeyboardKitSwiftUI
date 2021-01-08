@@ -7,6 +7,15 @@ As such, to be able to move swiftly (pun intended) and not get stuck with a bunc
 In `v4.0`, this library will become a part of the main library. After that, semver will apply to the SwiftUI parts as well.  
 
 
+## 3.4.2
+
+This release adds curves to the callout bubbles.
+
+### New features
+
+* `CalloutCurve` is a new shape that can be used to smoothen the two parts of a callout bubble.
+
+
 ## 3.4.1
 
 This release fixes some visual artefacts in the callout bubbles.

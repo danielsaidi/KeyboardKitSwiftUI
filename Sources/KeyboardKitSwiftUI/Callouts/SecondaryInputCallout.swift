@@ -35,18 +35,17 @@ public struct SecondaryInputCallout: View {
     @ObservedObject private var context: SecondaryInputCalloutContext
     
     private let style: SecondaryInputCalloutStyle
-    private var callout: CalloutStyle { style.callout }
     
     public var body: some View {
         VStack(alignment: context.alignment.horizontal, spacing: 0) {
-            calloutView
+            callout
             buttonArea
         }
         .font(style.font)
         .compositingGroup()
         .position(x: positionX, y: positionY)
-        .shadow(color: callout.borderColor, radius: 0.4)
-        .shadow(color: callout.shadowColor, radius: callout.shadowRadius)
+        .shadow(color: style.callout.borderColor, radius: 0.4)
+        .shadow(color: style.callout.shadowColor, radius: style.callout.shadowRadius)
         .opacity(context.isActive ? 1 : 0)
         .onTapGesture(perform: context.reset)
     }
@@ -57,50 +56,64 @@ public struct SecondaryInputCallout: View {
 
 private extension SecondaryInputCallout {
     
-    var inputs: [String] {
-        context.actions.compactMap { $0.input }
-    }
+    var backgroundColor: Color { style.callout.backgroundColor }
+    var buttonSize: CGSize { context.buttonFrame.size }
+    var calloutInputs: [String] { context.actions.compactMap { $0.input } }
+    var cornerRadius: CGFloat { style.callout.cornerRadius }
+    var curveSize: CGFloat { style.callout.curveSize }
     
     var buttonArea: some View {
-        Text("")
-            .frame(context.buttonFrame.size)
-            .background(buttonAreaBackground)
+        HStack(alignment: .top, spacing: 0) {
+            calloutCurve.rotationEffect(.degrees(90))
+            Text("")
+                .frame(buttonSize)
+                .background(buttonAreaBackground)
+            calloutCurve
+        }
     }
     
     var buttonAreaBackground: some View {
-        let radius = callout.cornerRadius
-        return CustomRoundedRectangle(bottomLeft: radius, bottomRight: radius)
-            .foregroundColor(callout.backgroundColor)
+        CustomRoundedRectangle(bottomLeft: cornerRadius, bottomRight: cornerRadius)
+            .foregroundColor(backgroundColor)
     }
     
-    var calloutView: some View {
+    var callout: some View {
         HStack(spacing: 0) {
-            ForEach(Array(inputs.enumerated()), id: \.offset) {
+            calloutEdge
+            calloutBody
+            calloutEdge.rotationEffect(.degrees(180))
+        }
+    }
+    
+    var calloutBody: some View {
+        HStack(spacing: 0) {
+            ForEach(Array(calloutInputs.enumerated()), id: \.offset) {
                 Text($0.element)
                     .padding(style.selectedBackgroundPadding)
                     .background(isSelected($0.offset) ? style.selectedBackgroundColor : .clear)
                     .foregroundColor(isSelected($0.offset) ? style.selectedTextColor : style.textColor)
-                    .cornerRadius(callout.cornerRadius)
-                    .frame(context.buttonFrame.size)
+                    .cornerRadius(style.callout.cornerRadius)
+                    .frame(buttonSize)
             }
-        }
-        .background(calloutViewBackground)
+        }.background(backgroundColor)
     }
     
-    var calloutViewBackground: some View {
-        let radius = callout.cornerRadius
-        return CustomRoundedRectangle(
-            topLeft: radius,
-            topRight: radius,
-            bottomLeft: context.isTrailing ? radius : 0,
-            bottomRight: context.isTrailing ? 0 : radius)
-            .foregroundColor(callout.backgroundColor)
+    var calloutCurve: some View {
+        CalloutCurve()
+            .frame(width: curveSize, height: curveSize)
+            .foregroundColor(backgroundColor)
+    }
+    
+    var calloutEdge: some View {
+        CustomRoundedRectangle(topLeft: cornerRadius, bottomLeft: cornerRadius)
+            .frame(width: curveSize, height: buttonSize.height)
+            .foregroundColor(backgroundColor)
     }
     
     var positionX: CGFloat {
-        let buttonSize = context.buttonFrame.size.width
-        let adjustment = (CGFloat(context.actions.count) * buttonSize)/2
-        let signedAdjustment = context.isTrailing ? -adjustment + buttonSize : adjustment
+        let buttonWidth = buttonSize.width
+        let adjustment = (CGFloat(calloutInputs.count) * buttonWidth)/2
+        let signedAdjustment = context.isTrailing ? -adjustment + buttonWidth : adjustment
         return context.buttonFrame.origin.x + signedAdjustment
     }
     
