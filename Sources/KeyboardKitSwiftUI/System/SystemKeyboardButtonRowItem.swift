@@ -41,7 +41,7 @@ public struct SystemKeyboardButtonRowItem: View {
             .frame(maxWidth: .infinity)
             .frame(height: dimensions.buttonHeight - dimensions.buttonInsets.top - dimensions.buttonInsets.bottom)
             .applyWidth(for: action, from: dimensions, keyboardWidth: keyboardSize.width)
-            .systemKeyboardButtonStyle(for: action, context: context)
+            .standardButtonStyle(for: action, context: context)
             .padding(dimensions.buttonInsets)
             .frame(height: dimensions.buttonHeight)
             .background(Color.clearInteractable)

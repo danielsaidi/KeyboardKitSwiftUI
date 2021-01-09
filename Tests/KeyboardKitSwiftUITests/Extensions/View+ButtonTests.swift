@@ -1,5 +1,5 @@
 //
-//  View+System.swift
+//  View+ButtonTests.swift
 //  KeyboardKitTests
 //
 //  Created by Daniel Saidi on 2020-06-24.
@@ -20,42 +20,42 @@ class View_SystemKeyboardStylesTests: QuickSpec {
         let actionHandler = StandardKeyboardActionHandler(inputViewController: controller)
         let context = StandardKeyboardContext(controller: controller, actionHandler: actionHandler, keyboardType: .email)
         
-        describe("system keyboard button style") {
+        describe("standard button style") {
             
             it("is defined") {
-                let result = Text("").systemKeyboardButtonStyle(for: .backspace, context: context)
+                let result = Text("").standardButtonStyle(for: .backspace, context: context)
                 expect(result).toNot(beNil())
             }
         }
             
-        describe("system keyboard button background") {
+        describe("standard button background") {
             
             it("is defined") {
-                let background = Text("").systemKeyboardButtonBackground(for: .backspace, context: context)
+                let background = Text("").standardButtonBackground(for: .backspace, context: context)
                 expect(background).toNot(beNil())
             }
         }
         
-        describe("system keyboard button font") {
+        describe("standard button font") {
             
             it("is defined") {
-                let font = Text("").systemKeyboardButtonFont(for: .backspace, context: context)
+                let font = Text("").standardButtonFont(for: .backspace, context: context)
                 expect(font).toNot(beNil())
             }
         }
         
-        describe("system keyboard button foreground") {
+        describe("standard button foreground") {
             
             it("is defined") {
-                let foreground = Text("").systemKeyboardButtonForeground(for: context)
+                let foreground = Text("").standardButtonForeground(for: context)
                 expect(foreground).toNot(beNil())
             }
         }
         
-        describe("system keyboard button shadow") {
+        describe("standard button shadow") {
             
             it("is defined") {
-                let value = Text("").systemKeyboardButtonShadow(for: context)
+                let value = Text("").standardButtonShadow(for: context)
                 expect(value).toNot(beNil())
             }
         }

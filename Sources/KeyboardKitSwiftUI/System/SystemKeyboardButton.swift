@@ -52,7 +52,7 @@ public struct SystemKeyboardButton: View {
             buttonContent
         } else {
             buttonContent
-            .systemKeyboardButtonStyle(for: action, context: context)
+            .standardButtonStyle(for: action, context: context)
             .keyboardAction(action, context: context)
         }
     }
@@ -68,7 +68,7 @@ private extension SystemKeyboardButton {
     }
     
     var buttonText: String? {
-        text ?? action.systemKeyboardButtonText
+        text ?? action.standardButtonText
     }
     
     var buttonImage: Image? {

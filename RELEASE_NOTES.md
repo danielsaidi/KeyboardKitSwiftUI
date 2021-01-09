@@ -7,6 +7,21 @@ As such, to be able to move swiftly (pun intended) and not get stuck with a bunc
 In `v4.0`, this library will become a part of the main library. After that, semver will apply to the SwiftUI parts as well.  
 
 
+## 3.5.0
+
+This release deprecates some `system` properties in favor of the `standard` naming concept.
+
+In most cases, the system behavior *is* the standard behavior.
+
+### Deprecations
+
+* `systemKeyboardButtonStyle` has been renamed to `standardButtonStyle`
+* `systemKeyboardButtonBackground` has been renamed to `standardButtonBackground`
+* `systemKeyboardButtonFont` has been renamed to `standardButtonFont`
+* `systemKeyboardButtonForeground` has been renamed to `standardButtonForeground`
+* `systemKeyboardButtonShadow` has been renamed to `standardButtonShadow`
+
+
 ## 3.4.2
 
 This release adds curves and behavior changes to the callout bubbles.
