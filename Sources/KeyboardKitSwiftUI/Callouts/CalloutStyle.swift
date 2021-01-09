@@ -57,7 +57,7 @@ public extension CalloutStyle {
     static func systemStyle(for context: KeyboardContext) -> CalloutStyle {
         let action = KeyboardAction.character("")
         var style = CalloutStyle.standard
-        style.backgroundColor = action.systemKeyboardButtonBackgroundColor(for: context)
+        style.backgroundColor = action.standardButtonBackgroundColor(for: context)
         style.buttonOverlayInset.width = 3
         style.buttonOverlayInset.height = 6
         return style

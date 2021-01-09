@@ -1,5 +1,5 @@
 //
-//  KeyboardShiftState+System.swift
+//  KeyboardShiftState+Button.swift
 //  KeyboardKit
 //
 //  Created by Daniel Saidi on 2020-07-01.
@@ -12,7 +12,7 @@ import SwiftUI
 public extension KeyboardShiftState {
     
     /**
-     The standard button image to use for the shift state.
+     The standard button image in a system keyboard.
      */
     var standardButtonImage: Image {
         switch self {

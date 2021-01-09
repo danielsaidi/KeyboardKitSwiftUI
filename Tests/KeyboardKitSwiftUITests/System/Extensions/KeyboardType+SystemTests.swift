@@ -19,10 +19,7 @@ class KeyboardType_SystemTests: QuickSpec {
         describe("system keyboard button image") {
             
             func result(for type: KeyboardType, contextType: KeyboardType) -> Image? {
-                let controller = KeyboardInputViewController()
-                let handler = MockKeyboardActionHandler()
-                let context = StandardKeyboardContext(controller: controller, actionHandler: handler, keyboardType: contextType)
-                return type.systemKeyboardButtonImage(for: context)
+                type.standardButtonImage
             }
             
             it("is defined for some types") {

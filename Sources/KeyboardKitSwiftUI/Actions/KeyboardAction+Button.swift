@@ -32,7 +32,7 @@ public extension KeyboardAction {
         case .dictation: return .dictation
         case .dismissKeyboard: return .keyboardDismiss
         case .image(_, let imageName, _): return Image(imageName)
-        case .keyboardType(let type): return type.systemKeyboardButtonImage(for: context)
+        case .keyboardType(let type): return type.standardButtonImage
         case .moveCursorBackward: return .moveCursorLeft
         case .moveCursorForward: return .moveCursorRight
         case .newLine: return .newLine
