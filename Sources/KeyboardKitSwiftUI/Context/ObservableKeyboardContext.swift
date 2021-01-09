@@ -24,19 +24,18 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
     public init(from context: KeyboardContext) {
         controller = context.controller
         
-        device = context.device
-        
         actionHandler = context.actionHandler
-        emojiCategory = context.emojiCategory
         keyboardBehavior = context.keyboardBehavior
         keyboardInputSetProvider = context.keyboardInputSetProvider
         keyboardLayoutProvider = context.keyboardLayoutProvider
-        keyboardType = context.keyboardType
         secondaryCalloutActionProvider = context.secondaryCalloutActionProvider
         
+        device = context.device
         deviceOrientation = context.deviceOrientation
+        emojiCategory = context.emojiCategory
         hasDictationKey = context.hasDictationKey
         hasFullAccess = context.hasFullAccess
+        keyboardType = context.keyboardType
         locale = context.locale
         needsInputModeSwitchKey = context.needsInputModeSwitchKey
         primaryLanguage = context.primaryLanguage
