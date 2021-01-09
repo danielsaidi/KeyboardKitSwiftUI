@@ -15,11 +15,12 @@ In most cases, the system behavior *is* the standard behavior.
 
 ### Deprecations
 
-* `systemKeyboardButtonStyle` has been renamed to `standardButtonStyle`
-* `systemKeyboardButtonBackground` has been renamed to `standardButtonBackground`
-* `systemKeyboardButtonFont` has been renamed to `standardButtonFont`
-* `systemKeyboardButtonForeground` has been renamed to `standardButtonForeground`
-* `systemKeyboardButtonShadow` has been renamed to `standardButtonShadow`
+* `KeyboardShiftState` `systemKeyboardButtonImage` was unused and has been deprecated.
+* `View` `systemKeyboardButtonStyle` has been renamed to `standardButtonStyle`
+* `View` `systemKeyboardButtonBackground` has been renamed to `standardButtonBackground`
+* `View` `systemKeyboardButtonFont` has been renamed to `standardButtonFont`
+* `View` `systemKeyboardButtonForeground` has been renamed to `standardButtonForeground`
+* `View` `systemKeyboardButtonShadow` has been renamed to `standardButtonShadow`
 
 
 ## 3.4.2
