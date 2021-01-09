@@ -57,10 +57,9 @@ public struct SystemKeyboard<Button: View>: View {
 
 public extension SystemKeyboard where Button == SystemKeyboardButtonRowItem {
     
-    init(layout: KeyboardLayout) {
+    init(layout: KeyboardLayout, buttonBuilder: @escaping ButtonBuilder = standardButtonBuilder) {
         self.rows = layout.actionRows
-        self.buttonBuilder = { _, _ in fatalError() }
-        self.buttonBuilder = standardButtonBuilder
+        self.buttonBuilder = buttonBuilder
     }
 }
 
@@ -70,7 +69,7 @@ public extension SystemKeyboard {
      This is the standard `buttonBuilder`, that will be used
      when no custom builder is provided to the view.
      */
-    func standardButtonBuilder(action: KeyboardAction, keyboardSize: KeyboardSize) -> SystemKeyboardButtonRowItem {
+    static func standardButtonBuilder(action: KeyboardAction, keyboardSize: KeyboardSize) -> SystemKeyboardButtonRowItem {
         SystemKeyboardButtonRowItem(
             action: action,
             dimensions: SystemKeyboardDimensions(),
