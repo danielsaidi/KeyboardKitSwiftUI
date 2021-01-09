@@ -12,9 +12,6 @@ import SwiftUI
 
 /**
  This struct specifies dimensions for a `SystemKeyboard`.
- 
- `IMPORTANT` This is just a first take on dimensions, to get
- the demo to look good. The class must not use fixed values.
  */
 public struct SystemKeyboardDimensions {
     

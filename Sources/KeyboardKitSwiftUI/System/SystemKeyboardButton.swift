@@ -42,18 +42,18 @@ public struct SystemKeyboardButton: View {
     private let action: KeyboardAction
     private let image: Image?
     private let text: String?
-    private let useModifiers: Bool
+    var useModifiers: Bool
     
     @EnvironmentObject var context: ObservableKeyboardContext
     
     @ViewBuilder
     public var body: some View {
-        if !useModifiers {
+        if useModifiers {
             buttonContent
+                .standardButtonStyle(for: action, context: context)
+                .keyboardAction(action, context: context)
         } else {
             buttonContent
-            .standardButtonStyle(for: action, context: context)
-            .keyboardAction(action, context: context)
         }
     }
 }

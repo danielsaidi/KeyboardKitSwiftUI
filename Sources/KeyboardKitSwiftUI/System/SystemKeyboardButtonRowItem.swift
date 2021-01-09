@@ -23,21 +23,26 @@ public struct SystemKeyboardButtonRowItem: View {
     
     public init(
         action: KeyboardAction,
+        button: SystemKeyboardButton? = nil,
         dimensions: SystemKeyboardDimensions,
         keyboardSize: CGSize) {
         self.action = action
+        var systemButton = button ?? SystemKeyboardButton(action: action)
+        systemButton.useModifiers = false
+        self.button = systemButton
         self.dimensions = dimensions
         self.keyboardSize = keyboardSize
     }
     
     private let action: KeyboardAction
+    private let button: SystemKeyboardButton
     private let dimensions: SystemKeyboardDimensions
     private let keyboardSize: CGSize
     
     @EnvironmentObject var context: ObservableKeyboardContext
     
     public var body: some View {
-        SystemKeyboardButton(action: action, useModifiers: false)
+        button
             .frame(maxWidth: .infinity)
             .frame(height: dimensions.buttonHeight - dimensions.buttonInsets.top - dimensions.buttonInsets.bottom)
             .applyWidth(for: action, from: dimensions, keyboardWidth: keyboardSize.width)

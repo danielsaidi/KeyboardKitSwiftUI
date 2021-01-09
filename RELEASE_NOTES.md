@@ -13,6 +13,10 @@ This release deprecates some `system` properties in favor of the `standard` nami
 
 In most cases, the system behavior *is* the standard behavior.
 
+### New features
+
+* `SystemKeyboardButtonRowItem` can now be created with a custom button. 
+
 ### Deprecations
 
 * `Color` `systemKeyboardButtonBackgroundColorDark` has been renamed to `standardDarkButtonBackgroundColor` 
