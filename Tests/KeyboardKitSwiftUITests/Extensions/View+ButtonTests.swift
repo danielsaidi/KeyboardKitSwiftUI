@@ -12,7 +12,7 @@ import KeyboardKit
 import KeyboardKitSwiftUI
 import SwiftUI
 
-class View_SystemKeyboardStylesTests: QuickSpec {
+class View_ButtonTests: QuickSpec {
 
     override func spec() {
         

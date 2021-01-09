@@ -1,5 +1,5 @@
 //
-//  KeyboardAction+System.swift
+//  KeyboardAction+Button.swift
 //  KeyboardKit
 //
 //  Created by Daniel Saidi on 2020-07-01.
@@ -9,28 +9,22 @@
 import KeyboardKit
 import SwiftUI
 
-/**
- The `System` extensions help you create keyboard extensions
- that mimic native iOS system keyboards.
- */
 public extension KeyboardAction {
     
     /**
-     The background color used by a system button, given the
-     action, provided color scheme and keyboard appearance.
+     The standard button background in a system keyboard.
      */
-    func systemKeyboardButtonBackgroundColor(for context: KeyboardContext) -> Color {
+    func standardButtonBackgroundColor(for context: KeyboardContext) -> Color {
         if case .emoji = self { return .clearInteractable }
         if case .emojiCategory = self { return .clearInteractable }
-        if isSystemAction { return .systemKeyboardButtonBackgroundColorDark(for: context) }
-        return .systemKeyboardButtonBackgroundColorLight(for: context)
+        if isSystemAction { return .standardDarkButtonBackgroundColor(for: context) }
+        return .standardLightButtonBackgroundColor(for: context)
     }
     
     /**
-     The button image that should be used by a system button
-     that performs this action.
+     The standard button image in a system keyboard.
      */
-    func systemKeyboardButtonImage(for context: KeyboardContext) -> Image? {
+    func standardButtonImage(for context: KeyboardContext) -> Image? {
         switch self {
         case .backspace: return .backspace
         case .command: return .command
@@ -52,11 +46,10 @@ public extension KeyboardAction {
     }
     
     /**
-     The shadow color used by a system button for the action
-     action, provided color scheme and keyboard appearance.
+     The standard button shadow color in a system keyboard.
      */
-    func systemKeyboardButtonShadowColor(for context: KeyboardContext) -> Color {
+    func standardButtonShadowColor(for context: KeyboardContext) -> Color {
         if case .emoji = self { return .clear }
-        return .systemKeyboardButtonShadowColor(for: context)
+        return .standardButtonShadowColor(for: context)
     }
 }

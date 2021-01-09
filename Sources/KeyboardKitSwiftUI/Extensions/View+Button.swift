@@ -31,21 +31,21 @@ public extension View {
      foreground color, corner radius, shadow and font.
      */
     func standardButtonBackground(for action: KeyboardAction, context: KeyboardContext) -> some View {
-        background(action.systemKeyboardButtonBackgroundColor(for: context))
+        background(action.standardButtonBackgroundColor(for: context))
     }
     
     func standardButtonFont(for action: KeyboardAction, context: KeyboardContext) -> some View {
-        let hasImage = action.systemKeyboardButtonImage(for: context) != nil
+        let hasImage = action.standardButtonImage(for: context) != nil
         let rawFont = Font(action.standardButtonFont)
         return hasImage ? font(rawFont.weight(.light)) : font(rawFont)
     }
     
     func standardButtonForeground(for context: KeyboardContext) -> some View {
-        foregroundColor(.systemKeyboardButtonForegroundColor(for: context))
+        foregroundColor(.standardButtonForegroundColor(for: context))
     }
     
     func standardButtonShadow(for context: KeyboardContext) -> some View {
-        let color = Color.systemKeyboardButtonShadowColor(for: context)
+        let color = Color.standardButtonShadowColor(for: context)
         return self.shadow(color: color, radius: 0, x: 0, y: 1)
     }
 }

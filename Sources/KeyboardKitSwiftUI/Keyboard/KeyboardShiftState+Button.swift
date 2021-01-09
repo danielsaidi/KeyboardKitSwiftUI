@@ -9,15 +9,10 @@
 import KeyboardKit
 import SwiftUI
 
-/**
- The `System` extensions help you create keyboard extensions
- that mimic native iOS system keyboards.
- */
 public extension KeyboardShiftState {
     
     /**
-     The image that can be used to indicate that this is the
-     current shift state.
+     The standard button image to use for the shift state.
      */
     var standardButtonImage: Image {
         switch self {

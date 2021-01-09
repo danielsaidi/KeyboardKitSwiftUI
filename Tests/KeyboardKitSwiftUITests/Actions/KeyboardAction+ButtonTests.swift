@@ -1,5 +1,5 @@
 //
-//  KeyboardAction+SystemTests.swift
+//  KeyboardAction+ButtonTests.swift
 //  KeyboardKitTests
 //
 //  Created by Daniel Saidi on 2020-07-01.
@@ -12,7 +12,7 @@ import KeyboardKit
 import SwiftUI
 @testable import KeyboardKitSwiftUI
 
-class Action_SystemTests: QuickSpec {
+class KeyboardAction_ButtonTests: QuickSpec {
 
     override func spec() {
         
@@ -41,7 +41,7 @@ class Action_SystemTests: QuickSpec {
             unexpected = []
         }
         
-        describe("system keyboard button background color") {
+        describe("standard button background color") {
             
             it("is uses a dark button for system actions, else light") {
 //                KeyboardAction.testActions.forEach {
@@ -70,13 +70,13 @@ class Action_SystemTests: QuickSpec {
             }
         }
         
-        describe("system keyboard button image") {
+        describe("standard button image") {
             
             func result(for action: KeyboardAction) -> Image? {
                 let controller = KeyboardInputViewController()
                 let handler = MockKeyboardActionHandler()
                 let context = StandardKeyboardContext(controller: controller, actionHandler: handler, keyboardType: .email)
-                return action.systemKeyboardButtonImage(for: context)
+                return action.standardButtonImage(for: context)
             }
             
             it("is defined for some actions") {
@@ -107,10 +107,10 @@ class Action_SystemTests: QuickSpec {
             }
         }
         
-        describe("system keyboard button shadow color") {
+        describe("standard button shadow color") {
             
             func result(for action: KeyboardAction) -> Color {
-                action.systemKeyboardButtonShadowColor(for: context(.dark, .dark))
+                action.standardButtonShadowColor(for: context(.dark, .dark))
             }
             
             it("is clear for emoji, not others") {

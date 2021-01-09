@@ -15,6 +15,13 @@ In most cases, the system behavior *is* the standard behavior.
 
 ### Deprecations
 
+* `Color` `systemKeyboardButtonBackgroundColorDark` has been renamed to `standardDarkButtonBackgroundColor` 
+* `Color` `systemKeyboardButtonBackgroundColorLight` has been renamed to `standardLightButtonBackgroundColor` 
+* `Color` `systemKeyboardButtonForegroundColor` has been renamed to `standardButtonForegroundColor` 
+* `Color` `systemKeyboardButtonShadowColor` has been renamed to `standardButtonShadowColor`
+* `KeyboardAction` `systemKeyboardButtonBackgroundColor` has been renamed to `standardButtonBackgroundColor` 
+* `KeyboardAction` `systemKeyboardButtonImage` has been renamed to `standardButtonImage` 
+* `KeyboardAction` `systemKeyboardButtonShadowColor` has been renamed to `standardButtonShadowColor`     
 * `KeyboardShiftState` `systemKeyboardButtonImage` was unused and has been deprecated.
 * `View` `systemKeyboardButtonStyle` has been renamed to `standardButtonStyle`
 * `View` `systemKeyboardButtonBackground` has been renamed to `standardButtonBackground`

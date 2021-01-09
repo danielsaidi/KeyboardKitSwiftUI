@@ -72,7 +72,7 @@ private extension SystemKeyboardButton {
     }
     
     var buttonImage: Image? {
-        image ?? action.systemKeyboardButtonImage(for: context)
+        image ?? action.standardButtonImage(for: context)
     }
     
     func text(for text: String) -> some View {
