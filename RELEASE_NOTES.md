@@ -21,7 +21,8 @@ In most cases, the system behavior *is* the standard behavior.
 
 ### Behavior changes
 
-* `SystemButton` now applies a fallback text from the new appearance provider.
+* The standard `SystemKeyboard` button builder generates `SystemKeyboardButtonContent` instead of `SystemKeyboardButton`.
+* `SystemKeyboardButton` now applies a fallback text from the new appearance provider.
 
 
 ### Deprecations
@@ -41,6 +42,11 @@ In most cases, the system behavior *is* the standard behavior.
 * `View` `systemKeyboardButtonFont` has been renamed to `standardButtonFont`
 * `View` `systemKeyboardButtonForeground` has been renamed to `standardButtonForeground`
 * `View` `systemKeyboardButtonShadow` has been renamed to `standardButtonShadow`
+
+
+### Breaking changes
+
+* `SystemKeyboard.ButtonBuilder` now returns an `AnyView` since you may want to use any custom view for any button.
 
 
 ## 3.4.2

@@ -25,11 +25,11 @@ import SwiftUI
  the demo app look decent. It will change very soon, perhaps
  as soon as in the next minor version. Things may break.
  */
-public struct SystemKeyboard<Button: View>: View {
+public struct SystemKeyboard: View {
     
     public init(
         layout: KeyboardLayout,
-        buttonBuilder: @escaping ButtonBuilder) {
+        buttonBuilder: @escaping ButtonBuilder = Self.standardButtonBuilder) {
         self.rows = layout.actionRows
         self.buttonBuilder = buttonBuilder
     }
@@ -40,7 +40,7 @@ public struct SystemKeyboard<Button: View>: View {
     @State private var size: CGSize = .zero
     @EnvironmentObject var context: ObservableKeyboardContext
     
-    public typealias ButtonBuilder = (KeyboardAction, KeyboardSize) -> Button
+    public typealias ButtonBuilder = (KeyboardAction, KeyboardSize) -> AnyView
     public typealias KeyboardSize = CGSize
     
     public var body: some View {
@@ -55,24 +55,16 @@ public struct SystemKeyboard<Button: View>: View {
     }
 }
 
-public extension SystemKeyboard where Button == SystemKeyboardButtonRowItem {
-    
-    init(layout: KeyboardLayout, buttonBuilder: @escaping ButtonBuilder = standardButtonBuilder) {
-        self.rows = layout.actionRows
-        self.buttonBuilder = buttonBuilder
-    }
-}
-
 public extension SystemKeyboard {
 
     /**
      This is the standard `buttonBuilder`, that will be used
      when no custom builder is provided to the view.
      */
-    static func standardButtonBuilder(action: KeyboardAction, keyboardSize: KeyboardSize) -> SystemKeyboardButtonRowItem {
-        SystemKeyboardButtonRowItem(
+    static func standardButtonBuilder(action: KeyboardAction, keyboardSize: KeyboardSize) -> AnyView {
+        AnyView(SystemKeyboardButtonRowItem(
             action: action,
-            keyboardSize: keyboardSize)
+            keyboardSize: keyboardSize))
     }
 }
 
