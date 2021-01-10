@@ -27,23 +27,31 @@ public extension View {
     }
     
     /**
-     Apply the standard button style, including a background,
-     foreground color, corner radius, shadow and font.
+     Apply a standard button background.
      */
     func standardButtonBackground(for action: KeyboardAction, context: KeyboardContext) -> some View {
         background(action.standardButtonBackgroundColor(for: context))
     }
     
+    /**
+     Apply a standard button font.
+     */
     func standardButtonFont(for action: KeyboardAction, context: KeyboardContext) -> some View {
         let hasImage = action.standardButtonImage(for: context) != nil
-        let rawFont = Font(action.standardButtonFont)
+        let rawFont = Font(context.keyboardAppearanceProvider.font(for: action))
         return hasImage ? font(rawFont.weight(.light)) : font(rawFont)
     }
     
+    /**
+     Apply a standard button foreground color.
+     */
     func standardButtonForeground(for context: KeyboardContext) -> some View {
         foregroundColor(.standardButtonForegroundColor(for: context))
     }
     
+    /**
+     Apply a standard button shadow.
+     */
     func standardButtonShadow(for context: KeyboardContext) -> some View {
         let color = Color.standardButtonShadowColor(for: context)
         return self.shadow(color: color, radius: 0, x: 0, y: 1)
