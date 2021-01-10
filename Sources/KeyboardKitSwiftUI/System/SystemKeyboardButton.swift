@@ -34,17 +34,17 @@ public struct SystemKeyboardButton: View {
         image: Image? = nil,
         useModifiers: Bool = true) {
         self.action = action
+        self.text = text
         self.image = image
         self.useModifiers = useModifiers
-        
-        let appearance = context.keyboardAppearanceProvider
-        self.text = text ?? appearance.text(for: action, context: context)
     }
     
     private let action: KeyboardAction
     private let image: Image?
-    private var text: String?
+    private let text: String?
     var useModifiers: Bool
+    
+    private var appearance: KeyboardAppearanceProvider { context.keyboardAppearanceProvider }
     
     @EnvironmentObject var context: ObservableKeyboardContext
     
@@ -70,7 +70,7 @@ private extension SystemKeyboardButton {
     }
     
     var buttonText: String? {
-        text ?? action.standardButtonText
+        text ?? appearance.text(for: action, context: context)
     }
     
     var buttonImage: Image? {
