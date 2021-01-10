@@ -11,28 +11,29 @@ import SwiftUI
 
 /**
  This view is meant to be used within a `SystemKeyboard` and
- is the default view if no custom view is provided.
+ will apply the correct frames and paddings to make the view
+ behave well within an automatically generated keyboard view.
  
  This view wraps a `SystemKeyboardButtonContent` and adjusts
  it to be used within a keyboard row. This involves applying
  height and paddings and new gestures in a way that make the
  buttons seem separated while actually sticking together.
  */
-public struct SystemKeyboardButtonRowItem: View {
+public struct SystemKeyboardButtonRowItem<Content: View>: View {
     
     public init(
         action: KeyboardAction,
-        buttonContent: SystemKeyboardButtonContent? = nil,
+        buttonContent: Content,
         dimensions: SystemKeyboardDimensions = SystemKeyboardDimensions(),
         keyboardSize: CGSize) {
         self.action = action
-        self.buttonContent = buttonContent ?? SystemKeyboardButtonContent(action: action)
+        self.buttonContent = buttonContent
         self.dimensions = dimensions
         self.keyboardSize = keyboardSize
     }
     
     private let action: KeyboardAction
-    private let buttonContent: SystemKeyboardButtonContent
+    private let buttonContent: Content
     private let dimensions: SystemKeyboardDimensions
     private let keyboardSize: CGSize
     

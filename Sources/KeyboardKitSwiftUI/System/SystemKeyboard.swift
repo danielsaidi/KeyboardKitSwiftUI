@@ -14,24 +14,22 @@ import SwiftUI
  alphabetic, numeric and symbolic system keyboards.
  
  The keyboard view takes a `keyboardLayout` and converts the
- actions to buttons. You can provide a custom `buttonBuilder`
- if you don't want to use `SystemKeyboardButtonRowItem`.
- 
- You can provide a custom `buttonBuilder` if you want to use
- completely different views for certain actions. This is new
- territory for this library, so you should expect changes in
- any minor version.
+ actions to buttons, using the provided `buttonBuilder`. The
+ buttons are then wrapped in a `SystemKeyboardButtonRowItem`.
  */
 public struct SystemKeyboard: View {
     
     public init(
         layout: KeyboardLayout,
+        dimensions: SystemKeyboardDimensions = SystemKeyboardDimensions(),
         buttonBuilder: @escaping ButtonBuilder = Self.standardButtonBuilder) {
         self.rows = layout.actionRows
+        self.dimensions = dimensions
         self.buttonBuilder = buttonBuilder
     }
     
-    private var buttonBuilder: ButtonBuilder
+    private let buttonBuilder: ButtonBuilder
+    private let dimensions: SystemKeyboardDimensions
     private let rows: KeyboardActionRows
     
     @State private var size: CGSize = .zero
@@ -59,9 +57,7 @@ public extension SystemKeyboard {
      when no custom builder is provided to the view.
      */
     static func standardButtonBuilder(action: KeyboardAction, keyboardSize: KeyboardSize) -> AnyView {
-        AnyView(SystemKeyboardButtonRowItem(
-            action: action,
-            keyboardSize: keyboardSize))
+        AnyView(SystemKeyboardButtonContent(action: action))
     }
 }
 
@@ -71,7 +67,7 @@ private extension SystemKeyboard {
         HStack(spacing: 0) {
             rowEdgeSpacer(at: index)
             ForEach(Array(actions.enumerated()), id: \.offset) {
-                buttonBuilder($0.element, size)
+                SystemKeyboardButtonRowItem(action: $0.element, buttonContent: buttonBuilder($0.element, size), keyboardSize: size)
             }
             rowEdgeSpacer(at: index)
         }

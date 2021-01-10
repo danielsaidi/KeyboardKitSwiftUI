@@ -16,15 +16,16 @@ In most cases, the system behavior *is* the standard behavior.
 ### New features
 
 * `SystemKeyboardButtonContent` is new view that extracts content logic from `SystemKeyboardButton`.
-* `SystemKeyboardButtonRowItem` can now be created with a custom button. 
+* `SystemKeyboardButtonRowItem` can now be created with generic views. 
 * `SystemKeyboardSpaceButton` is new view that wraps `SystemKeyboardSpaceButtonContent` and applied a style and gestures to it.
 * `SystemKeyboardSpaceButtonContent` is new view that animates between a locale text and a space text.
 
 
 ### Behavior changes
 
-* The standard `SystemKeyboard` button builder generates `SystemKeyboardButtonContent` instead of `SystemKeyboardButton`.
+* `SystemKeyboard` now wraps the `buttonBuilder` generated views in a `SystemKeyboardButtonRowItem`.
 * `SystemKeyboardButton` now applies a fallback text from the new appearance provider.
+* The standard `SystemKeyboard` button builder generates `SystemKeyboardButtonContent` instead of `SystemKeyboardButton`.
 
 
 ### Deprecations
@@ -48,6 +49,7 @@ In most cases, the system behavior *is* the standard behavior.
 
 ### Breaking changes
 
+* `SystemKeyboardButtonRowItem` has been made generic.
 * `SystemKeyboard.ButtonBuilder` now returns an `AnyView` since you may want to use any custom view for any button.
 
 
