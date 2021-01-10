@@ -24,7 +24,7 @@ public struct SystemKeyboardButtonRowItem: View {
     public init(
         action: KeyboardAction,
         button: SystemKeyboardButton? = nil,
-        dimensions: SystemKeyboardDimensions,
+        dimensions: SystemKeyboardDimensions = SystemKeyboardDimensions(),
         keyboardSize: CGSize) {
         self.action = action
         var systemButton = button ?? SystemKeyboardButton(action: action)

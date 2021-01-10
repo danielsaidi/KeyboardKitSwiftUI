@@ -72,7 +72,6 @@ public extension SystemKeyboard {
     static func standardButtonBuilder(action: KeyboardAction, keyboardSize: KeyboardSize) -> SystemKeyboardButtonRowItem {
         SystemKeyboardButtonRowItem(
             action: action,
-            dimensions: SystemKeyboardDimensions(),
             keyboardSize: keyboardSize)
     }
 }
