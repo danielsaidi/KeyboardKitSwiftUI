@@ -13,5 +13,5 @@ public class ObservableAutocompleteContext: ObservableObject, AutocompleteContex
     
     public init() {}
     
-    @Published public var suggestions: AutocompleteSuggestions = []
+    @Published public var suggestions: [AutocompleteSuggestion] = []
 }

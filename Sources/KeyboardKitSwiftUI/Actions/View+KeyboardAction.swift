@@ -37,7 +37,8 @@ public extension View {
                 tapAction: { actionHandler.handle(.tap, on: action) },
                 doubleTapAction: { actionHandler.handle(.doubleTap, on: action) },
                 longPressAction: { actionHandler.handle(.longPress, on: action) },
-                repeatAction: { actionHandler.handle(.repeatPress, on: action) })
+                repeatAction: { actionHandler.handle(.repeatPress, on: action) },
+                dragAction: { start, current in actionHandler.handleDrag(on: action, from: start, to: current) })
         }
     }
 }
