@@ -14,21 +14,20 @@ class MockKeyboardContext: KeyboardContext {
     
     var controller: KeyboardInputViewController = KeyboardInputViewController()
     
-    var device: UIDevice = .current
-    
     var actionHandler: KeyboardActionHandler = MockKeyboardActionHandler()
-    var emojiCategory: EmojiCategory = .frequent
+    var keyboardAppearanceProvider: KeyboardAppearanceProvider = StandardKeyboardAppearanceProvider()
     var keyboardBehavior: KeyboardBehavior = StandardKeyboardBehavior()
-    lazy var keyboardLayoutProvider: KeyboardLayoutProvider = { fatalError("Not implemented yet") }()
-    lazy var keyboardInputSetProvider: KeyboardInputSetProvider = { fatalError("Not implemented yet") }()
-    var keyboardType: KeyboardType = .alphabetic(.lowercased)
-    lazy var secondaryCalloutActionProvider: SecondaryCalloutActionProvider = { fatalError("Not implemented yet") }()
+    var keyboardInputSetProvider: KeyboardInputSetProvider = StaticKeyboardInputSetProvider.empty
+    var keyboardLayoutProvider: KeyboardLayoutProvider = StandardKeyboardLayoutProvider()
+    var secondaryCalloutActionProvider: SecondaryCalloutActionProvider = StandardSecondaryCalloutActionProvider()
     
+    var device: UIDevice = .current
     var deviceOrientation: UIInterfaceOrientation = .portrait
+    var emojiCategory: EmojiCategory = .frequent
     var hasDictationKey = false
     var hasFullAccess = false
-    var keyboardAppearanceValue: UIKeyboardAppearance = .light
     var keyboardAppearance: UIKeyboardAppearance = .dark
+    var keyboardType: KeyboardType = .alphabetic(.lowercased)
     var locale: Locale = .current
     var needsInputModeSwitchKey = false
     var primaryLanguage: String?

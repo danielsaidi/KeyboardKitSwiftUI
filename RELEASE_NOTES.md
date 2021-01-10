@@ -17,6 +17,12 @@ In most cases, the system behavior *is* the standard behavior.
 
 * `SystemKeyboardButtonRowItem` can now be created with a custom button. 
 
+
+### Behavior changes
+
+* `SystemButton` now applies a fallback text from the new appearance provider.
+
+
 ### Deprecations
 
 * `Color` `systemKeyboardButtonBackgroundColorDark` has been renamed to `standardDarkButtonBackgroundColor` 
@@ -40,6 +46,10 @@ In most cases, the system behavior *is* the standard behavior.
 
 This release adds curves and behavior changes to the callout bubbles.
 
+### New features
+
+* `CalloutCurve` is a new shape that can be used to smoothen the two parts of a callout bubble.
+
 ### Behavior changes
 
 * `CalloutStyle` now applies button frame insets when configured for a system keyboard.
@@ -48,10 +58,6 @@ This release adds curves and behavior changes to the callout bubbles.
 * `InputCalloutContext` no longer insets the button rect.
 * `SecondaryInputCallout` has curves between the button area and the callout and the design is improved.
 * `SystemInputCalloutContext` no longer insets the button rect.
-
-### New features
-
-* `CalloutCurve` is a new shape that can be used to smoothen the two parts of a callout bubble.
 
 
 ## 3.4.1

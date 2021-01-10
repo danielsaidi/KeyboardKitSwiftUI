@@ -25,6 +25,7 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
         controller = context.controller
         
         actionHandler = context.actionHandler
+        keyboardAppearanceProvider = context.keyboardAppearanceProvider
         keyboardBehavior = context.keyboardBehavior
         keyboardInputSetProvider = context.keyboardInputSetProvider
         keyboardLayoutProvider = context.keyboardLayoutProvider
@@ -54,6 +55,7 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
     
     @Published public var actionHandler: KeyboardActionHandler
     @Published public var emojiCategory: EmojiCategory
+    @Published public var keyboardAppearanceProvider: KeyboardAppearanceProvider
     @Published public var keyboardBehavior: KeyboardBehavior
     @Published public var keyboardInputSetProvider: KeyboardInputSetProvider
     @Published public var keyboardLayoutProvider: KeyboardLayoutProvider
