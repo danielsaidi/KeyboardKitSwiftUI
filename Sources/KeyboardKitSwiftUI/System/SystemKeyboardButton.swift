@@ -70,7 +70,7 @@ private extension SystemKeyboardButton {
     }
     
     var buttonText: String? {
-        text ?? appearance.text(for: action, context: context)
+        text ?? appearance.text(for: action)
     }
     
     var buttonImage: Image? {
