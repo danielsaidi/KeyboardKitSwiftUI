@@ -17,13 +17,10 @@ import SwiftUI
  actions to buttons. You can provide a custom `buttonBuilder`
  if you don't want to use `SystemKeyboardButtonRowItem`.
  
- You can also provide a custom `dimensions` value to control
- the size of various button items. This is a new approach to
- simplify button sizes. It may change between minor versions.
- 
- `IMPORTANT` The dimension thing is just a temp hack to make
- the demo app look decent. It will change very soon, perhaps
- as soon as in the next minor version. Things may break.
+ You can provide a custom `buttonBuilder` if you want to use
+ completely different views for certain actions. This is new
+ territory for this library, so you should expect changes in
+ any minor version.
  */
 public struct SystemKeyboard: View {
     

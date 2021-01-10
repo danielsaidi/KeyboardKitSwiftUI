@@ -1,20 +1,37 @@
 //
-//  SwiftUIView.swift
-//  
+//  SystemKeyboardSpaceButton.swift
+//  KeyboardKit
 //
 //  Created by Daniel Saidi on 2021-01-10.
+//  Copyright © 2020 Daniel Saidi. All rights reserved.
 //
 
+import KeyboardKit
 import SwiftUI
 
-struct SwiftUIView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+/**
+ This view mimics the system space button, which starts with
+ the provided `localeText`, then fades in `spaceText`.
+ 
+ This view renders a `SystemKeyboardSpaceButtonContent` then
+ applies a standard button style and action gestures to it.
+ */
+public struct SystemKeyboardSpaceButton: View {
+    
+    public init(localeText: String, spaceText: String) {
+        self.localeText = localeText
+        self.spaceText = spaceText
     }
-}
-
-struct SwiftUIView_Previews: PreviewProvider {
-    static var previews: some View {
-        SwiftUIView()
+    
+    private let localeText: String
+    private let spaceText: String
+    private var action: KeyboardAction { .space }
+    
+    @EnvironmentObject var context: ObservableKeyboardContext
+    
+    public var body: some View {
+        SystemKeyboardSpaceButtonContent(localeText: localeText, spaceText: spaceText)
+            .standardButtonStyle(for: action, context: context)
+            .keyboardAction(action, context: context)
     }
 }

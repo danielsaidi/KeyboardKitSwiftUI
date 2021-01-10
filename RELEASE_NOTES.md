@@ -17,6 +17,8 @@ In most cases, the system behavior *is* the standard behavior.
 
 * `SystemKeyboardButtonContent` is new view that extracts content logic from `SystemKeyboardButton`.
 * `SystemKeyboardButtonRowItem` can now be created with a custom button. 
+* `SystemKeyboardSpaceButton` is new view that wraps `SystemKeyboardSpaceButtonContent` and applied a style and gestures to it.
+* `SystemKeyboardSpaceButtonContent` is new view that animates between a locale text and a space text.
 
 
 ### Behavior changes

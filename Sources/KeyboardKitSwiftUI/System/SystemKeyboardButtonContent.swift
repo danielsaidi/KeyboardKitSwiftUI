@@ -2,7 +2,7 @@
 //  SystemKeyboardButton.swift
 //  KeyboardKit
 //
-//  Created by Daniel Saidi on 2020-07-02.
+//  Created by Daniel Saidi on 2021-01-10.
 //  Copyright © 2020 Daniel Saidi. All rights reserved.
 //
 
@@ -10,11 +10,9 @@ import KeyboardKit
 import SwiftUI
 
 /**
- This view resolves the correct content for a certain action.
-
- You can provide a custom text and image. If you don't, this
- view will use the standard system text and/or image for the
- provided `action` in the current context.
+ This view resolves the correct content for a certain action,
+ given a custom text and image, which overrides the standard
+ behaviors for the provided action.
  */
 public struct SystemKeyboardButtonContent: View {
     
@@ -30,25 +28,25 @@ public struct SystemKeyboardButtonContent: View {
     private let action: KeyboardAction
     private let image: Image?
     private let text: String?
-    
     private var appearance: KeyboardAppearanceProvider { context.keyboardAppearanceProvider }
     
     @EnvironmentObject var context: ObservableKeyboardContext
     
     @ViewBuilder
     public var body: some View {
-        buttonContent
+        if action == .nextKeyboard {
+            AnyView(NextKeyboardButton(controller: context.controller))
+        } else if let text = buttonText {
+            AnyView(textView(for: text))
+        } else if let image = buttonImage {
+            AnyView(image)
+        } else {
+            AnyView(Text(""))
+        }
     }
 }
 
 private extension SystemKeyboardButtonContent {
-    
-    var buttonContent: AnyView {
-        if action == .nextKeyboard { return AnyView(NextKeyboardButton(controller: context.controller)) }
-        if let text = buttonText { return AnyView(textView(for: text)) }
-        if let image = buttonImage { return AnyView(image) }
-        return AnyView(Text(""))
-    }
     
     var buttonText: String? {
         text ?? appearance.text(for: action)
@@ -62,6 +60,6 @@ private extension SystemKeyboardButtonContent {
         Text(text)
             .minimumScaleFactor(0.1)
             .lineLimit(1)
-            .padding(2)
+            .offset(y: -2)
     }
 }

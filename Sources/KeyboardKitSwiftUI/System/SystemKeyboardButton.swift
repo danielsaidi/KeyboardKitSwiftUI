@@ -11,8 +11,8 @@ import SwiftUI
 
 /**
  This view mimics the buttons that are used in an iOS system
- keyboard. It wraps a content view then applies button shape,
- drop shadow, action gestures etc. to it.
+ keyboard. It wraps a `SystemKeyboardButtonContent` view and
+ applies a standard button style and action gestures to it.
  */
 public struct SystemKeyboardButton: View {
     
@@ -28,8 +28,6 @@ public struct SystemKeyboardButton: View {
     private let action: KeyboardAction
     private let image: Image?
     private let text: String?
-    
-    private var appearance: KeyboardAppearanceProvider { context.keyboardAppearanceProvider }
     
     @EnvironmentObject var context: ObservableKeyboardContext
     
