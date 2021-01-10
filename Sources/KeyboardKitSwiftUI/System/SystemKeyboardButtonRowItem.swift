@@ -13,36 +13,33 @@ import SwiftUI
  This view is meant to be used within a `SystemKeyboard` and
  is the default view if no custom view is provided.
  
- This view wraps a `SystemKeyboardButton`, without modifiers.
- It then adjusts the button to be used within a keyboard row.
- This involves applying height and paddings and new gestures
- in a way that make the buttons in a keyboard seem separated,
- but actually stick together with the padding being tappable.
+ This view wraps a `SystemKeyboardButtonContent` and adjusts
+ it to be used within a keyboard row. This involves applying
+ height and paddings and new gestures in a way that make the
+ buttons seem separated while actually sticking together.
  */
 public struct SystemKeyboardButtonRowItem: View {
     
     public init(
         action: KeyboardAction,
-        button: SystemKeyboardButton? = nil,
+        buttonContent: SystemKeyboardButtonContent? = nil,
         dimensions: SystemKeyboardDimensions = SystemKeyboardDimensions(),
         keyboardSize: CGSize) {
         self.action = action
-        var systemButton = button ?? SystemKeyboardButton(action: action)
-        systemButton.useModifiers = false
-        self.button = systemButton
+        self.buttonContent = buttonContent ?? SystemKeyboardButtonContent(action: action)
         self.dimensions = dimensions
         self.keyboardSize = keyboardSize
     }
     
     private let action: KeyboardAction
-    private let button: SystemKeyboardButton
+    private let buttonContent: SystemKeyboardButtonContent
     private let dimensions: SystemKeyboardDimensions
     private let keyboardSize: CGSize
     
     @EnvironmentObject var context: ObservableKeyboardContext
     
     public var body: some View {
-        button
+        buttonContent
             .frame(maxWidth: .infinity)
             .frame(height: dimensions.buttonHeight - dimensions.buttonInsets.top - dimensions.buttonInsets.bottom)
             .applyWidth(for: action, from: dimensions, keyboardWidth: keyboardSize.width)

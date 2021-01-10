@@ -15,6 +15,7 @@ In most cases, the system behavior *is* the standard behavior.
 
 ### New features
 
+* `SystemKeyboardButtonContent` is new view that extracts content logic from `SystemKeyboardButton`.
 * `SystemKeyboardButtonRowItem` can now be created with a custom button. 
 
 
