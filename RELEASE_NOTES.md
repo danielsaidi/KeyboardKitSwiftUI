@@ -20,13 +20,11 @@ In most cases, the system behavior *is* the standard behavior.
 * `SystemKeyboardSpaceButton` is new view that wraps `SystemKeyboardSpaceButtonContent` and applied a style and gestures to it.
 * `SystemKeyboardSpaceButtonContent` is new view that animates between a locale text and a space text.
 
-
 ### Behavior changes
 
 * `SystemKeyboard` now wraps the `buttonBuilder` generated views in a `SystemKeyboardButtonRowItem`.
 * `SystemKeyboardButton` now applies a fallback text from the new appearance provider.
 * The standard `SystemKeyboard` button builder generates `SystemKeyboardButtonContent` instead of `SystemKeyboardButton`.
-
 
 ### Deprecations
 
@@ -46,9 +44,9 @@ In most cases, the system behavior *is* the standard behavior.
 * `View` `systemKeyboardButtonForeground` has been renamed to `standardButtonForeground`
 * `View` `systemKeyboardButtonShadow` has been renamed to `standardButtonShadow`
 
-
 ### Breaking changes
 
+* `AutocompleteToolbar` now uses `AutocompleteSuggestion` instead of `String`. It makes it much more powerful, so I hope this breaking change is acceptable.
 * `SystemKeyboardButtonRowItem` has been made generic.
 * `SystemKeyboard.ButtonBuilder` now returns an `AnyView` since you may want to use any custom view for any button.
 

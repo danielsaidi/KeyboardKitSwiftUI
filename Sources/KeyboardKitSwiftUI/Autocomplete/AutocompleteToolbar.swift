@@ -11,17 +11,12 @@ import SwiftUI
 
 /**
  This view creates a horizontal row with autocomplete button
- views and separators. You can customize the buttons and the
- separators by injecting custom view builders in `init`.
+ views and separators.
  
- Note that you should not apply actions to custom views that
- you create in a custom `buttonBuilder`. This view will wrap
- those views within a button, that replaces the current word
- in the text document proxy with the tapped word.
- 
- The view tries to resolve an `ObservableAutocompleteContext`
- as an `@EnvironmentObject`. If no observable context exists,
- the view will crash in runtime.
+ You can customize the button and the separator by injecting
+ a custom `buttonBuilder` and/or `separatorBuilder`. When so,
+ make sure to just return the button view without any button
+ behavior, since the view will be wrapped in a button.
  */
 public struct AutocompleteToolbar: View {
     
@@ -40,9 +35,10 @@ public struct AutocompleteToolbar: View {
     
     private let buttonBuilder: ButtonBuilder
     private let separatorBuilder: SeparatorBuilder
+    private var proxy: UITextDocumentProxy { keyboardContext.textDocumentProxy }
     
-    public typealias ButtonBuilder = (Word) -> AnyView
-    public typealias SeparatorBuilder = (Word) -> AnyView
+    public typealias ButtonBuilder = (AutocompleteSuggestion) -> AnyView
+    public typealias SeparatorBuilder = (AutocompleteSuggestion) -> AnyView
     public typealias Word = String
     
     @EnvironmentObject private var autocompleteContext: ObservableAutocompleteContext
@@ -50,7 +46,7 @@ public struct AutocompleteToolbar: View {
     
     public var body: some View {
         HStack {
-            ForEach(autocompleteContext.suggestions, id: \.self) {
+            ForEach(autocompleteContext.suggestions, id: \.title) {
                 self.view(for: $0)
             }
         }
@@ -63,8 +59,8 @@ public extension AutocompleteToolbar {
      This is the standard button builder function, that will
      be used if no custom builder is provided in init.
      */
-    static func standardButton(for word: Word) -> AnyView {
-        AnyView(Text(word)
+    static func standardButton(for suggestion: AutocompleteSuggestion) -> AnyView {
+        AnyView(Text(suggestion.title)
             .lineLimit(1)
             .frame(maxWidth: .infinity))
     }
@@ -73,7 +69,7 @@ public extension AutocompleteToolbar {
      This is the standard button separator that will be used
      if no custom separator is provided in init.
      */
-    static func standardSeparator(for word: Word) -> AnyView {
+    static func standardSeparator(for suggestion: AutocompleteSuggestion) -> AnyView {
         AnyView(Color.secondary
             .opacity(0.5)
             .frame(width: 1)
@@ -83,15 +79,20 @@ public extension AutocompleteToolbar {
 
 private extension AutocompleteToolbar {
     
-    func view(for word: String) -> some View {
-        let action = { self.keyboardContext.textDocumentProxy.replaceCurrentWord(with: word) }
+    func isLast(_ suggestion: AutocompleteSuggestion) -> Bool {
+        let replacement = suggestion.replacement
+        let lastReplacement = autocompleteContext.suggestions.last?.replacement
+        return replacement == lastReplacement
+    }
+    
+    func view(for suggestion: AutocompleteSuggestion) -> some View {
+        let action = { proxy.replaceCurrentWord(with: suggestion.title) }
         return Group {
             Button(action: action) {
-                buttonBuilder(word)
+                buttonBuilder(suggestion)
             }.buttonStyle(PlainButtonStyle())
-            
-            if word != autocompleteContext.suggestions.last {
-                separatorBuilder(word)
+            if !isLast(suggestion) {
+                separatorBuilder(suggestion)
             }
         }
     }
