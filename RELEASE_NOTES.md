@@ -7,6 +7,11 @@ As such, to be able to move swiftly (pun intended) and not get stuck with a bunc
 In `v4.0`, this library will become a part of the main library. After that, semver will apply to the SwiftUI parts as well.  
 
 
+## 3.5.1
+
+This release fixes so that upper-cased chars gets secondary callout actions and that the input callout isn't dismissed if there are no secondary actions.
+
+
 ## 3.5.0
 
 This release deprecates some `system` properties in favor of the `standard` naming concept.
