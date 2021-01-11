@@ -70,12 +70,18 @@ struct KeyboardGestures<Content: View>: View {
 
 private extension KeyboardGestures {
     
+    /**
+     This is a plain double-tap gesure.
+     */
     var doubleTapGesture: some Gesture {
         TapGesture(count: 2).onEnded {
             doubleTapAction?()
         }
     }
     
+    /**
+     This is a drag gesture that starts immediately.
+     */
     func dragGesture(for geo: GeometryProxy) -> some Gesture {
         DragGesture(minimumDistance: 0)
             .onChanged { _ in
@@ -85,18 +91,25 @@ private extension KeyboardGestures {
                 isRepeatPressActive = false }
     }
     
+    /**
+     This is a plain long press gesure.
+     */
     var longPressGesture: some Gesture {
         LongPressGesture().onEnded { _ in
             self.longPressAction?()
             self.isRepeatPressActive = true }
     }
     
+    /**
+     This is a drag gesture that starts after a long press.
+     */
     func longPressDragGesture(for geo: GeometryProxy) -> some Gesture {
         LongPressGesture()
             .onEnded { _ in
-                inputCalloutContext.reset()
                 isInputCalloutEnabled = false
-                secondaryInputCalloutContext.updateInputs(for: action, geo: geo) }
+                secondaryInputCalloutContext.updateInputs(for: action, geo: geo)
+                tryHideInputCalloutAfterSecondaryActionTrigger()
+            }
             .sequenced(before: DragGesture(minimumDistance: 0))
             .onChanged {
                 switch $0 {
@@ -112,6 +125,9 @@ private extension KeyboardGestures {
                 secondaryInputCalloutContext.endDragGesture() }
     }
     
+    /**
+     This is a plain tap gesure.
+     */
     var tapGesture: some Gesture {
         TapGesture().onEnded {
             tapAction?()
@@ -128,6 +144,11 @@ private extension KeyboardGestures {
     func handleRepeatPress() {
         guard isRepeatPressActive else { return }
         repeatAction?()
+    }
+    
+    func tryHideInputCalloutAfterSecondaryActionTrigger() {
+        if !secondaryInputCalloutContext.isActive { return }
+        inputCalloutContext.reset()
     }
     
     func tryShowInputCallout(for geo: GeometryProxy) {
