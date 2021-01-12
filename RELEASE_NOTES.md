@@ -7,6 +7,13 @@ As such, to be able to move swiftly (pun intended) and not get stuck with a bunc
 In `v4.0`, this library will become a part of the main library. After that, semver will apply to the SwiftUI parts as well.  
 
 
+## 3.5.2
+
+This release fixes so that the secondary input gesture triggers a tap if there were no secondary actions in the callout.
+
+The release also makes the entire autocomplete button tappable, instead of just the text.
+
+
 ## 3.5.1
 
 This release fixes so that upper-cased chars gets secondary callout actions and that the input callout isn't dismissed if there are no secondary actions.
