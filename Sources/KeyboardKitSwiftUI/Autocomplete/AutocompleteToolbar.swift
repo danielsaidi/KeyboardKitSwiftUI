@@ -90,7 +90,9 @@ private extension AutocompleteToolbar {
         return Group {
             Button(action: action) {
                 buttonBuilder(suggestion)
-            }.buttonStyle(PlainButtonStyle())
+            }
+            .background(Color.clearInteractable)
+            .buttonStyle(PlainButtonStyle())
             if !isLast(suggestion) {
                 separatorBuilder(suggestion)
             }
