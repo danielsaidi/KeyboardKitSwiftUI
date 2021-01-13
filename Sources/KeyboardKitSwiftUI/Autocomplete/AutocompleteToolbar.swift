@@ -85,8 +85,15 @@ private extension AutocompleteToolbar {
         return replacement == lastReplacement
     }
     
+    func replacement(for suggestion: AutocompleteSuggestion) -> String {
+        let replacement = suggestion.replacement
+        let endsWithSpace = replacement.hasSuffix(" ")
+        return endsWithSpace ? replacement : replacement + " "
+    }
+    
     func view(for suggestion: AutocompleteSuggestion) -> some View {
-        let action = { proxy.replaceCurrentWord(with: suggestion.title) }
+        let replace = replacement(for: suggestion)
+        let action = { proxy.replaceCurrentWord(with: replace) }
         return Group {
             Button(action: action) {
                 buttonBuilder(suggestion)
