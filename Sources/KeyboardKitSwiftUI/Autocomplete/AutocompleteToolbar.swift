@@ -41,12 +41,12 @@ public struct AutocompleteToolbar: View {
     public typealias SeparatorBuilder = (AutocompleteSuggestion) -> AnyView
     public typealias Word = String
     
-    @EnvironmentObject private var autocompleteContext: ObservableAutocompleteContext
+    @EnvironmentObject private var context: ObservableAutocompleteContext
     @EnvironmentObject private var keyboardContext: ObservableKeyboardContext
     
     public var body: some View {
         HStack {
-            ForEach(autocompleteContext.suggestions, id: \.title) {
+            ForEach(context.suggestions, id: \.title) {
                 self.view(for: $0)
             }
         }
@@ -81,7 +81,7 @@ private extension AutocompleteToolbar {
     
     func isLast(_ suggestion: AutocompleteSuggestion) -> Bool {
         let replacement = suggestion.replacement
-        let lastReplacement = autocompleteContext.suggestions.last?.replacement
+        let lastReplacement = context.suggestions.last?.replacement
         return replacement == lastReplacement
     }
     
