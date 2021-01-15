@@ -23,18 +23,24 @@ class AutocompleteToolbarTests: QuickSpec {
             context = MockKeyboardContext()
             actionHandler = MockKeyboardActionHandler()
             context.actionHandler = actionHandler
+            context.textDocumentProxy = proxy
         }
         
         describe("action for suggestion") {
             
-            it("sends suggestion to proxy") {
-                let action = AutocompleteToolbar.action(for: "Hello", context: context)
-                action()
-                action()
+            it("sends replacement to proxy") {
+                AutocompleteToolbar.action(for: "Hello", context: context)()
+                let inv = proxy.invokations(of: proxy.insertTextRef)
+                expect(inv.count).to(equal(1))
+                expect(inv[0].arguments).to(equal("Hello "))
+            }
+            
+            it("triggers action handler") {
+                AutocompleteToolbar.action(for: "Hello", context: context)()
                 let inv = actionHandler.invokations(of: actionHandler.handleRef)
-                expect(inv.count).to(equal(2))
+                expect(inv.count).to(equal(1))
                 expect(inv[0].arguments.0).to(equal(.tap))
-                expect(inv[0].arguments.1).to(equal(.character("Hello ")))
+                expect(inv[0].arguments.1).to(equal(.character("")))
             }
         }
         

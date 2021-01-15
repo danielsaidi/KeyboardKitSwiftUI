@@ -83,11 +83,12 @@ extension AutocompleteToolbar {
      The action to perform when a suggestion is tapped.
      */
     static func action(for suggestion: AutocompleteSuggestion, context: KeyboardContext) -> () -> Void {
-        let handler = context.actionHandler
-        let proxy = context.textDocumentProxy
-        let replacement = Self.replacement(for: suggestion, proxy: proxy)
-        let action = KeyboardAction.character(replacement)
-        return { handler.handle(.tap, on: action) }
+        return {
+            let proxy = context.textDocumentProxy
+            let replacement = Self.replacement(for: suggestion, proxy: proxy)
+            proxy.insertText(replacement)
+            context.actionHandler.handle(.tap, on: .character(""))
+        }
     }
     
     /**
