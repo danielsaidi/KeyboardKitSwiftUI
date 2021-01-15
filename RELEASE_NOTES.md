@@ -7,6 +7,13 @@ As such, to be able to move swiftly (pun intended) and not get stuck with a bunc
 In `v4.0`, this library will become a part of the main library. After that, semver will apply to the SwiftUI parts as well.  
 
 
+## 3.6.0
+
+### Behavior changes
+
+* `AutocompleteToolbar` now inserts an ending space it the suggestion doesn't end with one and the proxy has no space immediately after the cursor. 
+
+
 ## 3.5.2
 
 This release fixes so that the secondary input gesture triggers a tap if there were no secondary actions in the callout.

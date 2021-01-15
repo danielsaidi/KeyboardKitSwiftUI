@@ -77,6 +77,33 @@ public extension AutocompleteToolbar {
     }
 }
 
+extension AutocompleteToolbar {
+    
+    /**
+     The action to perform when a suggestion is tapped.
+     */
+    static func action(for suggestion: AutocompleteSuggestion, context: KeyboardContext) -> () -> Void {
+        let handler = context.actionHandler
+        let proxy = context.textDocumentProxy
+        let replacement = Self.replacement(for: suggestion, proxy: proxy)
+        let action = KeyboardAction.character(replacement)
+        return { handler.handle(.tap, on: action) }
+    }
+    
+    /**
+     Calculates the replacement for a suggestion and certain
+     text proxy.
+     */
+    static func replacement(for suggestion: AutocompleteSuggestion, proxy: UITextDocumentProxy) -> String {
+        let space = " "
+        let replacement = suggestion.replacement
+        let endsWithSpace = replacement.hasSuffix(space)
+        let hasNextSpace = proxy.documentContextAfterInput?.starts(with: space) ?? false
+        let insertSpace = endsWithSpace || hasNextSpace
+        return insertSpace ? replacement : replacement + space
+    }
+}
+
 private extension AutocompleteToolbar {
     
     func isLast(_ suggestion: AutocompleteSuggestion) -> Bool {
@@ -85,17 +112,9 @@ private extension AutocompleteToolbar {
         return replacement == lastReplacement
     }
     
-    func replacement(for suggestion: AutocompleteSuggestion) -> String {
-        let replacement = suggestion.replacement
-        let endsWithSpace = replacement.hasSuffix(" ")
-        return endsWithSpace ? replacement : replacement + " "
-    }
-    
     func view(for suggestion: AutocompleteSuggestion) -> some View {
-        let replace = replacement(for: suggestion)
-        let action = { proxy.replaceCurrentWord(with: replace) }
-        return Group {
-            Button(action: action) {
+        Group {
+            Button(action: Self.action(for: suggestion, context: keyboardContext)) {
                 buttonBuilder(suggestion)
             }
             .background(Color.clearInteractable)
