@@ -61,13 +61,8 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
     @Published public var keyboardLayoutProvider: KeyboardLayoutProvider
     @Published public var keyboardType: KeyboardType
     @Published public var secondaryCalloutActionProvider: SecondaryCalloutActionProvider {
-        didSet {
-            SecondaryInputCalloutContext.shared = SecondaryInputCalloutContext(
-                actionProvider: self.secondaryCalloutActionProvider,
-                context: self)
-        }
+        didSet { SecondaryInputCalloutContext.shared.actionProvider = secondaryCalloutActionProvider }
     }
-    
     @Published public var deviceOrientation: UIInterfaceOrientation
     @Published public var hasDictationKey: Bool
     @Published public var hasFullAccess: Bool

@@ -39,8 +39,8 @@ open class SecondaryInputCalloutContext: ObservableObject {
     
     // MARK: - Dependencies
     
-    private let actionProvider: SecondaryCalloutActionProvider
-    private let context: KeyboardContext
+    public var actionProvider: SecondaryCalloutActionProvider
+    public var context: KeyboardContext
     
     
     // MARK: - Properties
