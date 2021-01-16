@@ -3,6 +3,11 @@ import SwiftUI
 
 public extension View {
     
+    @available(*, deprecated, message: "use keyboardAction(:actionHandler:) instead")
+    func keyboardAction(_ action: KeyboardAction, context: KeyboardContext) -> some View {
+        keyboardAction(action, actionHandler: context.actionHandler)
+    }
+    
     @available(*, deprecated, renamed: "standardButtonStyle")
     func systemKeyboardButtonStyle(for action: KeyboardAction, context: KeyboardContext, cornerRadius: CGFloat = 4.0) -> some View {
         standardButtonStyle(for: action, context: context, cornerRadius: cornerRadius)

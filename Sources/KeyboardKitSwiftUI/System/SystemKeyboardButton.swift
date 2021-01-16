@@ -35,6 +35,6 @@ public struct SystemKeyboardButton: View {
     public var body: some View {
         SystemKeyboardButtonContent(action: action, text: text, image: image)
             .standardButtonStyle(for: action, context: context)
-            .keyboardAction(action, context: context)
+            .keyboardAction(action, actionHandler: context.actionHandler)
     }
 }

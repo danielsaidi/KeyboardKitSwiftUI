@@ -13,16 +13,6 @@ public extension View {
     
     /**
      Apply gestures for a certain keyboard action, using the
-     action handler in the provided context.
-     */
-    func keyboardAction(
-        _ action: KeyboardAction,
-        context: KeyboardContext) -> some View {
-        keyboardAction(action, actionHandler: context.actionHandler)
-    }
-    
-    /**
-     Apply gestures for a certain keyboard action, using the
      provided action handler.
      */
     @ViewBuilder

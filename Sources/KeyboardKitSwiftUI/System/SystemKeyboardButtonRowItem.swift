@@ -48,7 +48,7 @@ public struct SystemKeyboardButtonRowItem<Content: View>: View {
             .padding(dimensions.buttonInsets)
             .frame(height: dimensions.buttonHeight)
             .background(Color.clearInteractable)
-            .keyboardAction(action, context: context)
+            .keyboardAction(action, actionHandler: context.actionHandler)
     }
 }
 
