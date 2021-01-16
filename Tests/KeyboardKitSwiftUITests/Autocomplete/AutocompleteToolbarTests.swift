@@ -26,40 +26,41 @@ class AutocompleteToolbarTests: QuickSpec {
             context.textDocumentProxy = proxy
         }
         
-        describe("action for suggestion") {
+        describe("standard replacement") {
             
-            it("sends replacement to proxy") {
-                AutocompleteToolbar.action(for: "Hello", context: context)()
+            it("adds a space when needed") {
+                let result = AutocompleteToolbar.standardReplacement(for: "Hello", context: context)
+                expect(result).to(equal("Hello "))
+            }
+            
+            it("does not add an additional space if the suggestion replacement ends with one") {
+                let result = AutocompleteToolbar.standardReplacement(for: "Hello ", context: context)
+                expect(result).to(equal("Hello "))
+            }
+            
+            it("does not add an additional space if the text after the input starts with one") {
+                proxy.documentContextBeforeInput = " world!"
+                let result = AutocompleteToolbar.standardReplacement(for: "Hello ", context: context)
+                expect(result).to(equal("Hello "))
+            }
+        }
+        
+        describe("standard replacement action") {
+            
+            it("replaces current word in proxy") {
+                proxy.documentContextBeforeInput = "abc"
+                AutocompleteToolbar.standardReplacementAction(for: "Hello", context: context)
                 let inv = proxy.invokations(of: proxy.insertTextRef)
                 expect(inv.count).to(equal(1))
                 expect(inv[0].arguments).to(equal("Hello "))
             }
             
             it("triggers action handler") {
-                AutocompleteToolbar.action(for: "Hello", context: context)()
+                AutocompleteToolbar.standardReplacementAction(for: "Hello", context: context)
                 let inv = actionHandler.invokations(of: actionHandler.handleRef)
                 expect(inv.count).to(equal(1))
                 expect(inv[0].arguments.0).to(equal(.tap))
                 expect(inv[0].arguments.1).to(equal(.character("")))
-            }
-        }
-        
-        describe("replacement for suggestion") {
-            
-            it("adds a space when needed") {
-                let result = AutocompleteToolbar.replacement(for: "Hello", proxy: proxy)
-                expect(result).to(equal("Hello "))
-            }
-            
-            it("does not add an additional space if the suggestion replacement ends with one") {
-                let result = AutocompleteToolbar.replacement(for: "Hello ", proxy: proxy)
-                expect(result).to(equal("Hello "))
-            }
-            
-            it("does not add an additional space if the text after the input starts with one") {
-                proxy.documentContextBeforeInput = " world!"
-                let result = AutocompleteToolbar.replacement(for: "Hello ", proxy: proxy)
-                expect(result).to(equal("Hello "))
             }
         }
     }

@@ -22,22 +22,29 @@ public struct AutocompleteToolbar: View {
     
     /**
      Create a new autocomplete toolbar.
+     
      - Parameters:
-         - buttonBuilder: An optional, custom button builder. If you don't provide one, `standardButton` will be used.
-         - separatorBuilder: An optional, custom separator builder. If you don't provide one, `standardSeparator` will be used.
+        - buttonBuilder: An optional, custom button builder. If you don't provide one, the static `standardButton` will be used.
+        - separatorBuilder: An optional, custom separator builder. If you don't provide one, the static `standardSeparator` will be used.
+        - replacementAction: An optional, custom replacement action. If you don't provide one, the static `standardReplacementAction` will be used.
      */
     public init(
         buttonBuilder: @escaping ButtonBuilder = Self.standardButton,
-        separatorBuilder: @escaping SeparatorBuilder = Self.standardSeparator) {
+        separatorBuilder: @escaping SeparatorBuilder = Self.standardSeparator,
+        replacementAction: @escaping ReplacementAction = Self.standardReplacementAction) {
         self.buttonBuilder = buttonBuilder
         self.separatorBuilder = separatorBuilder
+        self.replacementAction = replacementAction
     }
     
     private let buttonBuilder: ButtonBuilder
+    private let replacementAction: ReplacementAction
     private let separatorBuilder: SeparatorBuilder
     private var proxy: UITextDocumentProxy { keyboardContext.textDocumentProxy }
     
     public typealias ButtonBuilder = (AutocompleteSuggestion) -> AnyView
+    public typealias ReplacementAction = (AutocompleteSuggestion, KeyboardContext) -> Void
+    public typealias ReplacementProvider = (AutocompleteSuggestion, KeyboardContext) -> String
     public typealias SeparatorBuilder = (AutocompleteSuggestion) -> AnyView
     public typealias Word = String
     
@@ -56,13 +63,38 @@ public struct AutocompleteToolbar: View {
 public extension AutocompleteToolbar {
     
     /**
-     This is the standard button builder function, that will
-     be used if no custom builder is provided in init.
+     This is the standard function that's used by default to
+     build a button for an autocomplete suggestion.
      */
     static func standardButton(for suggestion: AutocompleteSuggestion) -> AnyView {
         AnyView(Text(suggestion.title)
             .lineLimit(1)
             .frame(maxWidth: .infinity))
+    }
+    
+    /**
+     This is the standard function that's used by default to
+     build a text replacement for an autocomplete suggestion.
+     */
+    static func standardReplacement(for suggestion: AutocompleteSuggestion, context: KeyboardContext) -> String {
+        let space = " "
+        let proxy = context.textDocumentProxy
+        let replacement = suggestion.replacement
+        let endsWithSpace = replacement.hasSuffix(space)
+        let hasNextSpace = proxy.documentContextAfterInput?.starts(with: space) ?? false
+        let insertSpace = endsWithSpace || hasNextSpace
+        return insertSpace ? replacement : replacement + space
+    }
+    
+    /**
+     This is the standard function that's used by default to
+     replace the current word in the proxy with a suggestion.
+     */
+    static func standardReplacementAction(for suggestion: AutocompleteSuggestion, context: KeyboardContext) {
+        let proxy = context.textDocumentProxy
+        let replacement = Self.standardReplacement(for: suggestion, context: context)
+        proxy.replaceCurrentWord(with: replacement)
+        context.actionHandler.handle(.tap, on: .character(""))
     }
     
     /**
@@ -77,34 +109,6 @@ public extension AutocompleteToolbar {
     }
 }
 
-extension AutocompleteToolbar {
-    
-    /**
-     The action to perform when a suggestion is tapped.
-     */
-    static func action(for suggestion: AutocompleteSuggestion, context: KeyboardContext) -> () -> Void {
-        return {
-            let proxy = context.textDocumentProxy
-            let replacement = Self.replacement(for: suggestion, proxy: proxy)
-            proxy.insertText(replacement)
-            context.actionHandler.handle(.tap, on: .character(""))
-        }
-    }
-    
-    /**
-     Calculates the replacement for a suggestion and certain
-     text proxy.
-     */
-    static func replacement(for suggestion: AutocompleteSuggestion, proxy: UITextDocumentProxy) -> String {
-        let space = " "
-        let replacement = suggestion.replacement
-        let endsWithSpace = replacement.hasSuffix(space)
-        let hasNextSpace = proxy.documentContextAfterInput?.starts(with: space) ?? false
-        let insertSpace = endsWithSpace || hasNextSpace
-        return insertSpace ? replacement : replacement + space
-    }
-}
-
 private extension AutocompleteToolbar {
     
     func isLast(_ suggestion: AutocompleteSuggestion) -> Bool {
@@ -114,8 +118,9 @@ private extension AutocompleteToolbar {
     }
     
     func view(for suggestion: AutocompleteSuggestion) -> some View {
-        Group {
-            Button(action: Self.action(for: suggestion, context: keyboardContext)) {
+        let action = { self.replacementAction(suggestion, keyboardContext) }
+        return Group {
+            Button(action: action) {
                 buttonBuilder(suggestion)
             }
             .background(Color.clearInteractable)
