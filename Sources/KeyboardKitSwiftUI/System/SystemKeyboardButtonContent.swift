@@ -36,10 +36,10 @@ public struct SystemKeyboardButtonContent: View {
     public var body: some View {
         if action == .nextKeyboard {
             AnyView(NextKeyboardButton(controller: context.controller))
-        } else if let text = buttonText {
-            AnyView(textView(for: text))
         } else if let image = buttonImage {
             AnyView(image)
+        } else if let text = buttonText {
+            AnyView(textView(for: text))
         } else {
             AnyView(Text(""))
         }
@@ -48,12 +48,12 @@ public struct SystemKeyboardButtonContent: View {
 
 private extension SystemKeyboardButtonContent {
     
-    var buttonText: String? {
-        text ?? appearance.text(for: action)
-    }
-    
     var buttonImage: Image? {
         image ?? action.standardButtonImage(for: context)
+    }
+    
+    var buttonText: String? {
+        text ?? appearance.text(for: action)
     }
     
     func textView(for text: String) -> some View {

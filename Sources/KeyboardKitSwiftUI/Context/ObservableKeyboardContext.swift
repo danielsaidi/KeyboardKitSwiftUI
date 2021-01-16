@@ -20,7 +20,6 @@ import UIKit
  */
 public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
     
-    
     public init(from context: KeyboardContext) {
         controller = context.controller
         
@@ -29,7 +28,6 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
         keyboardBehavior = context.keyboardBehavior
         keyboardInputSetProvider = context.keyboardInputSetProvider
         keyboardLayoutProvider = context.keyboardLayoutProvider
-        secondaryCalloutActionProvider = context.secondaryCalloutActionProvider
         
         device = context.device
         deviceOrientation = context.deviceOrientation
@@ -44,9 +42,7 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
         textInputMode = context.textInputMode
         traitCollection = context.traitCollection
         
-        SecondaryInputCalloutContext.shared = SecondaryInputCalloutContext(
-            actionProvider: context.secondaryCalloutActionProvider,
-            context: self)
+        SecondaryInputCalloutContext.shared = SecondaryInputCalloutContext.shared ?? SecondaryInputCalloutContext(actionProvider: StandardSecondaryCalloutActionProvider(), context: self)
     }
     
     unowned public var controller: KeyboardInputViewController
@@ -60,14 +56,6 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
     @Published public var keyboardInputSetProvider: KeyboardInputSetProvider
     @Published public var keyboardLayoutProvider: KeyboardLayoutProvider
     @Published public var keyboardType: KeyboardType
-    @Published public var secondaryCalloutActionProvider: SecondaryCalloutActionProvider {
-        didSet {
-            SecondaryInputCalloutContext.shared = SecondaryInputCalloutContext(
-                actionProvider: self.secondaryCalloutActionProvider,
-                context: self)
-        }
-    }
-    
     @Published public var deviceOrientation: UIInterfaceOrientation
     @Published public var hasDictationKey: Bool
     @Published public var hasFullAccess: Bool

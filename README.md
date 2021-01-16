@@ -78,3 +78,6 @@ KeyboardKitSwiftUI is available under the MIT license. See LICENSE file for more
 
 [KeyboardKit]: https://github.com/danielsaidi/KeyboardKit
 [Post]: https://danielsaidi.com/blog/2021/01/15/removing-uikit-support-in-keyboardkit
+
+[Anomaly]: http://anomaly.net.au
+[Milo]: https://www.milocreative.com

@@ -35,6 +35,12 @@ public extension View {
     
     /**
      Apply a standard button font.
+     
+     `TODO` The appearance provider is currently in the main
+     repo, which targets iOS 11. We can therefore not have a
+     collection of SwiftUI-specific appearance properties in
+     it, which means that the light font currently has to be
+     added like below. I'm looking for a solution.
      */
     func standardButtonFont(for action: KeyboardAction, context: KeyboardContext) -> some View {
         let hasImage = action.standardButtonImage(for: context) != nil
