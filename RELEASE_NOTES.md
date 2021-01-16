@@ -9,9 +9,11 @@ In `v4.0`, this library will become a part of the main library. After that, semv
 
 ## 3.6.0
 
-### Behavior changes
+### New features
 
-* `AutocompleteToolbar` now inserts an ending space it the suggestion doesn't end with one and the proxy has no space immediately after the cursor. 
+* `AutocompleteToolbar` has a new, static  `standardReplacement` function.
+* `AutocompleteToolbar` has a new, static  `standardReplacementAction` function.
+* `AutocompleteToolbar` now lets you provide an optional, custom  `replacementAction` in init. 
 
 
 ## 3.5.2
