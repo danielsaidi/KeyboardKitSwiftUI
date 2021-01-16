@@ -13,19 +13,15 @@
 </p>
 
 
-## About KeyboardKit
+## About KeyboardKitSwiftUI
 
-`KeyboardKit` is a helps you create custom keyboard extensions for `iOS` and `ipadOS`. It provides you with a rich set of `tools` and `actions`, `haptic` and `audio` feedback, `input sets`, `keyboard layouts` etc. and lets you create keyboards with `characters`, `numbers`, `symbols`, `emojis`, `images` or entirely custom ones.
+`KeyboardKitSwiftUI` extends [KeyboardKit][KeyboardKit] with `SwiftUI` support.  It's temporarily a separate project, since SwiftUI requires iOS 13 and KeyboardKit targets iOS 11.
 
-You can create native looking keyboards like the example below, or completely custom keyboards:
+SwiftUI support is currently an `experimental feature`, where I work on finding a good fit with the main library. To be able to move swiftly (pun intended) and not get stuck with a bunch of deprecations and migrations, I will allow breaking changes between minor versions.
 
-<p align="center">
-    <img src ="Resources/Demo.gif" width="300" />
-</p>
+This library will become a part of the main library in v `4.0`. After that, semver will apply to the SwiftUI parts as well.
 
-`KeyboardKitSwiftUI` extends [KeyboardKit][KeyboardKit] with `SwiftUI` support. It's temporarily a separate project, since SwiftUI requires iOS 13 and KeyboardKit targets iOS 11. It'll become part of the main library in version `4.0`.
-
-Read more about SwiftUI support in the [main repository][KeyboardKit].
+The SwiftUI approach will completely replace UIKit in v `4.0`. [Read more about this decision here][Post].
 
 
 ## Installation
@@ -48,13 +44,6 @@ target 'MyKeyboard' do
   pod 'KeyboardKitSwiftUI'
 end
 ```
-
-
-## Important information
-
-SwiftUI support is currently in development, where I use this separate library to find a good fit with the main library. As such, to be able to move swiftly (pun intended) and not struggle with a bunch of deprecations, I will allow breaking changes between minor versions.
-
-This library will become a part of the main library in version `4.0`. After that, semver will apply to the SwiftUI parts as well.  
 
 
 ## Contact me
@@ -89,7 +78,5 @@ KeyboardKitSwiftUI is available under the MIT license. See LICENSE file for more
 [Twitter]: http://www.twitter.com/danielsaidi
 [Website]: http://www.danielsaidi.com
 
-[Carthage]: https://github.com/Carthage/Carthage
-[CocoaPods]: https://cocoapods.org/
-
 [KeyboardKit]: https://github.com/danielsaidi/KeyboardKit
+[Post]: https://danielsaidi.com/blog/2021/01/15/removing-uikit-support-in-keyboardkit

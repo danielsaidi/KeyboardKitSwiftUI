@@ -1,8 +1,6 @@
 # Release Notes
 
-SwiftUI support is currently an `experimental feature`, where I use this separate library to find a good fit with the main library.
-
-To be able to move swiftly (pun intended) and not get stuck with a bunch of deprecations and migrations, I will allow breaking changes between minor versions.
+SwiftUI support is currently an `experimental feature`, where I use this separate library to find a good fit with the main library. To be able to move swiftly (pun intended) and not get stuck with a bunch of deprecations and migrations, I will allow breaking changes between minor versions.
 
 In `v4.0`, this library will become a part of the main library. After that, semver will apply to the SwiftUI parts as well. 
 
