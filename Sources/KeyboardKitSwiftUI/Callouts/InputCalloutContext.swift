@@ -1,5 +1,5 @@
 //
-//  SecondaryInputCalloutContext.swift
+//  InputCalloutContext.swift
 //  KeyboardKit
 //
 //  Created by Daniel Saidi on 2021-01-06.
