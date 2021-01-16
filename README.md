@@ -15,13 +15,11 @@
 
 ## About KeyboardKitSwiftUI
 
-`KeyboardKitSwiftUI` extends [KeyboardKit][KeyboardKit] with `SwiftUI` support.  It's temporarily a separate project, since SwiftUI requires iOS 13 and KeyboardKit targets iOS 11.
+`KeyboardKitSwiftUI` extends [KeyboardKit][KeyboardKit] with SwiftUI support.  It's temporarily a separate project, since SwiftUI requires iOS 13 and KeyboardKit targets iOS 11.
 
 SwiftUI support is currently an `experimental feature`, where I work on finding a good fit with the main library. To be able to move swiftly (pun intended) and not get stuck with a bunch of deprecations and migrations, I will allow breaking changes between minor versions.
 
-This library will become a part of the main library in v `4.0`. After that, semver will apply to the SwiftUI parts as well.
-
-The SwiftUI approach will completely replace UIKit in v `4.0`. [Read more about this decision here][Post].
+This library will become a part of the main library in v `4.0`, and will then completely replace UIKit, which will no longer be supported. [Read more about this decision here.][Post]
 
 
 ## Installation
