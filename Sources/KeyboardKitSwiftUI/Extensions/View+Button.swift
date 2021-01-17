@@ -43,9 +43,9 @@ public extension View {
      added like below. I'm looking for a solution.
      */
     func standardButtonFont(for action: KeyboardAction, context: KeyboardContext) -> some View {
-        let hasImage = action.standardButtonImage(for: context) != nil
         let rawFont = Font(context.keyboardAppearanceProvider.font(for: action))
-        return hasImage ? font(rawFont.weight(.light)) : font(rawFont)
+        let fontWeight = context.keyboardAppearanceProvider.fontWeight(for: action, context: context)
+        return font(rawFont.weight(fontWeight))
     }
     
     /**
