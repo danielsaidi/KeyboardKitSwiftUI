@@ -12,6 +12,8 @@ In `v4.0`, this library will become a part of the main library. After that, semv
 * `AutocompleteToolbar` has a new, static  `standardReplacement` function.
 * `AutocompleteToolbar` has a new, static  `standardReplacementAction` function.
 * `AutocompleteToolbar` now lets you provide an optional, custom  `replacementAction` in init.
+* `EmojiCategoryKeyboard` is a new view that lists the emojis of a selected category and a menu.
+* `EmojiCategoryKeyboardMenu` is a new view that lets the user select one of multiple categories.
 * `EmojiKeyboard` is a new view that renders a set of emojis in a lazy grid. The item action is customizable.
 
 ### Deprecations
