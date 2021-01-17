@@ -1,25 +1,27 @@
 //
 //  Font+Weight.swift
-//  
+//  KeyboardKit
 //
-//  Created by Brennan Drew on 1/16/21.
+//  Created by Brennan Drew on 2021-01-16.
 //
 
 import UIKit
 import SwiftUI
 
 public extension Font {
+    
+    /**
+     Get a weight variation of the font.
+     */
     func weight(_ uiFontWeight: UIFont.Weight?) -> Font {
-        if let weight = uiFontWeight?.fontWeight() {
-            return self.weight(weight)
-        } else {
-            return self
-        }
+        guard let weight = uiFontWeight?.fontWeight else { return self }
+        return self.weight(weight)
     }
 }
 
 private extension UIFont.Weight {
-    func fontWeight() -> Font.Weight {
+    
+    var fontWeight: Font.Weight {
         switch self {
         case .black: return .black
         case .bold: return .bold
@@ -30,7 +32,6 @@ private extension UIFont.Weight {
         case .semibold: return .semibold
         case .thin: return .thin
         case .ultraLight: return .ultraLight
-        
         default: return .regular
         }
     }
