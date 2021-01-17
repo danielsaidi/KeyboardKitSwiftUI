@@ -24,7 +24,7 @@
         "repositoryURL": "https://github.com/danielsaidi/KeyboardKit.git",
         "state": {
           "branch": "master",
-          "revision": "458e5c91e2dc8983370b077acda6861a2ae7eac1",
+          "revision": "e008a055eb4636c0beecf8189a26697d552b093e",
           "version": null
         }
       },
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/danielsaidi/MockingKit.git",
         "state": {
           "branch": null,
-          "revision": "07be9e3b3db2fdedfe420c171de71bbfdb36ed12",
-          "version": "0.8.0"
+          "revision": "53576b3982b059445ae17c9ed98b57b58bd2f4a7",
+          "version": "0.8.1"
         }
       },
       {
