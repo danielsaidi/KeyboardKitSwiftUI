@@ -13,6 +13,11 @@ import SwiftUI
  This view lists all emojis from a selected category as well
  as a menu that lets the user select a new category.
  
+ `IMPORTANT` The view currently has memory problems and will
+ crash if it presents too many emojis. This is strange since
+ the keyboard is lazy and wrapped in a scroll view. You must
+ not use this in an extension for now.
+ 
  `TODO` The view should list a collection of emoji keyboards
  in an `HStack`, one for each category. However, I can't get
  it to scroll correctly.
