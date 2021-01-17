@@ -60,6 +60,6 @@ private extension SystemKeyboardButtonContent {
         Text(text)
             .minimumScaleFactor(0.1)
             .lineLimit(1)
-            .offset(y: -2)
+            .offset(y: action.isInputAction ? -2 : 0)
     }
 }
