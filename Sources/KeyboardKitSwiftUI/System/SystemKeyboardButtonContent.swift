@@ -60,6 +60,12 @@ private extension SystemKeyboardButtonContent {
         Text(text)
             .minimumScaleFactor(0.1)
             .lineLimit(1)
-            .offset(y: action.isInputAction ? -2 : 0)
+            .offset(y: text.isLowercased ? -2 : 0)
     }
+}
+
+private extension String {
+    
+    var isLowercased: Bool { self == lowercased() }
+    var isUppercased: Bool { self != lowercased() }
 }
