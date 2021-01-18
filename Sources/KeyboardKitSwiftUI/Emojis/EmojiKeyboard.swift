@@ -28,10 +28,10 @@ public struct EmojiKeyboard: View {
         emojis: [Emoji],
         configuration: EmojiKeyboardConfiguration = .standardPhonePortrait,
         buttonBuilder: @escaping ButtonBuilder = Self.standardButton) {
-        let item = GridItem(.fixed(configuration.itemSize), spacing: configuration.verticalSpacing - 9)
-        self.configuration = configuration
+        self.config = configuration
+        let item = GridItem(.fixed(configuration.itemSize), spacing: config.verticalSpacing - 9)
         self.emojis = emojis.map { EmojiKeyboardItem(emoji: $0) }
-        self.rows = Array(repeating: item, count: configuration.rows)
+        self.rows = Array(repeating: item, count: config.rows)
         self.buttonBuilder = buttonBuilder
     }
     
@@ -43,20 +43,18 @@ public struct EmojiKeyboard: View {
     }
     
     private let buttonBuilder: ButtonBuilder
-    private let configuration: EmojiKeyboardConfiguration
+    private let config: EmojiKeyboardConfiguration
     private let emojis: [EmojiKeyboardItem]
     private let rows: [GridItem]
-    private var totalHeight: CGFloat { CGFloat(rows.count) * configuration.itemSize }
     
     @EnvironmentObject var context: ObservableKeyboardContext
     
     public var body: some View {
-        LazyHGrid(rows: rows, spacing: configuration.horizontalSpacing) {
+        LazyHGrid(rows: rows, spacing: config.horizontalSpacing) {
             ForEach(emojis) {
-                buttonBuilder($0.emoji, context, configuration)
+                buttonBuilder($0.emoji, context, config)
             }
-        }
-        .frame(height: totalHeight)
+        }.frame(height: config.totalHeight)
     }
     
     /**

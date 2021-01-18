@@ -53,7 +53,6 @@ public struct EmojiCategoryKeyboard: View {
     private let titleProvider: TitleProvider
     private let titleViewProvider: TitleViewProvider
     
-    
     public var body: some View {
         VStack(spacing: 0) {
             titleViewProvider(selection, titleProvider(selection))

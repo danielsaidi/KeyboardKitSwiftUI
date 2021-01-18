@@ -41,6 +41,8 @@ public struct EmojiKeyboardConfiguration {
     public let horizontalSpacing: CGFloat
     public let verticalSpacing: CGFloat
     
+    var totalHeight: CGFloat { CGFloat(rows) * itemSize }
+    
     public static let standardLargePadLandscape = EmojiKeyboardConfiguration(rows: 8)
     public static let standardLargePadPortrait = EmojiKeyboardConfiguration(rows: 5)
     public static let standardPadLandscape = EmojiKeyboardConfiguration(rows: 5)
