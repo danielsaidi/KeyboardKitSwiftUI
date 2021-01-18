@@ -50,7 +50,7 @@ public struct EmojiCategoryKeyboard: View {
             ScrollView(.horizontal) {
                 EmojiKeyboard(
                     emojis: selection.emojis.map { Emoji(char: $0) },
-                    configuration: configuration)
+                    configuration: configuration).padding(.horizontal)
             }
             EmojiCategoryKeyboardMenu(categories: categories, selection: $selection)
         }
