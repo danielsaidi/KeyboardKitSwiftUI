@@ -43,7 +43,7 @@ public struct SystemKeyboardButtonRowItem<Content: View>: View {
         buttonContent
             .frame(maxWidth: .infinity)
             .frame(height: dimensions.buttonHeight - dimensions.buttonInsets.top - dimensions.buttonInsets.bottom)
-            .applyWidth(for: action, from: dimensions, keyboardWidth: keyboardSize.width)
+            .applyWidth(for: action, with: context.keyboardType, from: dimensions, keyboardWidth: keyboardSize.width)
             .standardButtonStyle(for: action, context: context)
             .padding(dimensions.buttonInsets)
             .frame(height: dimensions.buttonHeight)
@@ -57,9 +57,10 @@ private extension View {
     @ViewBuilder
     func applyWidth(
         for action: KeyboardAction,
+        with keyboardType: KeyboardType,
         from dimensions: SystemKeyboardDimensions,
         keyboardWidth: CGFloat) -> some View {
-        if let width = width(for: action, from: dimensions, keyboardWidth: keyboardWidth) {
+        if let width = width(for: action, with: keyboardType, from: dimensions, keyboardWidth: keyboardWidth) {
             self.frame(width: width)
         } else {
             self
@@ -68,11 +69,29 @@ private extension View {
     
     func width(
         for action: KeyboardAction,
+        with keyboardType: KeyboardType,
         from dimensions: SystemKeyboardDimensions,
         keyboardWidth: CGFloat) -> CGFloat? {
         switch action {
         case .shift, .backspace: return dimensions.shortButtonWidth
         case .space: return keyboardWidth * 0.5
+        case .keyboardType(let type): return widthKeyboardType(switchingTo: type, current: keyboardType, from: dimensions)
+        default: return nil
+        }
+    }
+    
+    func widthKeyboardType(switchingTo: KeyboardType, current: KeyboardType, from dimensions: SystemKeyboardDimensions) -> CGFloat? {
+        switch switchingTo {
+        case .numeric:
+            switch current {
+            case .symbolic: return dimensions.shortButtonWidth
+            default: return nil
+            }
+        case .symbolic:
+            switch current {
+            case .numeric: return dimensions.shortButtonWidth
+            default: return nil
+            }
         default: return nil
         }
     }
