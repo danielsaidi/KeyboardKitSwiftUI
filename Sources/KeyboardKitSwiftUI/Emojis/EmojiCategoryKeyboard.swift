@@ -27,11 +27,21 @@ public struct EmojiCategoryKeyboard: View {
     public init(
         categories: [EmojiCategory] = EmojiCategory.all,
         selection: EmojiCategory? = nil,
-        configuration: EmojiKeyboardConfiguration = .standardPhonePortrait) {
+        configuration: EmojiKeyboardConfiguration = .standardPhonePortrait,
+        keyboardProvider: @escaping KeyboardProvider = Self.standardKeyboard,
+        titleProvider: @escaping TitleProvider = Self.standardTitle,
+        titleViewProvider: @escaping TitleViewProvider = Self.standardTitleView) {
         self.categories = categories.filter { $0.emojis.count > 0 }
         self.configuration = configuration
         self.initialSelection = selection
+        self.keyboardProvider = keyboardProvider
+        self.titleProvider = titleProvider
+        self.titleViewProvider = titleViewProvider
     }
+    
+    public typealias KeyboardProvider = (EmojiCategory, EmojiKeyboardConfiguration) -> AnyView
+    public typealias TitleProvider = (EmojiCategory) -> String
+    public typealias TitleViewProvider = (EmojiCategory, String) -> AnyView
     
     @State private var isInitialized = false
     @State private var selection = EmojiCategory.smileys
@@ -39,18 +49,45 @@ public struct EmojiCategoryKeyboard: View {
     private let initialSelection: EmojiCategory?
     private let categories: [EmojiCategory]
     private let configuration: EmojiKeyboardConfiguration
+    private let keyboardProvider: KeyboardProvider
+    private let titleProvider: TitleProvider
+    private let titleViewProvider: TitleViewProvider
+    
     
     public var body: some View {
         VStack {
+            titleViewProvider(selection, titleProvider(selection))
             ScrollView(.horizontal) {
-                EmojiKeyboard(
-                    emojis: selection.emojis.map { Emoji(char: $0) },
-                    configuration: configuration).padding(.horizontal)
+                keyboardProvider(selection, configuration)
             }
             EmojiCategoryKeyboardMenu(categories: categories, selection: $selection)
         }
         .onAppear(perform: initialize)
         .onDisappear(perform: saveCurrentCategory)
+    }
+}
+
+@available(iOS 14.0, *)
+public extension EmojiCategoryKeyboard {
+    
+    static func standardKeyboard(for category: EmojiCategory, configuration: EmojiKeyboardConfiguration) -> AnyView {
+        AnyView(
+            EmojiKeyboard(
+                emojis: category.emojis.map { Emoji(char: $0) },
+                configuration: configuration)
+                .padding(.horizontal)
+        )
+    }
+    
+    static func standardTitle(for category: EmojiCategory) -> String {
+        category.title
+    }
+    
+    static func standardTitleView(for category: EmojiCategory, title: String) -> AnyView {
+        AnyView(HStack {
+            Text(title).font(.footnote).bold().textCase(.uppercase).opacity(0.4)
+            Spacer()
+        }.padding(.horizontal))
     }
 }
 

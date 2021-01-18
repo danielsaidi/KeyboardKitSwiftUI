@@ -57,6 +57,9 @@ public struct EmojiCategoryKeyboardMenu: View {
         }.font(font)
     }
     
+    
+    // MARK: - Private Extensions (here to make preview work)
+    
     private var backspaceButton: some View {
         let action = KeyboardAction.backspace
         let handler = context.actionHandler
