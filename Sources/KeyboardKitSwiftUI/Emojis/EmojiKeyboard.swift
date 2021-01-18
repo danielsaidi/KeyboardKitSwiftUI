@@ -17,11 +17,6 @@ import SwiftUI
  `buttonBuilder` in the initalizer. If you do not, init will
  use the static `standardButton` function.
  
- `IMPORTANT` The view currently has memory problems and will
- crash if it presents too many emojis. This is strange since
- the keyboard is lazy and wrapped in a scroll view. You must
- not use this in an extension for now.
- 
  `TODO` This can't be previewed when it depends on a context.
  For some reason, the preview engine then crashes. Return to
  it after 4.0 to see if a cleaned up context solves this.
