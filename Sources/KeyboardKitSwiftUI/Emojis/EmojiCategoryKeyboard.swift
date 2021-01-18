@@ -55,9 +55,9 @@ public struct EmojiCategoryKeyboard: View {
     
     
     public var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             titleViewProvider(selection, titleProvider(selection))
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 keyboardProvider(selection, configuration)
             }
             EmojiCategoryKeyboardMenu(categories: categories, selection: $selection)
