@@ -15,9 +15,7 @@ import SwiftUI
  
  You can customize the buttons in the grid by using a custom
  `buttonBuilder` in the initalizer. If you do not, init will
- use the static `standardButton` function. When you create a
- custom button, you can still make use of the `standardText`
- function to get a raw emoji text view.
+ use the static `standardButton` function.
  
  `IMPORTANT` The view currently has memory problems and will
  crash if it presents too many emojis. This is strange since
@@ -42,7 +40,7 @@ public struct EmojiKeyboard: View {
         self.buttonBuilder = buttonBuilder
     }
     
-    public typealias ButtonBuilder = (Emoji, KeyboardContext) -> AnyView
+    public typealias ButtonBuilder = (Emoji, KeyboardContext, EmojiKeyboardConfiguration) -> AnyView
     
     struct EmojiKeyboardItem: Identifiable {
         let id = UUID()
@@ -60,7 +58,7 @@ public struct EmojiKeyboard: View {
     public var body: some View {
         LazyHGrid(rows: rows, spacing: configuration.horizontalSpacing) {
             ForEach(emojis) {
-                buttonBuilder($0.emoji, context)
+                buttonBuilder($0.emoji, context, configuration)
             }
         }
         .frame(height: totalHeight)
@@ -70,19 +68,11 @@ public struct EmojiKeyboard: View {
      This standard button builder will return an button that
      applies the keyboard actions of an `.emoji` action.
      */
-    public static func standardButton(for emoji: Emoji, context: KeyboardContext) -> AnyView {
-        AnyView(standardText(for: emoji)
-            .keyboardAction(.emoji(emoji.char), actionHandler: context.actionHandler))
-    }
-    
-    /**
-     This standard button builder will return an button that
-     applies the keyboard actions of an `.emoji` action.
-     */
-    public static func standardText(for emoji: Emoji) -> some View {
-        Text(emoji.char)
-            .font(.system(size: 500))
-            .minimumScaleFactor(0.01)
+    public static func standardButton(for emoji: Emoji, context: KeyboardContext, configuration: EmojiKeyboardConfiguration) -> AnyView {
+        AnyView(Button(action: { context.actionHandler.handle(.tap, on: .emoji(emoji.char)) }) {
+            Text(emoji.char)
+                .font(configuration.font)
+        })
     }
 }
 

@@ -8,27 +8,35 @@
 
 import CoreGraphics
 import Foundation
+import SwiftUI
 
 /**
  This struct can be used to configure an `EmojiKeyboard`.
  
  This struct has a few standard values, which you can access
  with the static `standard` properties.
+ 
+ Note that the struct has both an `itemSize` and a `font`. A
+ lazy grid can use the itemSize as a precalculated cell size
+ and then apply the font to each emoji.
  */
 public struct EmojiKeyboardConfiguration {
     
     public init(
         itemSize: CGFloat = 40,
+        font: Font = .system(size: 33),
         rows: Int = 5,
         horizontalSpacing: CGFloat = 10,
         verticalSpacing: CGFloat = 6) {
         self.itemSize = itemSize
+        self.font = font
         self.rows = rows
         self.horizontalSpacing = horizontalSpacing
         self.verticalSpacing = verticalSpacing
     }
     
     public let itemSize: CGFloat
+    public let font: Font
     public let rows: Int
     public let horizontalSpacing: CGFloat
     public let verticalSpacing: CGFloat

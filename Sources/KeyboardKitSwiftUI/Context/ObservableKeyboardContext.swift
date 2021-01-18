@@ -21,8 +21,6 @@ import UIKit
 public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
     
     public init(from context: KeyboardContext) {
-        controller = context.controller
-        
         actionHandler = context.actionHandler
         keyboardAppearanceProvider = context.keyboardAppearanceProvider
         keyboardBehavior = context.keyboardBehavior
@@ -31,7 +29,6 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
         
         device = context.device
         deviceOrientation = context.deviceOrientation
-        emojiCategory = context.emojiCategory
         hasDictationKey = context.hasDictationKey
         hasFullAccess = context.hasFullAccess
         keyboardType = context.keyboardType
@@ -41,6 +38,9 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
         textDocumentProxy = context.textDocumentProxy
         textInputMode = context.textInputMode
         traitCollection = context.traitCollection
+        
+        controller = context.controller
+        emojiCategory = context.emojiCategory
         
         SecondaryInputCalloutContext.shared = SecondaryInputCalloutContext.shared ?? SecondaryInputCalloutContext(actionProvider: StandardSecondaryCalloutActionProvider(), context: self)
     }
