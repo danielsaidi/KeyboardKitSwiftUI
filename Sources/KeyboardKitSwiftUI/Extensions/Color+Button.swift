@@ -31,14 +31,14 @@ public extension Color {
      The standard light background color in a system keyboard.
      */
     static func standardButton(for context: KeyboardContext) -> Color {
-        context.keyboardAppearance == .dark ? .standardDarkAppearanceButton : .standardButton
+        context.isDark ? .standardDarkAppearanceButton : .standardButton
     }
     
     /**
      The standard button tint color in a system keyboard.
      */
     static func standardButtonTint(for context: KeyboardContext) -> Color {
-        context.keyboardAppearance == .dark ? .standardDarkAppearanceButtonTint : .standardButtonTint
+        context.isDark ? .standardDarkAppearanceButtonTint : .standardButtonTint
     }
     
     /**
@@ -52,6 +52,12 @@ public extension Color {
      The standard dark background color in a system keyboard.
      */
     static func standardDarkButton(for context: KeyboardContext) -> Color {
-        context.keyboardAppearance == .dark ? .standardDarkAppearanceDarkButton : .standardDarkButton
+        context.isDark ? .standardDarkAppearanceDarkButton : .standardDarkButton
     }
+}
+
+
+private extension KeyboardContext {
+    
+    var isDark: Bool { keyboardAppearance == .dark }
 }
