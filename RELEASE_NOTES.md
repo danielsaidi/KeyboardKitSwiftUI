@@ -19,6 +19,7 @@ In `v4.0`, this library will become a part of the main library. After that, semv
 ### Behavior changes
 
 * `SystemKeyboardButtonBody` now only offsets small caps texts.
+* Due to a secodnary callout bug, the secondary context is now created by the vc instead of the observable keyboard context.
 
 ### Deprecations
 
