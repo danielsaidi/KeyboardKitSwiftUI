@@ -24,7 +24,7 @@ public struct SystemKeyboardButtonRowItem<Content: View>: View {
     public init(
         action: KeyboardAction,
         buttonContent: Content,
-        dimensions: SystemKeyboardDimensions = SystemKeyboardDimensions(),
+        dimensions: KeyboardDimensions = SystemKeyboardDimensions(),
         keyboardSize: CGSize) {
         self.action = action
         self.buttonContent = buttonContent
@@ -34,7 +34,7 @@ public struct SystemKeyboardButtonRowItem<Content: View>: View {
     
     private let action: KeyboardAction
     private let buttonContent: Content
-    private let dimensions: SystemKeyboardDimensions
+    private let dimensions: KeyboardDimensions
     private let keyboardSize: CGSize
     
     @EnvironmentObject var context: ObservableKeyboardContext
@@ -43,7 +43,7 @@ public struct SystemKeyboardButtonRowItem<Content: View>: View {
         buttonContent
             .frame(maxWidth: .infinity)
             .frame(height: dimensions.buttonHeight - dimensions.buttonInsets.top - dimensions.buttonInsets.bottom)
-            .applyWidth(for: action, from: dimensions, keyboardWidth: keyboardSize.width)
+            .applyWidth(for: action, from: dimensions, keyboardWidth: keyboardSize.width, context: context)
             .standardButtonStyle(for: action, context: context)
             .padding(dimensions.buttonInsets)
             .frame(height: dimensions.buttonHeight)
@@ -57,40 +57,13 @@ private extension View {
     @ViewBuilder
     func applyWidth(
         for action: KeyboardAction,
-        from dimensions: SystemKeyboardDimensions,
-        keyboardWidth: CGFloat) -> some View {
-        if let width = width(for: action, from: dimensions, keyboardWidth: keyboardWidth) {
+        from dimensions: KeyboardDimensions,
+        keyboardWidth: CGFloat,
+        context: KeyboardContext) -> some View {
+        if let width = dimensions.width(for: action, keyboardWidth: keyboardWidth, context: context) {
             self.frame(width: width)
         } else {
             self
-        }
-    }
-    
-    func width(
-        for action: KeyboardAction,
-        from dimensions: SystemKeyboardDimensions,
-        keyboardWidth: CGFloat) -> CGFloat? {
-        switch action {
-        case .shift, .backspace: return dimensions.shortButtonWidth
-        case .space: return keyboardWidth * 0.5
-        default: return nil
-        }
-    }
-    
-    func width(for keyboardType: KeyboardType, from dimensions: SystemKeyboardDimensions) -> CGFloat? {
-        switch keyboardType {
-        case .numeric, .alphabetic: return dimensions.longButtonWidth
-        default: return dimensions.shortButtonWidth
-        }
-    }
-}
-
-private extension KeyboardAction {
-    
-    var isShift: Bool {
-        switch self {
-        case .shift: return true
-        default: return false
         }
     }
 }
