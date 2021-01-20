@@ -16,6 +16,8 @@ public extension Color {
     static var standardDarkButton: Color = color(for: .standardDarkButton)
     static var standardDarkButtonTint: Color = color(for: .standardButtonTint)
     
+    static var standardButtonShadow: Color = color(for: .standardButtonShadow)
+    
     static var standardDarkAppearanceButton: Color = color(for: .standardDarkAppearanceButton)
     static var standardDarkAppearanceButtonTint: Color = color(for: .standardDarkAppearanceButtonTint)
     static var standardDarkAppearanceDarkButton: Color = color(for: .standardDarkAppearanceDarkButton)
@@ -32,6 +34,7 @@ private extension Color {
 enum ResourceColor: String, CaseIterable, Identifiable {
     
     case standardButton
+    case standardButtonShadow
     case standardButtonTint
     case standardDarkAppearanceButton
     case standardDarkAppearanceButtonTint

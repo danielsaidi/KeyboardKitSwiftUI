@@ -45,7 +45,7 @@ public extension Color {
      The standard button shadow color in a system keyboard.
      */
     static func standardButtonShadowColor(for context: KeyboardContext) -> Color {
-        Color.black.opacity(0.3)
+        .standardButtonShadow
     }
     
     /**
