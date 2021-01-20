@@ -20,11 +20,20 @@ public extension KeyboardInputViewController {
      will convert its current `keyboardContext` object to an
      `ObservableKeyboardContext` then provide it to the view
      as an `@EnvironmentObject`.
+     
+     For now, since the `KeyboardInputViewController` in the
+     main repo cannot (yet) know about SwiftUI, the function
+     also sets a `SecondaryInputCalloutContext`. If you want
+     to use a custom secondary context, just inject one with
+     the `secondaryInputCalloutContext` builder function.
      */
-    func setup<Content: View>(with view: Content) {
+    func setup<Content: View>(
+        with view: Content,
+        secondaryInputCalloutContext: ((ObservableKeyboardContext) -> SecondaryInputCalloutContext)? = nil) {
         self.view.subviews.forEach { $0.removeFromSuperview() }
         let newContext = ObservableKeyboardContext(from: context)
         self.context = newContext
+        SecondaryInputCalloutContext.shared = secondaryInputCalloutContext?(newContext) ?? SecondaryInputCalloutContext(actionProvider: StandardSecondaryCalloutActionProvider(), context: newContext)
         let view = view.environmentObject(newContext)
         let controller = KeyboardHostingController(rootView: view)
         controller.add(to: self)

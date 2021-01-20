@@ -41,8 +41,6 @@ public class ObservableKeyboardContext: KeyboardContext, ObservableObject {
         
         controller = context.controller
         emojiCategory = context.emojiCategory
-        
-        SecondaryInputCalloutContext.shared = SecondaryInputCalloutContext.shared ?? SecondaryInputCalloutContext(actionProvider: StandardSecondaryCalloutActionProvider(), context: self)
     }
     
     unowned public var controller: KeyboardInputViewController
