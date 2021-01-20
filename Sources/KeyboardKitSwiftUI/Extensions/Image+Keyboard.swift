@@ -22,7 +22,7 @@ public extension Image {
     static var email: Image { Image(systemName: "envelope") }
     
     @available(iOS 14, *)
-    static var emoji: Image { Image(systemName: "face.smiling") }
+    static var emoji: Image { Image(systemName: "face.smiling.fill") }
     
     static var globe: Image { Image(systemName: "globe") }
     static var images: Image { Image(systemName: "photo") }
