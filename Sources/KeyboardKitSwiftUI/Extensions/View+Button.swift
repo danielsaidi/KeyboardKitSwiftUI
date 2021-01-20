@@ -48,7 +48,7 @@ public extension View {
      Apply a standard button foreground color.
      */
     func standardButtonForeground(for context: KeyboardContext) -> some View {
-        foregroundColor(.standardButtonForegroundColor(for: context))
+        foregroundColor(.standardButtonTint(for: context))
     }
     
     /**

@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.3
 
 import PackageDescription
 
@@ -22,7 +22,8 @@ let package = Package(
     targets: [
         .target(
             name: "KeyboardKitSwiftUI",
-            dependencies: ["KeyboardKit"]),
+            dependencies: ["KeyboardKit"],
+            resources: [.process("Resources")]),
         .testTarget(
             name: "KeyboardKitSwiftUITests",
             dependencies: ["KeyboardKit", "KeyboardKitSwiftUI", "Quick", "Nimble", "MockingKit"])

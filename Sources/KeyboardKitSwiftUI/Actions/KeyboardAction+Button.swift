@@ -17,8 +17,8 @@ public extension KeyboardAction {
     func standardButtonBackgroundColor(for context: KeyboardContext) -> Color {
         if case .emoji = self { return .clearInteractable }
         if case .emojiCategory = self { return .clearInteractable }
-        if isSystemAction { return .standardDarkButtonBackgroundColor(for: context) }
-        return .standardLightButtonBackgroundColor(for: context)
+        if isSystemAction { return .standardDarkButton(for: context) }
+        return .standardButton(for: context)
     }
     
     /**
