@@ -21,7 +21,7 @@ public struct SystemKeyboard: View {
     
     public init(
         layout: KeyboardLayout,
-        dimensions: SystemKeyboardDimensions = SystemKeyboardDimensions(),
+        dimensions: KeyboardDimensions = SystemKeyboardDimensions(),
         buttonBuilder: @escaping ButtonBuilder = Self.standardButtonBuilder) {
         self.rows = layout.actionRows
         self.dimensions = dimensions
@@ -29,7 +29,7 @@ public struct SystemKeyboard: View {
     }
     
     private let buttonBuilder: ButtonBuilder
-    private let dimensions: SystemKeyboardDimensions
+    private let dimensions: KeyboardDimensions
     private let rows: KeyboardActionRows
     
     @State private var size: CGSize = .zero
