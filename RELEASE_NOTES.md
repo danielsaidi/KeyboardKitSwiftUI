@@ -21,7 +21,8 @@ In `v4.0`, this library will become a part of the main library. After that, semv
 
 * `Color+Button` uses the new asset-based colors.
 * `SystemKeyboardButtonBody` now only offsets small caps texts.
-* Due to a secodnary callout bug, the secondary context is now created by the vc instead of the observable keyboard context.
+* The emoji action has a filled standard image instead of an outlined one.
+* Due to a secondary callout action bug, the secondary context is now created by the vc.
 
 ### Deprecations
 
