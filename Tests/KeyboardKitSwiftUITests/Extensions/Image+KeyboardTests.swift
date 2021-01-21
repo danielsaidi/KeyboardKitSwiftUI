@@ -45,7 +45,7 @@ class Image_KeyboardTests: QuickSpec {
             
             it("are restricted to iOS 14 for some images") {
                 if #available(iOS 14, *) {
-                    expect(result(for: .emoji)).to(equal(Image(systemName: "face.smiling.fill")))
+                    expect(result(for: .emoji)).to(equal(Image(systemName: "face.smiling")))
                 }
             }
         }

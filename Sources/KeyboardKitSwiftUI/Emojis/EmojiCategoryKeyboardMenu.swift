@@ -75,13 +75,18 @@ public struct EmojiCategoryKeyboardMenu: View {
     }
     
     private var buttonList: some View {
-        ForEach(categories) { cat in
-            Button(action: { selection = cat }) {
-                Text(cat.fallbackDisplayEmoji)
-                    .padding(6)
-                    .background(selection == cat ? selectedColor : Color.clear)
-                    .clipShape(Circle())
-            }
+        ForEach(categories) {
+            buttonListItem(for: $0)
+        }
+    }
+    
+    private func buttonListItem(for category: EmojiCategory) -> some View {
+        let action = { selection = category }
+        return Button(action: action) {
+            Text(category.fallbackDisplayEmoji)
+                .padding(6)
+                .background(selection == category ? selectedColor : Color.clear)
+                .clipShape(Circle())
         }
     }
 }
