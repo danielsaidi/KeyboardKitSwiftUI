@@ -5,7 +5,7 @@ SwiftUI support is currently an `experimental feature`, where I use this separat
 In `v4.0`, this library will become a part of the main library. After that, semver will apply to the SwiftUI parts as well. 
 
 
-## 3.6.0
+## 3.6
 
 ### New features
 
@@ -41,7 +41,7 @@ The release also makes the entire autocomplete button tappable, instead of just 
 This release fixes so that upper-cased chars gets secondary callout actions and that the input callout isn't dismissed if there are no secondary actions.
 
 
-## 3.5.0
+## 3.5
 
 This release deprecates some `system` properties in favor of the `standard` naming concept.
 
@@ -108,7 +108,7 @@ This release adds curves and behavior changes to the callout bubbles.
 This release fixes some visual artefacts in the callout bubbles.
 
 
-## 3.4.0
+## 3.4
 
 This release adds support for input callouts and secondary input callouts.
 
@@ -138,14 +138,14 @@ This release has breaking changes to experimental features.
 
 
 
-## 3.3.0
+## 3.3
 
 This release contains a lot of changes in the main library.
 
 In this library, the observable context has received a `keyboardBehavior` property and the dismiss keyboard action has an icon. 
 
 
-## 3.2.0
+## 3.2
 
 This release contains layout improvements and breaking changes.
 
@@ -189,7 +189,7 @@ If you use it, consider copying it from [SwiftUIKit](https://github.com/danielsa
 This version makes the `.emojiCategory` action use a clear interactable background for system buttons.
 
 
-## 3.1.0
+## 3.1
 
 This version adds new autocomplete tools:
 
@@ -216,7 +216,7 @@ This version fixes a bug where the demo keyboard globe button didn't do anything
 This version also adjusts the font weight of system button images.
 
 
-## 3.0.0
+## 3.0
 
 This version adds a bunch of extended iOS13/SwiftUI/Combine-specific logic.
 
@@ -258,7 +258,7 @@ Breaking changes:
 This version updates external dependencies to their latest versions.
 
 
-## 2.7.0
+## 2.7
 
 This version adds the very first (and so far limited) support for `SwiftUI`. Many new features are iOS 13-specific.
 
