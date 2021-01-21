@@ -16,6 +16,11 @@ Seems like dark appearance can't be detected, since this also enables dark mode.
 
 This release fixes so that `CalloutCurve` and `CustomRoundedRect` handles invalid rects.
 
+### Deprecations
+
+* `KeyboardDimensions` has deprecated members.
+* `SystemKeyboardDimensions` has been renamed to `StandardKeyboardDimensions`.
+
 
 ## 3.6
 

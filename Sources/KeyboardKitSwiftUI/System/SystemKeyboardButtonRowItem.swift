@@ -43,27 +43,10 @@ public struct SystemKeyboardButtonRowItem<Content: View>: View {
         buttonContent
             .frame(maxWidth: .infinity)
             .frame(height: dimensions.buttonHeight - dimensions.buttonInsets.top - dimensions.buttonInsets.bottom)
-            .applyWidth(for: action, from: dimensions, keyboardWidth: keyboardSize.width, context: context)
             .standardButtonStyle(for: action, context: context)
             .padding(dimensions.buttonInsets)
             .frame(height: dimensions.buttonHeight)
             .background(Color.clearInteractable)
             .keyboardAction(action, actionHandler: context.actionHandler)
-    }
-}
-
-private extension View {
-    
-    @ViewBuilder
-    func applyWidth(
-        for action: KeyboardAction,
-        from dimensions: KeyboardDimensions,
-        keyboardWidth: CGFloat,
-        context: KeyboardContext) -> some View {
-        if let width = dimensions.width(for: action, keyboardWidth: keyboardWidth, context: context) {
-            self.frame(width: width)
-        } else {
-            self
-        }
     }
 }
