@@ -23,6 +23,7 @@ let package = Package(
         .target(
             name: "KeyboardKitSwiftUI",
             dependencies: ["KeyboardKit"],
+            exclude: ["Extensions/Bundle+Module.swift"],
             resources: [.process("Resources")]),
         .testTarget(
             name: "KeyboardKitSwiftUITests",
