@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'KeyboardKitSwiftUI'
-  s.version          = '3.6.0'
+  s.version          = '3.6.1'
   s.swift_versions   = ['5.3']
   s.summary          = 'KeyboardKitSwiftUI adds SwiftUI support to KeyboardKit.'
 
