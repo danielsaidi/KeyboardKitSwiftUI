@@ -5,6 +5,13 @@ SwiftUI support is currently an `experimental feature`, where I use this separat
 In `v4.0`, this library will become a part of the main library. After that, semver will apply to the SwiftUI parts as well. 
 
 
+## 3.6.2
+
+This release rolls back some changes to try improve dark appearance keyboards in SwiftUI. 
+
+Seems like dark appearance can't be detected, since this also enables dark mode. Hopefully this is easier to fix in KK 4.0.
+
+
 ## 3.6.1
 
 This release fixes so that `CalloutCurve` and `CustomRoundedRect` handles invalid rects.
