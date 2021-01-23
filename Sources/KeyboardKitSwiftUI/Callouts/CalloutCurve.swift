@@ -17,6 +17,7 @@ public struct CalloutCurve: Shape {
     
     public func path(in rect: CGRect) -> Path {
         var path = Path()
+        guard rect.isValidForPath else { return path }
         let curveStart = CGPoint(x: rect.minX, y: rect.maxY)
         let curveStop  = CGPoint(x: rect.maxX, y: rect.minY)
         let corner = CGPoint(x: rect.minY, y: rect.minY)

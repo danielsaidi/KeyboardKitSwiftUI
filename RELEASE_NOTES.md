@@ -5,6 +5,14 @@ SwiftUI support is currently an `experimental feature`, where I use this separat
 In `v4.0`, this library will become a part of the main library. After that, semver will apply to the SwiftUI parts as well. 
 
 
+## 3.1
+
+### Bug fixes
+
+* `CalloutCurve` and `CustomRoundedRect` handles invalid rects.
+
+
+
 ## 3.6
 
 ### New features

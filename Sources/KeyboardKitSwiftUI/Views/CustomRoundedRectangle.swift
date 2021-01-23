@@ -36,6 +36,9 @@ struct CustomRoundedRectangle: Shape {
     private let bottomRight: CGFloat
 
     func path(in rect: CGRect) -> Path {
+        var path = Path()
+        guard rect.isValidForPath else { return path }
+        
         let width = rect.size.width
         let height = rect.size.height
         let topLeft = min(min(self.topLeft, height/2), width/2)
@@ -43,7 +46,6 @@ struct CustomRoundedRectangle: Shape {
         let bottomLeft = min(min(self.bottomLeft, height/2), width/2)
         let bottomRight = min(min(self.bottomRight, height/2), width/2)
 
-        var path = Path()
         path.move(to: CGPoint(x: width / 2.0, y: 0))
         path.addLine(to: CGPoint(x: width - topRight, y: 0))
         path.addArc(center: CGPoint(x: width - topRight, y: topRight), radius: topRight,
