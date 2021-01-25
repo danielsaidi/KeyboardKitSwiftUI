@@ -15,6 +15,7 @@ public extension KeyboardAction {
      The standard button background in a system keyboard.
      */
     func standardButtonBackgroundColor(for context: KeyboardContext) -> Color {
+        if case .none = self { return .clear }
         if case .emoji = self { return .clearInteractable }
         if case .emojiCategory = self { return .clearInteractable }
         if isSystemAction { return .standardDarkButton(for: context) }

@@ -17,13 +17,7 @@ class KeyboardAction_ButtonTests: QuickSpec {
     override func spec() {
         
         let actions = KeyboardAction.testActions
-        
-        func context(_ userInterfaceStyle: UIUserInterfaceStyle, _ keyboardAppearance: UIKeyboardAppearance) -> KeyboardContext {
-            let context = MockKeyboardContext()
-            context.userInterfaceStyle = userInterfaceStyle
-            context.keyboardAppearance = keyboardAppearance
-            return context
-        }
+        var context: KeyboardContext!
         
         var expected: [KeyboardAction]! {
             didSet {
@@ -37,34 +31,36 @@ class KeyboardAction_ButtonTests: QuickSpec {
         var unexpected: [KeyboardAction]!
         
         beforeEach {
+            context = MockKeyboardContext()
             expected = []
             unexpected = []
         }
         
         describe("standard button background color") {
             
-            it("is uses a dark button for system actions, else light") {
-//                KeyboardAction.testActions.forEach {
-//                    if case .emoji = $0 {
-//                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .dark))).to(equal(.clearInteractable))
-//                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .light))).to(equal(.clearInteractable))
-//                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .dark))).to(equal(.clearInteractable))
-//                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .light))).to(equal(.clearInteractable))
-//                    } else if case .emojiCategory = $0 {
-//                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .dark))).to(equal(.clearInteractable))
-//                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .light))).to(equal(.clearInteractable))
-//                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .dark))).to(equal(.clearInteractable))
-//                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .light))).to(equal(.clearInteractable))
-//                    } else if $0.isSystemAction {
-//                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .dark))).to(equal(.systemKeyboardButtonBackgroundColorDarkForDarkColorScheme))
-//                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .light))).to(equal(.systemKeyboardButtonBackgroundColorDarkForDarkColorScheme))
-//                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .dark))).to(equal(.systemKeyboardButtonBackgroundColorDarkForLightColorSchemeAndDarkKeyboardAppearance))
-//                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .light))).to(equal(.systemKeyboardButtonBackgroundColorDarkForLightColorSchemeAndLightKeyboardAppearance))
+            func result(for action: KeyboardAction) -> Color {
+                action.standardButtonBackgroundColor(for: context)
+            }
+            
+            it("is clear for some actions") {
+                expected = [.none]
+                expected.forEach { expect(result(for: $0)).to(equal(.clear)) }
+                unexpected.forEach { expect(result(for: $0)).toNot(equal(.clear)) }
+            }
+            
+            it("is clear interactable for some actions") {
+                expected = [.emoji(""), .emojiCategory(.smileys)]
+                expected.forEach { expect(result(for: $0)).to(equal(.clearInteractable)) }
+                unexpected.forEach { expect(result(for: $0)).toNot(equal(.clearInteractable)) }
+            }
+            
+            it("is standrd for other actions (requires bundle to be loaded)") {
+//                expected = [.none, .emoji(""), .emojiCategory(.smileys)]
+//                unexpected.forEach {
+//                    if ($0.isSystemAction) {
+//                        expect(result(for: $0)).to(equal(.standardDarkButton(for: context)))
 //                    } else {
-//                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .dark))).to(equal(.systemKeyboardButtonBackgroundColorLightForDarkColorScheme))
-//                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.dark, .light))).to(equal(.systemKeyboardButtonBackgroundColorLightForDarkColorScheme))
-//                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .dark))).to(equal(.systemKeyboardButtonBackgroundColorLightForLightColorSchemeAndDarkKeyboardAppearance))
-//                        expect($0.systemKeyboardButtonBackgroundColor(for: context(.light, .light))).to(equal(.systemKeyboardButtonBackgroundColorLightForLightColorSchemeAndLightKeyboardAppearance))
+//                        expect(result(for: $0)).to(equal(.standardDarkButton(for: context)))
 //                    }
 //                }
             }
@@ -110,7 +106,7 @@ class KeyboardAction_ButtonTests: QuickSpec {
         describe("standard button shadow color") {
             
             func result(for action: KeyboardAction) -> Color {
-                action.standardButtonShadowColor(for: context(.dark, .dark))
+                action.standardButtonShadowColor(for: context)
             }
             
             it("is clear for emoji, not others") {
