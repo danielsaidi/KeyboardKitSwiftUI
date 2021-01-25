@@ -5,11 +5,23 @@ SwiftUI support is currently an `experimental feature`, where I use this separat
 In `v4.0`, this library will become a part of the main library. After that, semver will apply to the SwiftUI parts as well. 
 
 
+## 3.6.3
+
+This release adds some things for the future:
+
+* `KeyboardButtonWidth` is a new way to express the width of a keyboard button.
+* `View+KeyboardButtonWidth` is a new way to apply a width to a keyboard button.
+
+Although not used by the standard keyboards yet, I still wanted to add them before starting working on 4.0.
+
+
 ## 3.6.2
 
-This release rolls back some changes to try improve dark appearance keyboards in SwiftUI. 
+This release rolls back some changes to try improve dark appearance keyboards in SwiftUI, since it negatively affected light appearance text field keyboards.
 
-Seems like dark appearance can't be detected, since this also enables dark mode. Hopefully this is easier to fix in KK 4.0.
+Turns out dark appearance can't be detected in keyboard extensions, neither in UIKit or SwiftUI.
+
+See more in [this video](https://twitter.com/danielsaidi/status/1353600933222109186?s=20).
 
 
 ## 3.6.1
