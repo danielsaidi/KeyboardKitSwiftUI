@@ -50,6 +50,7 @@ public extension KeyboardAction {
      The standard button shadow color in a system keyboard.
      */
     func standardButtonShadowColor(for context: KeyboardContext) -> Color {
+        if case .none = self { return .clear }
         if case .emoji = self { return .clear }
         return .standardButtonShadowColor(for: context)
     }

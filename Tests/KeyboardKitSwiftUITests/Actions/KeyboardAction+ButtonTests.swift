@@ -110,7 +110,7 @@ class KeyboardAction_ButtonTests: QuickSpec {
             }
             
             it("is clear for emoji, not others") {
-                expected = [.emoji("")]
+                expected = [.none, .emoji("")]
                 expected.forEach { expect(result(for: $0)).to(equal(.clear)) }
                 unexpected.forEach { expect(result(for: $0)).toNot(equal(.clear)) }
             }
