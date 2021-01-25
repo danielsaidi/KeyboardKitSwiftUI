@@ -11,7 +11,7 @@ import SwiftUI
 import KeyboardKit
 
 /**
- This struct specifies dimensions for a `SystemKeyboard`.
+ This struct specifies dimensions for a keyboard.
  */
 public protocol KeyboardDimensions {
     
