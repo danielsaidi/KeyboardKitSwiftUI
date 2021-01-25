@@ -48,7 +48,7 @@ struct KeyboardButtonWidthPreview: View {
             bars(count: 100)
             VStack(spacing: 0) {
                 repeatingView(count: 10, view: { button().width(.reference(.available), referenceSize: $referenceSize) })
-                repeatingView(count:  9, view: { button().width(.fromReference, referenceSize: $referenceSize) })
+                repeatingView(count: 9, view: { button().width(.fromReference, referenceSize: $referenceSize) })
                 HStack(spacing: 0) {
                     systemButton().width(.percentage(0.125), totalWidth: totalWidth)
                     spacer()
