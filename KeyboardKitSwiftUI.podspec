@@ -21,5 +21,5 @@ KeyboardKitSwiftUI makes it possible to build custom keyboard extensions in Swif
   s.source_files = 'Sources/KeyboardKitSwiftUI/**/*.swift'
   s.resources = "Sources/KeyboardKitSwiftUI/Resources/*.xcassets"
 
-  s.dependency 'KeyboardKit', '~> 3.6.1'
+  s.dependency 'KeyboardKit', '~> 3.6.3'
 end
