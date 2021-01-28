@@ -5,6 +5,15 @@ SwiftUI support is currently an `experimental feature`, where I use this separat
 In `v4.0`, this library will become a part of the main library. After that, semver will apply to the SwiftUI parts as well. 
 
 
+## 3.6.4
+
+This release fixes some bugs:
+
+* The `SystemKeyboardDimensions` incorrectly set the spacebar to 50% of the width. It not takes the remaining space, which is not perfect, but better.
+* On iOS 13.3 and below, button texts were autoshrinked to 0.1 even if they didn't have to be.
+
+
+
 ## 3.6.3
 
 This release adds some things for the future:
