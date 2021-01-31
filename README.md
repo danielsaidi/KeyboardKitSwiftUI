@@ -56,9 +56,11 @@ Feel free to reach out if you have questions or if you want to contribute in any
 * Web site: [danielsaidi.com][Website]
 
 
-## Clients
+## Sponsors and Clients
 
-KeyboardKit is proudly supported by:
+KeyboardKit is proudly sponsored by the following individuals and companies:
+
+* [@booch](https://github.com/booch)
 
 <a href="http://anomaly.net.au">
     <img src="Resources/logos/anomaly.png" alt="Anomaly Software Logo" title="Anomaly Software" width=150 />
@@ -67,7 +69,7 @@ KeyboardKit is proudly supported by:
     <img src="Resources/logos/milo.png" alt="Milo Creative Logo" title="Milo Creative" width=150 />
 </a>
 
-Your company can support KeyboardKit by either sponsoring the project on GitHub Sponsors or by paying for consultation.  I'ld be happy to help you out with your keyboard needs.
+Your can support KeyboardKit by sponsoring the project on [GitHub Sponsors][Sponsors] or hire me for consultation. I'd be happy to help you out with your keyboard needs.
 
 
 ## License
@@ -78,6 +80,7 @@ KeyboardKitSwiftUI is available under the MIT license. See LICENSE file for more
 [Email]: mailto:daniel.saidi@gmail.com
 [Twitter]: http://www.twitter.com/danielsaidi
 [Website]: http://www.danielsaidi.com
+[Sponsors]: https://github.com/sponsors/danielsaidi
 
 [KeyboardKit]: https://github.com/danielsaidi/KeyboardKit
 [Post]: https://danielsaidi.com/blog/2021/01/15/removing-uikit-support-in-keyboardkit
